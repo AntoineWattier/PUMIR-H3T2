@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<base href="<?php echo $BASE; ?>/" >
+	<title>Where The Fu** Do I Eat Tonight?</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link href="public/stylesheet/style.css" rel="stylesheet" type="text/css" />
+  
+</head>
+<body class="clearfix">
+	<h1>User</h1>
+	<?php if($user):?>
+		<p>Hello<b> <?= $user->firstname_user." ".$user->lastname_user ?></b></p>
+		<p>id : <?= $user->id_user ?></p>
+		<p>slug : <?= $user->slug_user ?></p>
+		<p>mail : <?= $user->mail_user ?></p>
+		<p>password : <?= $user->password_user ?></p>
+		<p>karmaPoints : <?= $user->karmaPoints_user ?></p>
+		<p>facebookId_user : <?= $user->facebookId_user ?></p>
+		<p>subscribeDate : <?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
+		<p>lastLogin : <?= $user->lastLogin_user ?></p>
+	<?php else: ?>
+		User not found
+	<?php endif; ?>
+
+	<a href="/">Retour</a>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
+</body>
+</html>

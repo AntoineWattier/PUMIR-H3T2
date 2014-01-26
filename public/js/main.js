@@ -8,9 +8,11 @@ $('#login').on('click',function(e){
 		data:$form.serialize()
 	})
 	.success(function(data){
-		if(data)
+		if(data){
 			$('#form span').html("success");
-		else
+			window.location.reload();
+		} else {
 			$('#form span').html("error");
+		}
 	})
 });
