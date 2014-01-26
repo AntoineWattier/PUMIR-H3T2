@@ -1,10 +1,12 @@
+
+
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<base href="<?php echo $BASE; ?>/" >
-	<title>Where The Fu** Do I Eat TOnight?</title>
+	<title>Where The Fu** Do I Eat Tonight?</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="public/stylesheet/style.css" rel="stylesheet" type="text/css" />
@@ -12,5 +14,15 @@
 </head>
 <body class="clearfix">
 	<h1>Hello World</h1>
+	<section id="form">
+		<form action="user/login" method="post">
+			<input type="text" name="mail_user" placeholder="Mail"></input>
+			<input type="text" name="password_user" placeholder="Password"></input>
+			<input id="login" type="button" value="Login">
+		</form>
+		<span></span>
+	</section>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
 </body>
 </html>
