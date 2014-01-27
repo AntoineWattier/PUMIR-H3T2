@@ -1,6 +1,7 @@
 <?php
 
 class UserController extends AppController{
+
 	function login($f3){
 		$model = new UserModel();
 		$user = $model->login($f3,$f3->get('POST'));
@@ -11,7 +12,34 @@ class UserController extends AppController{
 			$_SESSION['id_user'] = $user->id_user;
 			echo true;
 		} 
+	}
 
+	function register($f3){	
+		switch ($f3->get('VERB')) {
+			case 'POST':
+				$model = new UserModel();
+				$user = $model->register($f3,$f3->get('POST'));
+
+				//Si l'inscription a réussi on log l'user et on le redirige vers l'accueil
+				if($user){						
+					$f3->set('user',$user);	
+					session_start();		
+					$_SESSION['id_user'] = $user->id_user;
+					$f3->reroute('/');
+				} 
+				break;
+			
+			case 'GET':
+				echo View::instance()->render('register.html');
+				break;
+		}
+		
+	}
+
+	function checkMail($f3){
+		$model = new UserModel();
+		$mail = $model->checkMail($f3,$f3->get('POST'));
+		echo $mail;
 	}
 
 	function getUser($f3){
