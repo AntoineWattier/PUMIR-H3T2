@@ -8,8 +8,7 @@ class UserController extends AppController{
 		//Si les data de l'user existent on commence la session
 		if($user){						
 			$f3->set('user',$user);	
-			session_start();		
-			$_SESSION['id_user'] = $user->id_user;
+			$f3->set('SESSION.id_user', $user->id_user);
 			echo true;
 		} 
 	}
@@ -22,9 +21,8 @@ class UserController extends AppController{
 
 				//Si l'inscription a réussi on log l'user et on le redirige vers l'accueil
 				if($user){						
-					$f3->set('user',$user);	
-					session_start();		
-					$_SESSION['id_user'] = $user->id_user;
+					$f3->set('user',$user);			
+					$f3->set('SESSION.id_user', $user->id_user);
 					$f3->reroute('/');
 				} 
 				break;
@@ -49,9 +47,7 @@ class UserController extends AppController{
 	}
 
 	function logout($f3){
-		//TOFIX
-		session_start();
-		session_destroy();
-		header('Location: /');
+		$f3->clear('SESSION');
+		$f3->reroute('/');
 	}
 }
