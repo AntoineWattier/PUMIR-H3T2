@@ -26,13 +26,14 @@ class UserModel extends AppModel{
 	}
 
 	function register($f3,$params){
-		$this->user->reset();
-		$this->user->firstname_user = $params['firstname_user'];
-		$this->user->lastname_user = $params['lastname_user'];
-		$this->user->slug_user = strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']);
-		$this->user->mail_user = $params['mail_user'];
-		$this->user->password_user = $params['password_user'];
-		$this->user->adminLevel_user = 0;
+		$this->user->reset();		
+		$_POST['adminLevel_user'] = 0;
+		$_POST['slug_user'] = strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']);
+		$this->user->copyfrom('POST',function($val) {
+		    return array_intersect_key($val, array_flip(
+		    	array('firstname_user','lastname_user','slug_user','mail_user','password_user'))
+		    );
+		});
 		$this->user->save();
 		return $this->user;
 	}
@@ -51,4 +52,6 @@ class UserModel extends AppModel{
 	{
 		return $this->user->load(array("id_user = :id", ':id' => $params['id']));
 	}
+
+
 }

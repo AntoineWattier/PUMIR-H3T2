@@ -8,24 +8,31 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="public/stylesheet/style.css" rel="stylesheet" type="text/css" />
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
   
 </head>
 <body class="clearfix">
 	<h1>User</h1>
 	<?php if($user):?>
-		<p>Hello<b> <?= $user->firstname_user." ".$user->lastname_user ?></b></p>
-		<p>id : <?= $user->id_user ?></p>
-		<p>slug : <?= $user->slug_user ?></p>
-		<p>mail : <?= $user->mail_user ?></p>
-		<p>password : <?= $user->password_user ?></p>
-		<p>karmaPoints : <?= $user->karmaPoints_user ?></p>
-		<p>facebookId_user : <?= $user->facebookId_user ?></p>
-		<p>subscribeDate : <?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
-		<p>lastLogin : <?= $user->lastLogin_user ?></p>
+	<table class="table table-hover table-bordered">
+		<tr><td>user <td><?= $user->firstname_user." ".$user->lastname_user ?></p>
+		<tr><td>id <td><?= $user->id_user ?></p>
+		<tr><td>slug  <td><?= $user->slug_user ?></p>
+		<tr><td>mail <td><?= $user->mail_user ?></p>
+		<tr><td>password <td><?= $user->password_user ?></p>
+		<tr><td>karmaPoints <td><?= $user->karmaPoints_user ?></p>
+		<tr><td>facebookId_user <td><?= $user->facebookId_user ?></p>
+		<tr><td>subscribeDate <td><?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
+		<tr><td>lastLogin <td><?= $user->lastLogin_user ?></p>
+	</table>
+	<?php if($_SESSION['id_user'] == $user->id_user): ?>
+		<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
+		<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
+	<?php endif; ?>
 	<?php else: ?>
 		User not found
 	<?php endif; ?>
-
+	<br>
 	<a href="/">Retour</a>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
