@@ -1,12 +1,12 @@
 <?php
 
-class UserModel extends AppModel{
+class UserModel extends Model{
 
 	private $user;
 
 	function __construct(){
 		parent::__construct();
-		$this->user = new DB\SQL\Mapper($this->db,'USER');
+		$this->user = $this->getMapper('USER');
 	}
 
 	function login($f3,$params){
