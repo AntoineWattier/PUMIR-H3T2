@@ -1,36 +1,30 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<base href="<?php echo $BASE; ?>/" >
-	<title>Where The Fu** Do I Eat Tonight?</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<link href="public/stylesheet/style.css" rel="stylesheet" type="text/css" />
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-  
-</head>
+<?php include('partials/header.html') ?>
 <body class="clearfix">
 	<h1>User</h1>
 	<?php if($user):?>
-	<table class="table table-hover table-bordered">
-		<tr><td>user <td><?= $user->firstname_user." ".$user->lastname_user ?></p>
-		<tr><td>id <td><?= $user->id_user ?></p>
-		<tr><td>slug  <td><?= $user->slug_user ?></p>
-		<tr><td>mail <td><?= $user->mail_user ?></p>
-		<tr><td>password <td><?= $user->password_user ?></p>
-		<tr><td>karmaPoints <td><?= $user->karmaPoints_user ?></p>
-		<tr><td>facebookId_user <td><?= $user->facebookId_user ?></p>
-		<tr><td>subscribeDate <td><?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
-		<tr><td>lastLogin <td><?= $user->lastLogin_user ?></p>
-	</table>
-	<?php if($_SESSION['id_user'] == $user->id_user): ?>
-		<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
-		<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
-	<?php endif; ?>
+		<table class="table table-hover table-bordered">
+			<tr><td>user <td><?= $user->firstname_user." ".$user->lastname_user ?></p>
+			<tr><td>id <td><?= $user->id_user ?></p>
+			<tr><td>slug  <td><?= $user->slug_user ?></p>
+			<tr><td>mail <td><?= $user->mail_user ?></p>
+			<tr><td>password <td><?= $user->password_user ?></p>
+			<tr><td>karmaPoints <td><?= $user->karmaPoints_user ?></p>
+			<tr><td>facebookId_user <td><?= $user->facebookId_user ?></p>
+			<tr><td>subscribeDate <td><?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
+			<tr><td>lastLogin <td><?= $user->lastLogin_user ?></p>
+		</table>
+		<?php if($_SESSION['id_user'] == $user->id_user): ?>
+			<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
+			<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
+		<?php endif; ?>
+		<?php if($recipes): ?>
+			<h1>Mes recettes</h1>
+			<?php foreach ($recipes as $recipe): ?>
+					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
+		<?php 	endforeach;
+		  	endif; ?>
 	<?php else: ?>
-		User not found
+			User not found
 	<?php endif; ?>
 	<br>
 	<a href="/">Retour</a>

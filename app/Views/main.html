@@ -1,9 +1,10 @@
 <?php include('partials/header.html') ?>
 <body class="clearfix">
-	<h1>Hello World</h1>
+	<h1>Hello</h1>
 	<?php if(isset($_SESSION['id_user'])): ?>
-		<a href="/user/getUser/<?= $_SESSION['id_user'] ?>">Mon profil</a>
-		<a href="/user/logout/">Logout</a>
+		<a href="/user/getUser/<?= $_SESSION['id_user'] ?>">Mon profil</a><br>
+		<a href="/recipe/submit">Ecrire une recette</a><br>
+		<a href="/user/logout/">Logout</a><br>
 	<?php else : ?>
 		<section id="form">
 			<form action="user/login" method="post">
