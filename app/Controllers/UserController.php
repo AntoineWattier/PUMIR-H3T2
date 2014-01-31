@@ -11,10 +11,9 @@ class UserController extends Controller{
 		//Si les data de l'user existent on commence la session
 		if($user){						
 			$f3->set('user',$user);	
-			$f3->set('SESSION.id_user', $user->id_user);
-			//TODO IN JSON 
-			echo true;
+			$f3->set('SESSION.id_user', $user->id_user);	
 		} 
+		echo json_encode(array('status'=>$user));
 	}
 
 	function register($f3){	

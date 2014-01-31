@@ -1,11 +1,15 @@
 <?php include('partials/header.html') ?>
+<?php /*if(isset($_GET['e']) && isset($_GET['id']) && ($_GET['id'] == $_SESSION['id_user'])):
+		$edit = true;
+	endif; */
+?>
 <div id="recipe">
     <section>
         <h1>Create your recipe</h1>              
         <form action="recipe/submit" method="POST">
             <fieldset>
             	<legend></legend>
-            	<input name="name_recipe" type="text" placeholder="Name" required/><br>
+            	<input name="name_recipe" type="text" placeholder="Name" <?php /*if(isset($edit)){ echo 'value="'.$recipe->name_recipe.'"';} */?> required/><br>
             	<input name="numberOfPeople_recipe" type="number" placeholder="Nombre de personnes" min="1" max="15" required/><br>
             	
             	<legend>Difficulté:</legend>

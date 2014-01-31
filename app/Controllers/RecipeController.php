@@ -16,12 +16,14 @@ class RecipeController extends Controller{
 
 				//Si l'enregistrement a réussi on redirige l'user vers sa recette
 				if($recipe){						
-					$f3->reroute('/recipe/getRecipe/'.$recipe);
+					$f3->reroute('/recipe/getRecipe/'.$recipe->recipe_id);
 				} 
 				break;
 			
 			case 'GET':
-
+				// if(isset($_GET['e']) && isset($_GET['id']) && $_GET['id'] == $f3->get('SESSION.id_user')){
+				// 	$f3->set('recipe',$this->model->getRecipe(array('id'=>$_GET['e'])));
+				// }
 				echo View::instance()->render('recipe.html');
 		}
 		

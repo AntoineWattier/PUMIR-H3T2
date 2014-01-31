@@ -19,7 +19,7 @@ class RecipeModel extends Model{
 		    );
 		});
 		$this->mapper->save();
-		return $this->mapper->id_recipe;
+		return $this->mapper;
 	}
 
 	function getRecipe($params){
