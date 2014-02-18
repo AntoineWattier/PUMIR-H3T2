@@ -1,11 +1,14 @@
-<?php include('partials/header.html') ?>
+<?php include('./app/Views/partials/header.html') ?>
 <body class="clearfix">
 	<h1>Recipe</h1>
-	<?php if($recipe):?>
+	<?php if($recipe && $steps):?>
 	<table class="table table-hover table-bordered">
 		<tr><td>id <td><?= $recipe->id_recipe ?></p>
 		<tr><td>slug  <td><?= Tools::slugify($recipe->slug_recipe) ?></p>
 		<tr><td>name  <td><?= $recipe->name_recipe ?></p>
+		<?php foreach ($steps as $step): ?>
+			<tr><td>Step nº<?= $step->order_step ?><td><?= $step->content_step ?></p>
+		<?php endforeach; ?>
 	</table>
 	<?php if(isset($_SESSION['id_user']) && $_SESSION['id_user'] == $recipe->id_user): ?>
 		<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
