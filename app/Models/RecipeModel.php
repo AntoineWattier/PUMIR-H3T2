@@ -26,8 +26,23 @@ class RecipeModel extends Model{
 		return $this->mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
 
-	function getRecipes($params){
+	function getRecipes(){
+		return $this->mapper->find();
+	}
+
+	function getRecipesByUser($params){
 		return $this->mapper->find(array("id_user = :id", ':id' => $params['id']));
+	}
+
+	function getRecipesByFilter($params){
+
+			var_dump($params);
+			return $this->mapper->find(
+			array("difficulty_recipe = :difficulty AND numberOfPeople_recipe = :number", 
+				':difficulty' => $params['difficulty'],
+				':number' => $params['number']
+			)
+		);
 	}
 }
 ?>

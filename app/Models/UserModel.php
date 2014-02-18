@@ -28,7 +28,7 @@ class UserModel extends Model{
 	function register($params){
 		$this->mapper->reset();		
 		$_POST['adminLevel_user'] = 0;
-		$_POST['slug_user'] = Tools::slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
+		$_POST['slug_user'] = \Tools::slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
 		    	array('firstname_user','lastname_user','slug_user','mail_user','password_user'))
@@ -41,11 +41,8 @@ class UserModel extends Model{
 	function checkMail($params){
 		$this->mapper->reset();
 		$this->mapper->load(array("mail_user = :mail", 'mail'=>$params['mail_user']));
-		if ($this->mapper->dry()) {
-			return false;
-		} else {
-			return true;
-		}
+		//return $this->mapper->dry();
+		return false;
 	}
 
 	function getUser($params)

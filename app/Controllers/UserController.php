@@ -29,6 +29,8 @@ class UserController extends Controller{
 				} 
 				break;			
 			case 'GET':
+				if($f3->get('SESSION.id_user'))
+					$f3->reroute('/');
 				echo View::instance()->render('register.html');
 		}
 		
@@ -42,7 +44,7 @@ class UserController extends Controller{
 	function getUser($f3){
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
 		$model = new RecipeModel();
-		$f3->set('recipes', $model->getRecipes($f3->get('PARAMS')));
+		$f3->set('recipes', $model->getRecipesByUser($f3->get('PARAMS')));
 		echo View::instance()->render('user.html');
 	}
 

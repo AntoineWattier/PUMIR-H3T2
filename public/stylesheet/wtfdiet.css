@@ -1,0 +1,11 @@
+body{
+	font-size: 1.5em;
+}
+
+nav{
+	background-color : #83b7e0;
+	font-size: 2em;
+}
+nav .right{
+	float: right;
+}

@@ -37,5 +37,14 @@ class RecipeController extends Controller{
 	function getRecipes($f3){
 		$f3->set('recipes',$this->model->getRecipes($f3->get('PARAMS')));
 		echo View::instance()->render('viewrecipes.html');
+	}
+
+	function getRecipesByUser($f3){
+		$f3->set('recipes',$this->model->getRecipesByUser($f3->get('PARAMS')));
+	}
+	
+	function getRecipesByFilter($f3){
+		$f3->set('recipes',$this->model->getRecipesByFilter($f3->get('PARAMS')));
+		echo View::instance()->render('viewrecipes.html');
 	}	
 }

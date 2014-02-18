@@ -1,17 +1,12 @@
 <?php include('partials/header.html') ?>
 <body class="clearfix">
-	<h1>Recipe</h1>
-	<?php if($recipe):?>
-	<table class="table table-hover table-bordered">
-		<tr><td>id <td><?= $recipe->id_recipe ?></p>
-		<tr><td>slug  <td><?= $recipe->slug_recipe ?></p>
-	</table>
-	<?php if($_SESSION['id_user'] == $recipe->id_user): ?>
-		<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
-		<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
-	<?php endif; ?>
+	<h1>Recipes</h1>
+	<?php if($recipes):?>
+		<?php foreach ($recipes as $recipe):?>
+			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
+		<?php endforeach; ?>
 	<?php else: ?>
-		Recipe not found
+		Recipes not found
 	<?php endif; ?>
 	<br>
 	<a href="/">Retour</a>

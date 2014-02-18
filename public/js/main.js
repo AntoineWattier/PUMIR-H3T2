@@ -11,7 +11,7 @@ $('input[name="login"]').on('click',function(e){
 	.success(function(data){
 		if(data.status){
 			$('#form span').html("success");
-			window.location.reload();
+			window.location = "/";
 		} else {
 			$('#form span').html("error");
 		}
