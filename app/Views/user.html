@@ -1,6 +1,6 @@
 <?php include('partials/header.html') ?>
 <body class="clearfix">
-	<h1>User</h1>
+	<h2>User</h2>
 	<?php if($user):?>
 		<table class="table table-hover table-bordered">
 			<tr><td>user <td><?= $user->firstname_user." ".$user->lastname_user ?></p>
@@ -18,11 +18,12 @@
 			<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
 		<?php endif; ?>
 		<?php if($recipes): ?>
-			<h1>Mes recettes</h1>
+			<h2>Mes recettes</h2>
 			<?php foreach ($recipes as $recipe): ?>
 					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
 		<?php 	endforeach;
 		  	endif; ?>
+		  <h2>Recettes favorites</h2>
 	<?php else: ?>
 			User not found
 	<?php endif; ?>

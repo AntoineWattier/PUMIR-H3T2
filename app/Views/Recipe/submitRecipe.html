@@ -24,11 +24,12 @@
 				<legend>Nombre de personnes:</legend>
 				<input name="numberOfPeople_recipe" type="number" placeholder="Nombre de personnes" min="1" max="15" required/><br>
 				<legend>Ambiance de votre recette:</legend>
-				<input type="radio" name="type_recipe" value="1" checked> Entrée<br>
-				<input type="radio" name="type_recipe" value="2"> Plat<br>
-				<input type="radio" name="type_recipe" value="3"> Dessert<br>
-				<input type="radio" name="type_recipe" value="4"> Plat<br>
-				<input type="radio" name="type_recipe" value="5"> Dessert<br>
+				<?php if(isset($ambiances)):?>
+					<?php foreach($ambiances as $ambiance): ?>
+						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" > <?= $ambiance->name_ambiance ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
+				
 				<br><br><input type="submit" value="Create recipe"/>
 			</fieldset>
 		</form>
@@ -43,7 +44,7 @@ $('form').on('keydown',function(e){
 $('fieldset').on('focus','input[name="step_recipe[]"]',function(e){
 	$('input[name="step_recipe[]"]').on('keydown',function(e){
 		$this = $(this);
-		if(e.keyCode == 13 && $this.val() != ''){
+		if(e.keyCode == 13 && $('input[name="step_recipe[]"]:last').val() != ''){
 			e.preventDefault();
 			$('<br>+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape"/>').insertAfter('input[name="step_recipe[]"]:last');
 		}

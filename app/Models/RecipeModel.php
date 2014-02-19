@@ -15,7 +15,7 @@ class RecipeModel extends Model{
 		$_POST['id_user'] = $params['id_user'];
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
-		    	array('name_recipe','slug_recipe','numberOfPeople_recipe','preparationTime_recipe','id_user'))
+		    	array('name_recipe','slug_recipe','numberOfPeople_recipe','preparationTime_recipe','id_user','id_ambiance'))
 		    );
 		});
 		$this->mapper->save();
@@ -32,6 +32,10 @@ class RecipeModel extends Model{
 		return $this->mapper;
 	}
 
+	function getRecipes(){
+		return $this->mapper->find();
+	}
+
 	function getRecipe($params){
 		return $this->mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
@@ -39,10 +43,6 @@ class RecipeModel extends Model{
 	function getRecipeSteps($params){
 		$step_mapper = $this->getMapper('STEP');
 		return $step_mapper->find(array("id_recipe = :id", ':id' => $params['id']),array('order'=>'order_step'));
-	}
-
-	function getRecipes(){
-		return $this->mapper->find();
 	}
 
 	function getRecipesByUser($params){
@@ -59,5 +59,20 @@ class RecipeModel extends Model{
 			)
 		);
 	}
+
+	function getAmbiances(){
+		$ambiance_mapper = $this->getMapper('AMBIANCE');
+		return $ambiance_mapper->find();
+	}
+
+	function getAmbiance($params){
+		$adapt_mapper = $this->getMapper('ADAPT');
+		return $adapt_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
+	}
+
+	function getIngredients($params){
+		$associate_mapper = $this->getMapper('ASSOCIATE');
+		return $associate_mapper->find(array("id_recipe = :id", ':id' => $params['id']));
+	}	
 }
 ?>

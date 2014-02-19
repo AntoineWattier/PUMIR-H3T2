@@ -26,6 +26,7 @@ class RecipeController extends Controller{
 				// }
 				if(!$f3->get('SESSION.id_user'))
 					$f3->reroute('/user/register');
+				$f3->set('ambiances',$this->model->getAmbiances());
 				echo View::instance()->render('Recipe/submitRecipe.html');
 		}
 		
@@ -34,6 +35,8 @@ class RecipeController extends Controller{
 	function getRecipe($f3){
 		$f3->set('recipe',$this->model->getRecipe($f3->get('PARAMS')));
 		$f3->set('steps',$this->model->getRecipeSteps($f3->get('PARAMS')));
+		$f3->set('ingredients',$this->model->getIngredients($f3->get('PARAMS')));
+		$f3->set('ambiance',$this->model->getAmbiance($f3->get('PARAMS')));
 		echo View::instance()->render('Recipe/viewRecipe.html');
 	}
 

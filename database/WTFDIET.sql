@@ -6,15 +6,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-USE `WTFDIET_DEV`;
-
-DROP TABLE IF EXISTS `ADAPT`;
-CREATE TABLE `ADAPT` (
-  `id_recipe` int(11) NOT NULL,
-  `id_ambiance` int(11) NOT NULL,
-  PRIMARY KEY (`id_recipe`,`id_ambiance`),
-  KEY `id_ambiance` (`id_ambiance`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+USE `WTFDIET`;
 
 DROP TABLE IF EXISTS `AMBIANCE`;
 CREATE TABLE `AMBIANCE` (
@@ -77,8 +69,10 @@ CREATE TABLE `RECIPE` (
   `dateAdd_recipe` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateUpdate_recipe` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `id_user` int(11) NOT NULL,
+  `id_ambiance` int(11) NOT NULL,
   PRIMARY KEY (`id_recipe`),
-  KEY `id_user` (`id_user`)
+  KEY `id_user` (`id_user`),
+  KEY `id_ambiance` (`id_ambiance`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `STEP`;
@@ -122,10 +116,34 @@ CREATE TABLE `USTENSIL` (
   PRIMARY KEY (`id_ustensil`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+DROP VIEW IF EXISTS `ADAPT`;
+CREATE VIEW `ADAPT`
+AS SELECT
+   `ambiance`.`id_ambiance` AS `id_ambiance`,
+   `ambiance`.`name_ambiance` AS `name_ambiance`,
+   `recipe`.`id_recipe` AS `id_recipe`
+FROM (`recipe` left join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`)));
 
-ALTER TABLE `ADAPT`
-  ADD CONSTRAINT `adapt_ibfk_2` FOREIGN KEY (`id_ambiance`) REFERENCES `AMBIANCE` (`id_ambiance`),
-  ADD CONSTRAINT `adapt_ibfk_1` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`);
+
+DROP VIEW IF EXISTS `submit`;
+CREATE VIEW `SUBMIT`
+AS SELECT
+   `user`.`id_user` AS `id_user`,
+   `user`.`firstname_user` AS `firstname_user`,
+   `user`.`lastname_user` AS `lastname_user`,
+   `recipe`.`id_recipe` AS `id_recipe`
+FROM (`user` left join `recipe` on((`recipe`.`id_user` = `recipe`.`id_user`)));
+
+
+DROP VIEW IF EXISTS `ASSOCIATE`;
+CREATE VIEW `ASSOCIATE`
+AS SELECT
+   `ingredient`.`id_ingredient` AS `id_ingredient`,
+   `ingredient`.`name_ingredient` AS `name_ingredient`,
+   `compose`.`id_recipe` AS `id_recipe`,
+   `compose`.`quantity_ingredient` AS `quantity_ingredient`
+FROM (`ingredient` left join `compose` on((`ingredient`.`id_ingredient` = `compose`.`id_ingredient`)));
+
 
 ALTER TABLE `COMMENT`
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`),
@@ -136,7 +154,8 @@ ALTER TABLE `COMPOSE`
   ADD CONSTRAINT `compose_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `INGREDIENT` (`id_ingredient`);
 
 ALTER TABLE `RECIPE`
-  ADD CONSTRAINT `recipe_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`);
+  ADD CONSTRAINT `recipe_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`),
+  ADD CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`id_ambiance`) REFERENCES `AMBIANCE` (`id_ambiance`);
 
 ALTER TABLE `STEP`
   ADD CONSTRAINT `step_ibfk_1` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`);

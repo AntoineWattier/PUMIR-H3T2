@@ -1,6 +1,6 @@
-<?php include('partials/header.html') ?>
+<?php include('./app/Views/partials/header.html') ?>
 <body class="clearfix">
-	<h1>Recipes</h1>
+	<h1>All Recipes</h1>
 	<?php if($recipes):?>
 		<?php foreach ($recipes as $recipe):?>
 			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
