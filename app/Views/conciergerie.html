@@ -1,0 +1,17 @@
+<?php include('partials/header.html') ?>
+<body class="clearfix">
+	<h2>Conciergerie</h2>
+	<?php if(isset($ambiances)):?>
+		<?php foreach($ambiances as $ambiance): ?>
+			<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" ><?= $ambiance->name_ambiance ?><br>
+		<?php endforeach ?>
+	<?php endif; ?>
+	<script type="text/javascript">
+	$('input[name="id_ambiance"]').on('click',function(e){
+		$this=$(this);
+		e.preventDefault();
+		window.location = "/recipe/getRecipesByFilter/"+$this.val();
+	});
+	</script>
+</body>
+</html>
