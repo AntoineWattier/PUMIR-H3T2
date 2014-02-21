@@ -28,7 +28,7 @@ class UserModel extends Model{
 	function register($params){
 		$this->mapper->reset();		
 		$_POST['adminLevel_user'] = 0;
-		$_POST['slug_user'] = Tools::slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
+		$_POST['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
 		    	array('firstname_user','lastname_user','slug_user','mail_user','password_user'))
@@ -59,7 +59,7 @@ class UserModel extends Model{
 		 	$vote_mapper->id_user = $params['id_user'];
 		 	$vote_mapper->save();
 		 	return true;
-	 	} else{
+	 	} else {
 	 		$favorite->erase();
 	 		return false;
 	 	}	

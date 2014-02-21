@@ -3,8 +3,9 @@
 	<h1>All Recipes</h1>
 	<?php if($recipes):?>
 		<?php foreach ($recipes as $recipe):?>
-			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe." Votes : ".$recipe->votes_recipe ?></a><br>
-			<a href="user/getUser/<?= $recipe->id_user?>">Par : <?= $recipe->id_user ?></a><br><br>
+			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe."<br> Votes : ".$recipe->votes_recipe ?></a><br>
+			<a href="user/getUser/<?= $recipe->id_user?>">Par : <?= $recipe->firstname_user." ".$recipe->lastname_user ?></a>
+			<p>Ambiance : <?= $recipe->name_ambiance ?></p>
 		<?php endforeach; ?>
 	<?php else: ?>
 		Recipes not found

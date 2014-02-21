@@ -11,7 +11,7 @@ class RecipeModel extends Model{
 
 	function submit($params){
 		$this->mapper->reset();
-		$_POST['slug_recipe'] =  Tools::slugify(strtolower($params['name_recipe']));
+		$_POST['slug_recipe'] =  \Helpers\Tools::instance()->slugify(strtolower($params['name_recipe']));
 		$_POST['id_user'] = $params['id_user'];
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
@@ -51,7 +51,9 @@ class RecipeModel extends Model{
 				$req = array('order'=>'votes_recipe DESC');
 			}
 		}
-		return $this->mapper->find(array(),$req);
+
+		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		return $fullrecipe_mapper->find(array(),$req);
 	}
 
 	function getRecipe($params){
@@ -62,24 +64,32 @@ class RecipeModel extends Model{
 		return $this->mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 
+	function getRecipesByFilter($params){
+		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		if(isset($params['preparationTime_recipe']))
+			$filter = array("id_ambiance = :id_ambiance 
+				AND preparationTime_recipe= :preparationTime_recipe 
+				AND difficulty_recipe= :difficulty_recipe
+				AND numberOfPeople_recipe = :numberOfPeople_recipe", 
+				':id_ambiance' => $params['id_ambiance'],
+				':preparationTime_recipe' => $params['preparationTime_recipe'],
+				':difficulty_recipe' => $params['difficulty_recipe'],
+				':numberOfPeople_recipe' => $params['numberOfPeople_recipe']
+				);
+		else 
+			$filter = array("id_ambiance = :id_ambiance", ':id_ambiance' => $params['id_ambiance']);
+		return $fullrecipe_mapper->find($filter,array('order'=>'votes_recipe DESC'));
+	}
+
 	function getFavoritesRecipesByUser($params){
 		$favorite_mapper = $this->getMapper('FAVORITE');
 		return $favorite_mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 
-	function getIsFavorite($params, $id_user){
+	function getIsFavorite($params){
 		$favorite_mapper = $this->getMapper('FAVORITE');
-		$favorite_mapper->load(array("id_user = :id_user AND id_recipe = :id_recipe", ':id_user' => $id_user,  ':id_recipe' => $params['id']));
+		$favorite_mapper->load(array("id_user = :id_user AND id_recipe = :id_recipe", ':id_user' => $params['id_user'],  ':id_recipe' => $params['id']));
 		return $favorite_mapper->dry();
-	}
-
-	function getRecipesByFilter($params){
-		return $this->mapper->find(array("id_ambiance = :id_ambiance", ':id_ambiance' => $params['id_ambiance'])
-			// array("difficulty_recipe = :difficulty AND numberOfPeople_recipe = :number", 
-			// 	':difficulty' => $params['difficulty'],
-			// 	':number' => $params['number']
-			//)
-		);
 	}
 
 	function getAmbiances(){

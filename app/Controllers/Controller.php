@@ -1,5 +1,5 @@
 <?php
-require_once('app/Helpers/tools.php');
+// require_once('app/Helpers/tools.php');
 
 class Controller{
 	protected $model;

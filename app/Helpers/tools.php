@@ -1,5 +1,7 @@
 <?php
-class Tools{
+namespace Helpers;
+
+class Tools extends \Prefab{
 
   public static function slugify($text)
   { 

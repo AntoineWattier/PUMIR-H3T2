@@ -7,7 +7,8 @@ class RecipeController extends Controller{
 	}
 
 	function submit($f3){
-
+		if(!$f3->exists('SESSION.id_user'))
+			$f3->reroute('/user/register?e');
 		switch ($f3->get('VERB')) {
 			case 'POST':
 				$params = $f3->get('POST');
@@ -21,8 +22,7 @@ class RecipeController extends Controller{
 				break;
 			
 			case 'GET':
-				if(!$f3->get('SESSION.id_user'))
-					$f3->reroute('/user/register');
+
 				$f3->set('ambiances',$this->model->getAmbiances());
 				$f3->set('ingredients',$this->model->getAllIngredients());
 				echo View::instance()->render('Recipe/submitRecipe.html');
@@ -41,7 +41,9 @@ class RecipeController extends Controller{
 		$f3->set('ingredients',$this->model->getIngredients($f3->get('PARAMS')));
 		$f3->set('ambiance',$this->model->getAmbiance($f3->get('PARAMS')));
 		$f3->set('author',$this->model->getAuthor($f3->get('PARAMS')));
-		$f3->set('isFavorite',$this->model->getIsFavorite($f3->get('PARAMS'), $f3->get('SESSION.id_user')));
+
+		$f3->set('PARAMS.id_user', $f3->get('SESSION.id_user'));
+		$f3->set('isFavorite',$this->model->getIsFavorite($f3->get('PARAMS')));
 		echo View::instance()->render('Recipe/viewRecipe.html');
 	}
 
@@ -50,11 +52,12 @@ class RecipeController extends Controller{
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}
 
-	function getRecipesByUser($f3){
-		$f3->set('recipes',$this->model->getRecipesByUser($f3->get('PARAMS')));
-	}
+	// private function _getRecipesByUser($f3){
+	// 	$f3->set('recipes',$this->model->getRecipesByUser($f3->get('PARAMS')));
+	// }
 
 	function getRecipesByFilter($f3){
+		var_dump($f3->get('PARAMS'));
 		$f3->set('recipes',$this->model->getRecipesByFilter($f3->get('PARAMS')));
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}	

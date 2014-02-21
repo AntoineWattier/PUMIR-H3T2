@@ -1,7 +1,8 @@
 <?php include('./app/Views/partials/header.html') ?>
 <div id="createAccount">
     <section>
-        <h1>Create your account to join</h1>              
+        <h1>Create your account to join</h1>
+        <?php if(isset($_GET['e'])) echo "Veuillez créer un compte pour poster une recette" ?>              
         <form action="user/register" method="POST">
             <fieldset>
                 <input name="firstname_user" type="text" placeholder="Firstname" required/><br>

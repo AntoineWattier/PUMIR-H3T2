@@ -9,9 +9,4 @@ class HomeController extends Controller{
 	function home($f3){
 		echo View::instance()->render('home.html');   
 	}
-
-	function login($f3){
-		echo View::instance()->render('User/login.html');   
-	}
-
 }
