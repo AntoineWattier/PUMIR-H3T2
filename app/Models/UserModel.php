@@ -50,5 +50,19 @@ class UserModel extends Model{
 		return $this->mapper->load(array("id_user = :id", ':id' => $params['id']));
 	}
 
+	function like($params){
+		$vote_mapper = $this->getMapper('VOTE');
+ 		$favorite = $vote_mapper->load(array('id_user = ? and id_recipe = ? ',$params['id_user'],$params['id_recipe']));
+ 		$vote_mapper->reset();
+	 	if (!$favorite) {
+	 		$vote_mapper->id_recipe = $params['id_recipe'];
+		 	$vote_mapper->id_user = $params['id_user'];
+		 	$vote_mapper->save();
+		 	return true;
+	 	} else{
+	 		$favorite->erase();
+	 		return false;
+	 	}	
+	}
 
 }

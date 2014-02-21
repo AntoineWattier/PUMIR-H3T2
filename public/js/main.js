@@ -17,3 +17,17 @@ $('input[name="login"]').on('click',function(e){
 		}
 	})
 });
+
+$('a.like').on('click',function(e){
+	e.preventDefault();
+	var $this=$(this);
+	$.getJSON($this.attr('href'))
+	.success(function(data){
+		console.log(data);
+		if(data.status==false){
+			$this.removeClass('on');
+		}else{
+			$this.addClass('on');
+		}
+	});
+});

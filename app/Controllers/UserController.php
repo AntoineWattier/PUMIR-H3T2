@@ -47,16 +47,19 @@ class UserController extends Controller{
 
 	function getUser($f3){
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
-		$model = new RecipeModel();
-		$f3->set('recipes', $model->getRecipesByUser($f3->get('PARAMS')));
-		$f3->set('favorites',$model->getFavoritesRecipesByUser($f3->get('PARAMS')));
+		$recipe_model = new RecipeModel();
+		$f3->set('recipes', $recipe_model->getRecipesByUser($f3->get('PARAMS')));
+		$f3->set('favorites',$recipe_model->getFavoritesRecipesByUser($f3->get('PARAMS')));
 		echo View::instance()->render('User/user.html');
 	}
-
-
 
 	function logout($f3){
 		$f3->clear('SESSION');
 		$f3->reroute('/');
+	}
+
+	function like($f3){
+		$like = $this->model->like($f3->get('PARAMS'));
+		echo json_encode(array('status'=>$like));
 	}
 }

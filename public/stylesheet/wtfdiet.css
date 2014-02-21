@@ -17,3 +17,7 @@ nav .right{
 nav a:visited{
 	color: white;
 };
+
+.btn.btn-primary.like.on{
+	background-color: red;
+}
