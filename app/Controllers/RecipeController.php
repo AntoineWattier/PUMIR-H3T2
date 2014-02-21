@@ -21,9 +21,6 @@ class RecipeController extends Controller{
 				break;
 			
 			case 'GET':
-				// if(isset($_GET['e']) && isset($_GET['id']) && $_GET['id'] == $f3->get('SESSION.id_user')){
-				// 	$f3->set('recipe',$this->model->getRecipe(array('id'=>$_GET['e'])));
-				// }
 				if(!$f3->get('SESSION.id_user'))
 					$f3->reroute('/user/register');
 				$f3->set('ambiances',$this->model->getAmbiances());
@@ -44,6 +41,7 @@ class RecipeController extends Controller{
 		$f3->set('ingredients',$this->model->getIngredients($f3->get('PARAMS')));
 		$f3->set('ambiance',$this->model->getAmbiance($f3->get('PARAMS')));
 		$f3->set('author',$this->model->getAuthor($f3->get('PARAMS')));
+		$f3->set('isFavorite',$this->model->getIsFavorite($f3->get('PARAMS'), $f3->get('SESSION.id_user')));
 		echo View::instance()->render('Recipe/viewRecipe.html');
 	}
 

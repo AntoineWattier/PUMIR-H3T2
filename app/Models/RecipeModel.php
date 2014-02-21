@@ -67,6 +67,12 @@ class RecipeModel extends Model{
 		return $favorite_mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 
+	function getIsFavorite($params, $id_user){
+		$favorite_mapper = $this->getMapper('FAVORITE');
+		$favorite_mapper->load(array("id_user = :id_user AND id_recipe = :id_recipe", ':id_user' => $id_user,  ':id_recipe' => $params['id']));
+		return $favorite_mapper->dry();
+	}
+
 	function getRecipesByFilter($params){
 		return $this->mapper->find(array("id_ambiance = :id_ambiance", ':id_ambiance' => $params['id_ambiance'])
 			// array("difficulty_recipe = :difficulty AND numberOfPeople_recipe = :number", 
