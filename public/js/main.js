@@ -21,7 +21,11 @@ $('input[name="login"]').on('click',function(e){
 $('a.like').on('click',function(e){
 	e.preventDefault();
 	var $this=$(this);
-	$.getJSON($this.attr('href'))
+	$.ajax({
+		dataType: "json",
+		url:$this.attr('href'),
+		method:'POST'
+	})
 	.success(function(data){
 		console.log(data);
 		if(data.status==false){
