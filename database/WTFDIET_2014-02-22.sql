@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Hôte: 127.0.0.1 (MySQL 5.6.16)
-# Base de données: WTFDIET
-# Temps de génération: 2014-02-21 01:12:06 +0000
+# H�te: 127.0.0.1 (MySQL 5.6.16)
+# Base de donn�es: WTFDIET
+# Temps de g�n�ration: 2014-02-21 23:30:15 +0000
 # ************************************************************
 
 
@@ -26,8 +26,8 @@
 DROP VIEW IF EXISTS `adapt`;
 
 CREATE TABLE `adapt` (
-   `id_ambiance` INT(11) NULL DEFAULT '0',
-   `name_ambiance` VARCHAR(100) NULL DEFAULT NULL,
+   `id_ambiance` INT(11) NOT NULL DEFAULT '0',
+   `name_ambiance` VARCHAR(100) NOT NULL,
    `id_recipe` INT(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM;
 
@@ -68,7 +68,7 @@ DROP VIEW IF EXISTS `associate`;
 CREATE TABLE `associate` (
    `id_ingredient` INT(11) NOT NULL DEFAULT '0',
    `name_ingredient` VARCHAR(100) NOT NULL,
-   `id_recipe` INT(11) NULL DEFAULT NULL,
+   `id_recipe` INT(11) NOT NULL,
    `quantity_ingredient` INT(5) NULL DEFAULT NULL
 ) ENGINE=MyISAM;
 
@@ -117,10 +117,24 @@ INSERT INTO `COMPOSE` (`id_ingredient`, `id_recipe`, `quantity_ingredient`, `mea
 VALUES
 	(1033,3,NULL,NULL),
 	(1035,3,NULL,NULL),
+	(1050,6,NULL,NULL),
+	(1121,6,NULL,NULL),
+	(1123,5,NULL,NULL),
+	(1217,6,NULL,NULL),
+	(1507,7,NULL,NULL),
+	(1520,7,NULL,NULL),
+	(1640,6,NULL,NULL),
+	(1730,7,NULL,NULL),
 	(1743,1,1,NULL),
 	(1743,2,1,NULL),
+	(1793,7,NULL,NULL),
 	(1800,1,10,NULL),
-	(1822,2,500,NULL);
+	(1822,2,500,NULL),
+	(1850,6,NULL,NULL),
+	(1896,7,NULL,NULL),
+	(1937,7,NULL,NULL),
+	(2022,6,NULL,NULL),
+	(2043,7,NULL,NULL);
 
 /*!40000 ALTER TABLE `COMPOSE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -132,11 +146,33 @@ UNLOCK TABLES;
 DROP VIEW IF EXISTS `favorite`;
 
 CREATE TABLE `favorite` (
-   `id_user` INT(11) NULL DEFAULT '0',
-   `firstname_user` VARCHAR(50) NULL DEFAULT NULL,
-   `lastname_user` VARCHAR(50) NULL DEFAULT NULL,
-   `id_recipe` INT(11) NULL DEFAULT '0',
-   `name_recipe` VARCHAR(50) NULL DEFAULT NULL
+   `id_user` INT(11) NOT NULL DEFAULT '0',
+   `firstname_user` VARCHAR(50) NOT NULL,
+   `lastname_user` VARCHAR(50) NOT NULL,
+   `id_recipe` INT(11) NOT NULL DEFAULT '0',
+   `name_recipe` VARCHAR(50) NOT NULL
+) ENGINE=MyISAM;
+
+
+
+# Affichage de la table fullrecipe
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `fullrecipe`;
+
+CREATE TABLE `fullrecipe` (
+   `id_user` INT(11) NOT NULL DEFAULT '0',
+   `lastname_user` VARCHAR(50) NOT NULL,
+   `firstname_user` VARCHAR(50) NOT NULL,
+   `id_recipe` INT(11) NOT NULL DEFAULT '0',
+   `name_recipe` VARCHAR(50) NOT NULL,
+   `votes_recipe` INT(11) NULL DEFAULT '0',
+   `dateAdd_recipe` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+   `preparationTime_recipe` INT(11) NOT NULL,
+   `difficulty_recipe` INT(1) NOT NULL DEFAULT '1',
+   `numberOfPeople_recipe` INT(11) NOT NULL,
+   `name_ambiance` VARCHAR(100) NOT NULL,
+   `id_ambiance` INT(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM;
 
 
@@ -1240,9 +1276,12 @@ LOCK TABLES `RECIPE` WRITE;
 
 INSERT INTO `RECIPE` (`id_recipe`, `slug_recipe`, `name_recipe`, `numberOfPeople_recipe`, `preparationTime_recipe`, `difficulty_recipe`, `dateAdd_recipe`, `dateUpdate_recipe`, `id_user`, `id_ambiance`, `votes_recipe`)
 VALUES
-	(1,'tarte-aux-pommes','Tarte aux pommes',2,1,1,'2014-02-19 17:27:46','0000-00-00 00:00:00',1,3,9),
+	(1,'tarte-aux-pommes','Tarte aux pommes',2,1,1,'2014-02-19 17:27:46','0000-00-00 00:00:00',1,3,0),
 	(2,'tarte-aux-prunes','Tarte aux prunes',2,1,1,'2014-02-19 17:27:46','0000-00-00 00:00:00',2,2,1),
-	(3,'agneau-a-l-abricot','Agneau à l\'abricot',1,1,1,'2014-02-20 15:29:03','0000-00-00 00:00:00',1,3,0);
+	(3,'agneau-a-l-abricot','Agneau à l\'abricot',1,1,1,'2014-02-20 15:29:03','0000-00-00 00:00:00',1,3,0),
+	(5,'repoune-de-baleine','Repoune de baleine',6,3,1,'2014-02-21 09:41:43','0000-00-00 00:00:00',2,3,1),
+	(6,'salade-a-la-mingogo','Salade à la Mingogo',2,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,3,0),
+	(7,'salade-facon-mingoia','Salade façon Mingoia',2,1,1,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,3,0);
 
 /*!40000 ALTER TABLE `RECIPE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1271,7 +1310,16 @@ VALUES
 	(1,1,'Couper les pommes',1),
 	(2,2,'Etape 2',1),
 	(3,1,'Faire cuire',2),
-	(4,1,'ee',3);
+	(4,1,'ee',3),
+	(5,1,'Sortir les casseroles',5),
+	(6,2,'Mettre du sel',5),
+	(7,1,'Sortir la salade de la casserole',6),
+	(8,1,'Pour la sauce, mélanger une cuillère à café de moutarde de Dijon, 3 cuillères à soupe d\'huile d\'olive, 1 cuillère à soupe de vinaigre balsamique, et assaisonner à sa guise',7),
+	(9,2,'Disposer la salade dans des assiettes',7),
+	(10,3,'Y mettre la sauce',7),
+	(11,4,'Déposer deux tranches fines de jambon de Parme découenné par assiette',7),
+	(12,5,'Saupoudrer de copeaux de parmesan',7),
+	(13,6,'Servir rapidement',7);
 
 /*!40000 ALTER TABLE `STEP` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1286,24 +1334,8 @@ CREATE TABLE `submit` (
    `id_user` INT(11) NOT NULL DEFAULT '0',
    `firstname_user` VARCHAR(50) NOT NULL,
    `lastname_user` VARCHAR(50) NOT NULL,
-   `id_recipe` INT(11) NULL DEFAULT '0'
+   `id_recipe` INT(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM;
-
-
-
-# Affichage de la table USE
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `USE`;
-
-CREATE TABLE `USE` (
-  `id_ustensil` int(11) NOT NULL,
-  `id_recipe` int(11) NOT NULL,
-  PRIMARY KEY (`id_ustensil`,`id_recipe`),
-  KEY `id_recipe` (`id_recipe`),
-  CONSTRAINT `use_ibfk_1` FOREIGN KEY (`id_ustensil`) REFERENCES `USTENSIL` (`id_ustensil`),
-  CONSTRAINT `use_ibfk_2` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -1332,24 +1364,14 @@ LOCK TABLES `USER` WRITE;
 
 INSERT INTO `USER` (`id_user`, `slug_user`, `adminLevel_user`, `firstname_user`, `lastname_user`, `mail_user`, `password_user`, `karmaPoints_user`, `facebookId_user`, `subscribeDate_user`, `lastLogin_user`)
 VALUES
-	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test',NULL,NULL,'2014-02-19 16:36:22','2014-02-21 02:11:31'),
-	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test',NULL,NULL,'2014-02-19 18:35:23','0000-00-00 00:00:00');
+	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test',NULL,NULL,'2014-02-19 16:36:22','2014-02-22 00:14:20'),
+	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test',NULL,NULL,'2014-02-19 18:35:23','2014-02-21 23:03:56'),
+	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon',NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
+	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test',NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
+	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty',NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
-
-
-# Affichage de la table USTENSIL
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `USTENSIL`;
-
-CREATE TABLE `USTENSIL` (
-  `id_ustensil` int(11) NOT NULL AUTO_INCREMENT,
-  `name_ustensil` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_ustensil`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 # Affichage de la table VOTE
@@ -1374,7 +1396,8 @@ LOCK TABLES `VOTE` WRITE;
 
 INSERT INTO `VOTE` (`id_vote`, `id_user`, `id_recipe`, `date_vote`)
 VALUES
-	(1,1,1,'2014-02-20 17:42:37');
+	(434,1,2,'2014-02-22 00:14:27'),
+	(435,1,5,'2014-02-22 00:15:00');
 
 /*!40000 ALTER TABLE `VOTE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1404,7 +1427,7 @@ AS SELECT
    `u`.`lastname_user` AS `lastname_user`,
    `recipe`.`id_recipe` AS `id_recipe`,
    `recipe`.`name_recipe` AS `name_recipe`
-FROM ((`vote` `v` left join `user` `u` on((`v`.`id_user` = `u`.`id_user`))) left join `recipe` on((`v`.`id_recipe` = `recipe`.`id_recipe`)));
+FROM ((`vote` `v` join `user` `u` on((`v`.`id_user` = `u`.`id_user`))) join `recipe` on((`v`.`id_recipe` = `recipe`.`id_recipe`)));
 
 
 # Replace placeholder table for adapt with correct view syntax
@@ -1417,7 +1440,7 @@ AS SELECT
    `ambiance`.`id_ambiance` AS `id_ambiance`,
    `ambiance`.`name_ambiance` AS `name_ambiance`,
    `recipe`.`id_recipe` AS `id_recipe`
-FROM (`recipe` left join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`)));
+FROM (`recipe` join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`)));
 
 
 # Replace placeholder table for associate with correct view syntax
@@ -1431,7 +1454,29 @@ AS SELECT
    `ingredient`.`name_ingredient` AS `name_ingredient`,
    `compose`.`id_recipe` AS `id_recipe`,
    `compose`.`quantity_ingredient` AS `quantity_ingredient`
-FROM (`ingredient` left join `compose` on((`ingredient`.`id_ingredient` = `compose`.`id_ingredient`)));
+FROM (`ingredient` join `compose` on((`ingredient`.`id_ingredient` = `compose`.`id_ingredient`)));
+
+
+# Replace placeholder table for fullrecipe with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `fullrecipe`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `fullrecipe`
+AS SELECT
+   `user`.`id_user` AS `id_user`,
+   `user`.`lastname_user` AS `lastname_user`,
+   `user`.`firstname_user` AS `firstname_user`,
+   `recipe`.`id_recipe` AS `id_recipe`,
+   `recipe`.`name_recipe` AS `name_recipe`,
+   `recipe`.`votes_recipe` AS `votes_recipe`,
+   `recipe`.`dateAdd_recipe` AS `dateAdd_recipe`,
+   `recipe`.`preparationTime_recipe` AS `preparationTime_recipe`,
+   `recipe`.`difficulty_recipe` AS `difficulty_recipe`,
+   `recipe`.`numberOfPeople_recipe` AS `numberOfPeople_recipe`,
+   `adapt`.`name_ambiance` AS `name_ambiance`,
+   `adapt`.`id_ambiance` AS `id_ambiance`
+FROM ((`recipe` join `user` on((`recipe`.`id_user` = `user`.`id_user`))) join `adapt` on((`recipe`.`id_recipe` = `adapt`.`id_recipe`)));
 
 
 # Replace placeholder table for submit with correct view syntax
@@ -1445,7 +1490,7 @@ AS SELECT
    `user`.`firstname_user` AS `firstname_user`,
    `user`.`lastname_user` AS `lastname_user`,
    `recipe`.`id_recipe` AS `id_recipe`
-FROM (`user` left join `recipe` on((`user`.`id_user` = `recipe`.`id_user`)));
+FROM (`user` join `recipe` on((`user`.`id_user` = `recipe`.`id_user`)));
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
