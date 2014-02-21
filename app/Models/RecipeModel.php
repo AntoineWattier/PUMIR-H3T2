@@ -9,7 +9,7 @@ class RecipeModel extends Model{
 		$this->mapper = $this->getMapper('RECIPE');
 	}
 
-	function submit($params){
+	function submitRecipe($params){
 		$this->mapper->reset();
 		$_POST['slug_recipe'] =  \Helpers\Tools::instance()->slugify(strtolower($params['name_recipe']));
 		$_POST['id_user'] = $params['id_user'];
