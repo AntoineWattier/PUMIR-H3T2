@@ -16,18 +16,19 @@
 <header>		
 	<nav>
 		<a href="/">WTFDIET</a>
-		<a <?php if($_SERVER['REQUEST_URI']=='/conciergerie') echo 'class="current"' ?>href="/conciergerie">Concierge</a>
-		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/getRecipes/votes') echo 'class="current"' ?> href="/recipe/getRecipes/votes">Populaire</a>
-		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/getRecipes/date') echo 'class="current"' ?>href="/recipe/getRecipes/date">Toutes</a>
+		<a <?php if(strpos($_SERVER['REQUEST_URI'],'/conciergerie') !== false) echo 'class="current"' ?>href="/conciergerie">Conciergerie</a>
+		<a <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/votes') !== false) echo 'class="current"' ?> href="/recipe/getRecipes/votes">Recettes populaires</a>
+		<a <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="current"' ?>href="/recipe/getRecipes/date">Toutes les recettes</a>
 		<span class="right">	
-		<?php if(isset($_SESSION['id_user'])): ?>
-			<a href="/recipe/submit">Ecrire une recette</a>
-			<a href="/user/getUser/<?= $_SESSION['id_user'] ?>"><?= $_SESSION['firstname_user']." ".$_SESSION['lastname_user']?></a>
-			<a href="/user/logout/">Logout</a>
-		<?php else : ?>
-			<a href="/login">Sign in</a>
-			<a href="/user/register">Sign up</a>
-		<?php endif ?>
+	<?php if(isset($_SESSION['id_user'])): ?>
+		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/submit') echo 'class="current"' ?>href="/recipe/submit">Ecrire une recette</a>
+
+		<a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$_SESSION['id_user']) echo 'class="current"' ?>href="/user/getUser/<?= $_SESSION['id_user'] ?>"><?= $_SESSION['firstname_user']." ".$_SESSION['lastname_user']?></a>
+		<a href="/user/logout/">Logout</a>
+	<?php else : ?>
+		<a href="/login">Sign in</a>
+		<a href="/user/register">Sign up</a>
+	<?php endif ?>
 		</span>
 	</nav>
 </header>

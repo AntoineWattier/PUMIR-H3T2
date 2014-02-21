@@ -23,7 +23,12 @@
 					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
 		<?php 	endforeach;
 		  	endif; ?>
-		  <h2>Recettes favorites</h2>
+		<?php if($favorites): ?>
+			<h2>Recettes favorites</h2>
+			<?php foreach ($favorites as $recipe): ?>
+					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
+		<?php 	endforeach;
+		  	endif; ?>
 	<?php else: ?>
 			User not found
 	<?php endif; ?>

@@ -49,8 +49,11 @@ class UserController extends Controller{
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
 		$model = new RecipeModel();
 		$f3->set('recipes', $model->getRecipesByUser($f3->get('PARAMS')));
+		$f3->set('favorites',$model->getFavoritesRecipesByUser($f3->get('PARAMS')));
 		echo View::instance()->render('User/user.html');
 	}
+
+
 
 	function logout($f3){
 		$f3->clear('SESSION');
