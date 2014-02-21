@@ -1,30 +1,35 @@
 <?php include('./app/Views/partials/header.html') ?>
 <body class="clearfix">
 	<h1>Recipe</h1>
-	<?php if($recipe && $steps && $ambiance && $ingredients):?>
+	<?php if($recipe && $steps && $ambiance && $ingredients && $author):?>
 	<table class="table table-hover table-bordered">
-		<tr><td>id <td><?= $recipe->id_recipe ?></p>
-		<tr><td>slug  <td><?= Tools::slugify($recipe->slug_recipe) ?></p>
-		<tr><td>name  <td><?= $recipe->name_recipe ?></p>
-		<tr><td>number of people  <td><?= $recipe->numberOfPeople_recipe ?></p>
-		<tr><td>preparation Time  <td><?= $recipe->preparationTime_recipe ?></p>
-		<?php foreach ($steps as $step): ?>
-			<tr><td>Step nº<?= $step->order_step ?><td><?= $step->content_step ?></p>
-		<?php endforeach; ?>
-		<?php foreach ($ingredients as $i => $ingredient): ?>
-			<tr><td>Ingredient nº<?= $i+1 ?><td><?= $ingredient->name_ingredient ?></p>
-		<?php endforeach; ?>
-		<tr><td>ambiance  <td><?= $ambiance->name_ambiance ?></p>
+		<tr><td>id <td><?= $recipe->id_recipe ?>
+		<tr><td>slug  <td><?= Tools::slugify($recipe->slug_recipe) ?>
+		<tr><td>name  <td><?= $recipe->name_recipe ?>
+		<tr><td>number of people  <td><?= $recipe->numberOfPeople_recipe ?>
+		<tr><td>preparation Time  <td><?= $recipe->preparationTime_recipe ?>
+	<?php foreach ($steps as $step): ?>
+		<tr><td>Step nº<?= $step->order_step ?><td><?= $step->content_step ?>
+	<?php endforeach; ?>
+	<?php foreach ($ingredients as $i => $ingredient): ?>
+		<tr><td>Ingredient nº<?= $i+1 ?><td><?= $ingredient->name_ingredient ?>
+	<?php endforeach; ?>
+		<tr><td>ambiance  <td><?= $ambiance->name_ambiance ?>
+		<tr><td>author  <td><a href="/user/getUser/<?= $author->id_user ?>"><?= $author->lastname_user." ".$author->firstname_user?></a>
+		<tr><td>votes count  <td><?= $recipe->votes_recipe ?>
 	</table>
 	<?php if(isset($_SESSION['id_user']) && $_SESSION['id_user'] == $recipe->id_user): ?>
 		<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
 		<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
 	<?php endif; ?>
+	<?php if(isset($_SESSION['id_user'])): ?>
+		<a href="#" class="btn btn-primary"><i class="icon-heart icon-white"></i>Vote</a>
+	<?php endif; ?>
 	<?php else: ?>
 		Recipe not found
 	<?php endif; ?>
 	<br>
-	<a href="/">Retour</a>
+	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 </body>

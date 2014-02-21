@@ -29,20 +29,33 @@ class RecipeModel extends Model{
 				$step_mapper->save();
 			}
 		}
+		$compose_mapper = $this->getMapper('COMPOSE');
+		foreach ($_POST['ingredient_recipe'] as $order => $content) {
+			if(!empty($content) && $content != -1 ){	
+				$compose_mapper->reset();
+				$compose_mapper->id_ingredient= $content;
+				$compose_mapper->id_recipe = $this->mapper->last()->id_recipe;
+				$compose_mapper->save();
+			}
+		}
 		return $this->mapper;
+
 	}
 
-	function getRecipes(){
-		return $this->mapper->find();
+	function getRecipes($params){
+		$req = array('order'=>'name_recipe');
+		if(isset($params['filter'] )){
+			if($params['filter'] == 'date'){
+				$req = array('order'=>'dateAdd_recipe DESC');
+			} else if($params['filter'] == 'votes'){
+				$req = array('order'=>'votes_recipe DESC');
+			}
+		}
+		return $this->mapper->find(array(),$req);
 	}
 
 	function getRecipe($params){
 		return $this->mapper->load(array("id_recipe = :id", ':id' => $params['id']));
-	}
-
-	function getRecipeSteps($params){
-		$step_mapper = $this->getMapper('STEP');
-		return $step_mapper->find(array("id_recipe = :id", ':id' => $params['id']),array('order'=>'order_step'));
 	}
 
 	function getRecipesByUser($params){
@@ -50,13 +63,11 @@ class RecipeModel extends Model{
 	}
 
 	function getRecipesByFilter($params){
-
-			var_dump($params);
-			return $this->mapper->find(
-			array("difficulty_recipe = :difficulty AND numberOfPeople_recipe = :number", 
-				':difficulty' => $params['difficulty'],
-				':number' => $params['number']
-			)
+		return $this->mapper->find(array("id_ambiance = :id_ambiance", ':id_ambiance' => $params['id_ambiance'])
+			// array("difficulty_recipe = :difficulty AND numberOfPeople_recipe = :number", 
+			// 	':difficulty' => $params['difficulty'],
+			// 	':number' => $params['number']
+			//)
 		);
 	}
 
@@ -70,9 +81,29 @@ class RecipeModel extends Model{
 		return $adapt_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
 
+	function getAuthor($params){
+		$submit_mapper = $this->getMapper('SUBMIT');
+		return $submit_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
+	}
+
+	function getSteps($params){
+		$step_mapper = $this->getMapper('STEP');
+		return $step_mapper->find(array("id_recipe = :id", ':id' => $params['id']),array('order'=>'order_step'));
+	}
+
+	function getVotes($params){
+		$vote_mapper = $this->getMapper('VOTE');
+		return $vote_mapper->find(array("id_recipe = :id", ':id' => $params['id']));
+	}	
+
 	function getIngredients($params){
 		$associate_mapper = $this->getMapper('ASSOCIATE');
 		return $associate_mapper->find(array("id_recipe = :id", ':id' => $params['id']));
+	}
+
+	function getAllIngredients(){
+		$ingredients_mapper = $this->getMapper('INGREDIENT');
+		return $ingredients_mapper->find();
 	}	
 }
 ?>

@@ -11,7 +11,9 @@ class UserController extends Controller{
 		//Si les data de l'user existent on commence la session
 		if($user){						
 			$f3->set('user',$user);	
-			$f3->set('SESSION.id_user', $user->id_user);	
+			$f3->set('SESSION.id_user', $user->id_user);
+			$f3->set('SESSION.firstname_user', $user->firstname_user);
+			$f3->set('SESSION.lastname_user', $user->lastname_user);
 		} 
 		echo json_encode(array('status'=>$user));
 	}
@@ -25,13 +27,15 @@ class UserController extends Controller{
 				if($user){						
 					$f3->set('user',$user);			
 					$f3->set('SESSION.id_user', $user->id_user);
+					$f3->set('SESSION.firstname_user', $user->firstname_user);
+					$f3->set('SESSION.lastname_user', $user->lastname_user);
 					$f3->reroute('/');
 				} 
 				break;			
 			case 'GET':
 				if($f3->get('SESSION.id_user'))
 					$f3->reroute('/');
-				echo View::instance()->render('register.html');
+				echo View::instance()->render('User/register.html');
 		}
 		
 	}
@@ -45,7 +49,7 @@ class UserController extends Controller{
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
 		$model = new RecipeModel();
 		$f3->set('recipes', $model->getRecipesByUser($f3->get('PARAMS')));
-		echo View::instance()->render('user.html');
+		echo View::instance()->render('User/user.html');
 	}
 
 	function logout($f3){

@@ -3,13 +3,14 @@
 	<h1>All Recipes</h1>
 	<?php if($recipes):?>
 		<?php foreach ($recipes as $recipe):?>
-			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
+			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe." Votes : ".$recipe->votes_recipe ?></a><br>
+			<a href="user/getUser/<?= $recipe->id_user?>">Par : <?= $recipe->id_user ?></a><br><br>
 		<?php endforeach; ?>
 	<?php else: ?>
 		Recipes not found
 	<?php endif; ?>
 	<br>
-	<a href="/">Retour</a>
+	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 </body>

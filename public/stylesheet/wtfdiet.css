@@ -9,3 +9,11 @@ nav{
 nav .right{
 	float: right;
 }
+
+.current {
+	background: red;
+}
+
+nav a:visited{
+	color: white;
+};

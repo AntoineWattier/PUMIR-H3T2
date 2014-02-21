@@ -11,7 +11,7 @@ class HomeController extends Controller{
 	}
 
 	function login($f3){
-		echo View::instance()->render('login.html');   
+		echo View::instance()->render('User/login.html');   
 	}
 
 }

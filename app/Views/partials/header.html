@@ -16,13 +16,13 @@
 <header>		
 	<nav>
 		<a href="/">WTFDIET</a>
-		<a href="#">Concierge</a>
-		<a href="#">Populaire</a>
-		<a href="/recipe/getRecipes">Toutes</a>
+		<a <?php if($_SERVER['REQUEST_URI']=='/conciergerie') echo 'class="current"' ?>href="/conciergerie">Concierge</a>
+		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/getRecipes/votes') echo 'class="current"' ?> href="/recipe/getRecipes/votes">Populaire</a>
+		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/getRecipes/date') echo 'class="current"' ?>href="/recipe/getRecipes/date">Toutes</a>
 		<span class="right">	
 		<?php if(isset($_SESSION['id_user'])): ?>
 			<a href="/recipe/submit">Ecrire une recette</a>
-			<a href="/user/getUser/<?= $_SESSION['id_user'] ?>">Mon profil</a>
+			<a href="/user/getUser/<?= $_SESSION['id_user'] ?>"><?= $_SESSION['firstname_user']." ".$_SESSION['lastname_user']?></a>
 			<a href="/user/logout/">Logout</a>
 		<?php else : ?>
 			<a href="/login">Sign in</a>
