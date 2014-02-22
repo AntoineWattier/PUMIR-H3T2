@@ -104,4 +104,13 @@ class UserController extends Controller{
 		$like = $this->model->like($f3->get('PARAMS'));
 		echo json_encode(array('status'=>$like));
 	}
+
+	function comment($f3){
+		if($f3->get('VERB') == 'GET')
+			$f3->error(405); 
+
+		$f3->set('PARAMS.content_comment',$f3->get('POST.content_comment'));
+		$comment = $this->model->comment($f3->get('PARAMS'));
+		echo json_encode(array('status'=>$comment));
+	}
 }

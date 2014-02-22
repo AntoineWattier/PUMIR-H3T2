@@ -185,6 +185,11 @@ class RecipeModel extends Model{
 		return $step_mapper->find(array("id_recipe = :id", ':id' => $params['id']),array('order'=>'order_step'));
 	}
 
+	function getComments($params){
+		$post_mapper = $this->getMapper('POST');
+		return $post_mapper->find(array("id_step = :id_step", ':id_step' => $params['id_step']),array('order'=>'dateAdd_comment DESC'));
+	}
+
 	function getVotes($params){
 		$vote_mapper = $this->getMapper('VOTE');
 		return $vote_mapper->find(array("id_recipe = :id", ':id' => $params['id']));

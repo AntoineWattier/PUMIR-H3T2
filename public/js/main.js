@@ -35,3 +35,26 @@ $('a.like').on('click',function(e){
 		}
 	});
 });
+
+$('input[name="comment"]').on('click',function(e){
+	e.preventDefault();
+	
+	var $this=$(this);
+	var $form=$this.parent('form');
+	if($('input[name="content_comment"]').val() != ''){
+		$.ajax({
+			dataType: "json",
+			url:$form.attr('action'),
+			method:'POST',
+			data: { 'content_comment' : $('input[name="content_comment"]').val() }
+		})
+		.success(function(data){
+			 console.log(data);
+			// if(data.status==false){
+			// 	$this.removeClass('on');
+			// }else{
+			// 	$this.addClass('on');
+			// }
+		});
+	}
+});

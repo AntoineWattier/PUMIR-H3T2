@@ -10,6 +10,17 @@
 		<tr><td>preparation Time  <td><?= $recipe->preparationTime_recipe ?>
 	<?php foreach ($steps as $step): ?>
 		<tr><td>Step nº<?= $step->order_step ?><td><?= $step->content_step ?>
+				<ul>
+				<?php foreach ($comments as $comment): ?>
+					<li> Comment by <?= $comment->firstname_user ?> : <?= $comment->content_comment ?>
+				<?php endforeach ?>
+				<?php if(isset($SESSION['id_user'])): ?>
+					<li><form action="user/comment/<?= $SESSION['id_user'] ?>&<?= $step->id_step ?>">
+							<input type="textarea" name="content_comment">
+							<input type="button" name="comment" value="Comment">
+						</form>
+				<?php endif; ?>
+				</ul>
 	<?php endforeach; ?>
 	<?php foreach ($ingredients as $i => $ingredient): ?>
 		<tr><td>Ingredient nº<?= $i+1 ?><td><?= $ingredient->name_ingredient ?>

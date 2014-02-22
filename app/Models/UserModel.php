@@ -78,4 +78,15 @@ class UserModel extends Model{
 	 	}	
 	}
 
+	function comment($params){
+		$comment_mapper = $this->getMapper('COMMENT');
+
+ 		$comment_mapper->reset();
+ 		$comment_mapper->id_step = $params['id_step'];
+	 	$comment_mapper->id_user = $params['id_user'];
+	 	$comment_mapper->content_comment = $params['content_comment'];
+	 	$comment_mapper->save();
+	 	return true;
+	}
+
 }
