@@ -11,9 +11,10 @@
                 <input id="password" name="password_user" type="password" placeholder="Password" value="<?= $user->password_user ?>"required/><br>
                 <input name="password_user_bis" type="password" placeholder="Retype your password" oninput="checkPass(this)" required/><br>
                 <input type="submit" value="Update account"/>
+
             </fieldset>
         </form>
-        <em><?php if(isset($info)){echo $info;} ?></em>
+        <button onclick="window.history.back()">Retour</button>
     </section>
 </div>
 
