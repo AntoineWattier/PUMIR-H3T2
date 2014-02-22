@@ -24,6 +24,14 @@ class UserController extends Controller{
 		} 
 	}
 
+	function logout($f3){
+		if($f3->get('VERB') == 'POST')
+			$f3->error(405); 
+
+		$f3->clear('SESSION');
+		$f3->reroute('/');
+	}
+
 	function register($f3){	
 		switch ($f3->get('VERB')) {
 			case 'POST':
@@ -51,7 +59,7 @@ class UserController extends Controller{
 			$f3->error(405); 
 
 		$mail = $this->model->checkMail($f3->get('POST'));
-		echo $mail;
+		echo json_encode(array('status'=>$mail));
 	}
 
 	function getUser($f3){	
@@ -62,15 +70,31 @@ class UserController extends Controller{
 		$recipe_model = new RecipeModel();
 		$f3->set('recipes', $recipe_model->getRecipesByUser($f3->get('PARAMS')));
 		$f3->set('favorites',$recipe_model->getFavoritesRecipesByUser($f3->get('PARAMS')));
-		echo View::instance()->render('User/user.html');
+		echo View::instance()->render('User/viewUser.html');
 	}
 
-	function logout($f3){
-		if($f3->get('VERB') == 'POST')
-			$f3->error(405); 
+	function editUser($f3){	
+		switch ($f3->get('VERB')) {
+			case 'POST':
+				if($f3->get('POST.id_user') != $f3->get('SESSION.id_user'))
+					$f3->error(403); 
 
-		$f3->clear('SESSION');
-		$f3->reroute('/');
+				$user = $this->model->editUser($f3->get('POST'));
+				//Si l'edit a réussi on le redirige vers son profil
+				if($user){						
+					$f3->set('user',$user);			
+					$f3->set('SESSION.firstname_user', $user->firstname_user);
+					$f3->set('SESSION.lastname_user', $user->lastname_user);
+					$f3->reroute('/user/getUser/'.$f3->get('SESSION.id_user'));
+				} 
+				break;			
+			case 'GET':
+				if($f3->get('PARAMS.id') != $f3->get('SESSION.id_user'))
+					$f3->error(403); 
+
+				$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
+				echo View::instance()->render('User/editUser.html');
+		}			
 	}
 
 	function like($f3){

@@ -50,6 +50,19 @@ class UserModel extends Model{
 		return $this->mapper->load(array("id_user = :id", ':id' => $params['id']));
 	}
 
+	function editUser($params){
+		$this->mapper->load(array("id_user = :id", ':id' => $params['id_user']));
+		// $params['adminLevel_user'] = 0;
+		$params['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
+		$this->mapper->firstname_user = $params['firstname_user'];
+		$this->mapper->lastname_user = $params['lastname_user'];
+		$this->mapper->slug_user = $params['slug_user'];
+		$this->mapper->mail_user = $params['mail_user'];
+		$this->mapper->password_user = $params['password_user'];
+		$this->mapper->save();
+		return $this->mapper;
+	}	
+
 	function like($params){
 		$vote_mapper = $this->getMapper('VOTE');
  		$favorite = $vote_mapper->load(array('id_user = ? and id_recipe = ? ',$params['id_user'],$params['id_recipe']));

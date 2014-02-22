@@ -1,0 +1,47 @@
+<?php include('./app/Views/partials/header.html') ?>
+<div id="createAccount">
+    <section>
+        <h1>Edit your account</h1>        
+        <form action="user/editUser" method="POST">
+            <fieldset>
+              <input name="id_user" type="hidden" value="<?= $user->id_user ?>"/>
+                <input name="firstname_user" type="text" placeholder="Firstname" value="<?= $user->firstname_user ?>"required/><br>
+                <input name="lastname_user" type="text" placeholder="Lastname" value="<?= $user->lastname_user ?>" required/><br>
+                <input name="mail_user" type="email" placeholder="Email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" required/><br>
+                <input id="password" name="password_user" type="password" placeholder="Password" value="<?= $user->password_user ?>"required/><br>
+                <input name="password_user_bis" type="password" placeholder="Retype your password" oninput="checkPass(this)" required/><br>
+                <input type="submit" value="Update account"/>
+            </fieldset>
+        </form>
+        <em><?php if(isset($info)){echo $info;} ?></em>
+    </section>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+  function checkPass(input) {
+    if (input.value != document.getElementById('password').value) {
+      input.setCustomValidity('The two password must match.');
+    } else {
+      input.setCustomValidity('');
+    }
+  }
+
+  function checkMail(input) {
+    $.ajax({
+        url:'user/checkMail',
+        method:'POST',
+        data:{ 'mail_user' : input.value }
+    })
+    .success(function(data){
+        if (data) {
+          input.setCustomValidity('This mail already exists');
+        } else {
+          input.setCustomValidity('');
+        }
+    })
+    
+  }
+</script>
+</body>
+</html>

@@ -76,6 +76,7 @@ class RecipeController extends Controller{
 				echo View::instance()->render('Recipe/editRecipe.html');
 		}
 	}
+	
 	function getRecipes($f3){
 		$f3->set('recipes',$this->model->getRecipes($f3->get('PARAMS')));
 		echo View::instance()->render('Recipe/viewRecipes.html');
