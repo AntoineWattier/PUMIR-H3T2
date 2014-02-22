@@ -54,7 +54,6 @@ class RecipeController extends Controller{
 			case 'POST':
 				$params = $f3->get('POST');
 				$params['id_user'] = $f3->get('SESSION.id_user');
-				var_dump($params);
 				$recipe = $this->model->editRecipe($params);
 
 				//Si l'enregistrement a réussi on redirige l'user vers sa recette
