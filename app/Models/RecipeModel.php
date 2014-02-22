@@ -55,22 +55,52 @@ class RecipeModel extends Model{
 		$this->mapper->dateUpdate_recipe = date("Y-m-d H:i:s");
 		$this->mapper->save();
 
-		//TOFIX : ( Les index changent à chaque fois avec cette solution même si les steps existent déjà )
-		//Voir pour insert seulement si pas le step n'existe pas et update les existants
+		/**
+		*	Mise à jour des étapes :
+		*	- On parcourt le tableau des étapes :
+		*		- Si l'étape existe déjà on update
+		*			- Si le contenu de l'étape est vide on la delete
+		*			- Sinon on met à jour les champs. 
+		*		- Sinon on insert
+		*
+		*	ATTENTION : l'order_step n'est plus forcément l'index du tableau ( si le contenu d'une étape précédente était vide ),
+		*	on utilise donc un compteur indépendant.
+		*/
 		$step_mapper = $this->getMapper('STEP');
-		$step_mapper->erase(array("id_recipe = :id", ':id' => $params['id_recipe']));
-		foreach ($params['step_recipe'] as $order => $content) {
-			if(!empty($content)){					
-				$step_mapper->reset();
-				$step_mapper->order_step = $order+1;
-				$step_mapper->content_step = $content;
-				$step_mapper->id_recipe = $params['id_recipe'];
-				$step_mapper->save();
+		$index = 1;
+		foreach ($params['step_recipe'] as $order => $content) {	
+			$filter = array("id_recipe = :id AND order_step = :order_step", ':id' => $params['id_recipe'], ':order_step' => $order+1);
+			$step_mapper->load($filter);
+
+			//if record exists : update
+			if(!$step_mapper->dry()){
+				if(!empty($content)){				
+					$step_mapper->order_step = $index;
+					$step_mapper->content_step = $content;
+					$step_mapper->id_recipe = $params['id_recipe'];
+					$step_mapper->save();
+					$index++;	
+				} else {
+					$step_mapper->erase($filter);
+				}
+			//else : insert
+			} else {
+				if(!empty($content)){	
+					$step_mapper->reset();			
+					$step_mapper->order_step = $index;
+					$step_mapper->content_step = $content;
+					$step_mapper->id_recipe = $params['id_recipe'];
+					$step_mapper->save();
+					$index++;	
+				}
 			}
 		}
 
-		//TOFIX : ( Les index changent à chaque fois avec cette solution même si les ingrédients existent déjà )
-		//Voir pour insert seulement si pas l'ingrédient n'existe pas et update les existants
+		/**
+		*	Mise à jour des ingrédients :
+		*	On supprime tous les ingrédients de la recette
+		*	et on rajoute les nouveaux
+		*/
 		$compose_mapper = $this->getMapper('COMPOSE');
 		$compose_mapper->erase(array("id_recipe = :id", ':id' => $params['id_recipe']));
 		foreach ($params['ingredient_recipe'] as $order => $content) {
