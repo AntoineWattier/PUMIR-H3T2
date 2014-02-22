@@ -3,12 +3,13 @@
 	<h1>Edit Recipe</h1>
 	<?php if($recipe && $steps && $ambiance && $ingredients && $author):?>
 	<section>
-		<h2>Create your recipe</h2>              
+		<h2>Edit your recipe</h2>              
 		<form action="recipe/editRecipe" method="POST">
 			<fieldset>
 				<legend>Nom de la recette:</legend>
 				<input name="name_recipe" type="text" placeholder="Name" value="<?= $recipe->name_recipe ?>"required/><br><br>
 				<input name="id_recipe" type="hidden" value="<?= $recipe->id_recipe ?>"/>
+				<input name="id_user" type="hidden" value="<?= $author->id_user ?>"/>
 				<legend>Ingredients de votre recette:</legend>
 			<?php foreach($ingredients as $i): ?>
 				<br><select name="ingredient_recipe[]">
