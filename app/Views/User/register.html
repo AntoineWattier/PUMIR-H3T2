@@ -1,47 +1,100 @@
-<?php include('./app/Views/partials/header.html') ?>
+<?php include('./app/Views/partials/header.html'); ?>
+				
 <div id="createAccount">
-    <section>
-        <h1>Create your account to join</h1>
-        <?php if(isset($_GET['e'])) echo "Veuillez créer un compte pour poster une recette" ?>              
-        <form action="user/register" method="POST">
-            <fieldset>
-                <input name="firstname_user" type="text" placeholder="Firstname" required/><br>
-                <input name="lastname_user" type="text" placeholder="Lastname" required/><br>
-                <input name="mail_user" type="email" placeholder="Email" oninput="checkMail(this)" required/><br>
-                <input id="password" name="password_user" type="password" placeholder="Password" required/><br>
-                <input name="password_user_bis" type="password" placeholder="Retype your password" oninput="checkPass(this)" required/><br>
-                <input type="submit" value="Create account"/>
-            </fieldset>
-        </form>
-        <em><?php if(isset($info)){echo $info;} ?></em>
-    </section>
+		<section>
+				<h1>Create your account to join</h1>
+				<?php if(isset($_GET['e'])) echo "Veuillez créer un compte pour poster une recette" ?>
+				<div id="fb-root"></div>
+				<input type="button" name="login" onclick="fb_login()" value="FB Login">            
+				<form action="user/register" method="POST">
+						<fieldset>
+								<input name="firstname_user" type="text" placeholder="Firstname" required/><br>
+								<input name="lastname_user" type="text" placeholder="Lastname" required/><br>
+								<input name="mail_user" type="email" placeholder="Email" oninput="checkMail(this)" required/><br>
+								<input id="password" name="password_user" type="password" placeholder="Password" required/><br>
+								<input name="password_user_bis" type="password" placeholder="Retype your password" oninput="checkPass(this)" required/><br>
+								<input type="submit" value="Create account"/>
+						</fieldset>
+				</form>
+				<em><?php if(isset($info)){echo $info;} ?></em>
+		</section>
 </div>
 
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script>
-  function checkPass(input) {
-    if (input.value != document.getElementById('password').value) {
-      input.setCustomValidity('The two password must match.');
-    } else {
-      input.setCustomValidity('');
-    }
-  }
+	function checkPass(input) {
+		if (input.value != document.getElementById('password').value) {
+			input.setCustomValidity('The two password must match.');
+		} else {
+			input.setCustomValidity('');
+		}
+	}
 
-  function checkMail(input) {
-    $.ajax({
-        url:'user/checkMail',
-        method:'POST',
-        data:{ 'mail_user' : input.value }
-    })
-    .success(function(data){
-        if (data) {
-          input.setCustomValidity('This mail already exists');
-        } else {
-          input.setCustomValidity('');
-        }
-    })
-    
-  }
+	function checkMail(input) {
+		$.ajax({
+				url:'user/checkMail',
+				method:'POST',
+				data:{ 'mail_user' : input.value }
+		})
+		.success(function(data){
+				if(data.status) {
+					input.setCustomValidity('This mail already exists');
+				} else {
+					input.setCustomValidity('');
+				}
+		})
+		
+	}
+
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId: '638197152884786',
+			cookie: true,
+			xfbml: true,
+			oauth: true
+		});
+
+		/* This is used with facebook button */
+		// FB.Event.subscribe('auth.login', function(response) {
+		//  if (response.authResponse) {
+		//     // Specify the login page (the page in which your fb login button is situated)
+		//     
+		//  }
+		// });
+		// FB.Event.subscribe('auth.logout', function(response) {
+		//    window.location = 'logout.php';
+		// });
+	};
+
+	(function() {
+		var e = document.createElement('script'); e.async = true;
+		e.src = document.location.protocol +
+			'//connect.facebook.net/en_US/all.js';
+		document.getElementById('fb-root').appendChild(e);
+	}());
+
+	function fb_login(){
+		FB.login(function(response) {
+			if (response.authResponse) {
+				FB.api('/me', function(response) {
+					$.ajax({
+						dataType: "json",
+						url:'/user/register',
+						method:'POST',
+						data: { 'firstname_user' : response.first_name,
+							'lastname_user' : response.last_name,
+							'mail_user': response.email
+						}
+					})
+					.success(function(data){
+						window.location = "/";
+					});
+				});
+			} else {
+				console.log('cancelled');
+			}
+		},{scope: 'email'});  
+	}
 </script>
 </body>
 </html>
