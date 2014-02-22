@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# H�te: 127.0.0.1 (MySQL 5.6.16)
-# Base de donn�es: WTFDIET
-# Temps de g�n�ration: 2014-02-21 23:30:15 +0000
+# Hôte: 127.0.0.1 (MySQL 5.6.16)
+# Base de données: WTFDIET
+# Temps de génération: 2014-02-22 01:21:17 +0000
 # ************************************************************
 
 
@@ -88,8 +88,8 @@ CREATE TABLE `COMMENT` (
   `dateUpdate_comment` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_step`,`id_user`),
   KEY `id_user` (`id_user`),
-  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_step`) REFERENCES `STEP` (`id_step`),
-  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`)
+  CONSTRAINT `comment_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
+  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_step`) REFERENCES `STEP` (`id_step`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -106,8 +106,8 @@ CREATE TABLE `COMPOSE` (
   `measure_ingredient` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ingredient`,`id_recipe`),
   KEY `id_recipe` (`id_recipe`),
-  CONSTRAINT `compose_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `INGREDIENT` (`id_ingredient`),
-  CONSTRAINT `compose_ibfk_2` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`)
+  CONSTRAINT `compose_ibfk_3` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE,
+  CONSTRAINT `compose_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `INGREDIENT` (`id_ingredient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `COMPOSE` WRITE;
@@ -1267,7 +1267,7 @@ CREATE TABLE `RECIPE` (
   PRIMARY KEY (`id_recipe`),
   KEY `id_user` (`id_user`),
   KEY `id_ambiance` (`id_ambiance`),
-  CONSTRAINT `recipe_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`),
+  CONSTRAINT `recipe_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
   CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`id_ambiance`) REFERENCES `AMBIANCE` (`id_ambiance`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1276,12 +1276,12 @@ LOCK TABLES `RECIPE` WRITE;
 
 INSERT INTO `RECIPE` (`id_recipe`, `slug_recipe`, `name_recipe`, `numberOfPeople_recipe`, `preparationTime_recipe`, `difficulty_recipe`, `dateAdd_recipe`, `dateUpdate_recipe`, `id_user`, `id_ambiance`, `votes_recipe`)
 VALUES
-	(1,'tarte-aux-pommes','Tarte aux pommes',2,1,1,'2014-02-19 17:27:46','0000-00-00 00:00:00',1,3,0),
+	(1,'tarte-aux-pommes','Tarte aux pommes',8,1,1,'2014-02-19 17:27:46','2014-02-22 02:19:53',1,3,0),
 	(2,'tarte-aux-prunes','Tarte aux prunes',2,1,1,'2014-02-19 17:27:46','0000-00-00 00:00:00',2,2,1),
 	(3,'agneau-a-l-abricot','Agneau à l\'abricot',1,1,1,'2014-02-20 15:29:03','0000-00-00 00:00:00',1,3,0),
 	(5,'repoune-de-baleine','Repoune de baleine',6,3,1,'2014-02-21 09:41:43','0000-00-00 00:00:00',2,3,1),
-	(6,'salade-a-la-mingogo','Salade à la Mingogo',2,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,3,0),
-	(7,'salade-facon-mingoia','Salade façon Mingoia',2,1,1,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,3,0);
+	(6,'salade-a-la-mingogo','Salade à la Mingogo',2,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,4,0),
+	(7,'salade-facon-mingoia','Salade façon Mingoia',2,1,1,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,1,0);
 
 /*!40000 ALTER TABLE `RECIPE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1299,7 +1299,7 @@ CREATE TABLE `STEP` (
   `id_recipe` int(11) NOT NULL,
   PRIMARY KEY (`id_step`),
   KEY `id_recipe` (`id_recipe`),
-  CONSTRAINT `step_ibfk_1` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`)
+  CONSTRAINT `step_ibfk_2` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `STEP` WRITE;
@@ -1319,7 +1319,9 @@ VALUES
 	(10,3,'Y mettre la sauce',7),
 	(11,4,'Déposer deux tranches fines de jambon de Parme découenné par assiette',7),
 	(12,5,'Saupoudrer de copeaux de parmesan',7),
-	(13,6,'Servir rapidement',7);
+	(13,6,'Servir rapidement',7),
+	(14,1,'Couper les pommes',1),
+	(15,2,'Etape 2',1);
 
 /*!40000 ALTER TABLE `STEP` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1387,8 +1389,8 @@ CREATE TABLE `VOTE` (
   PRIMARY KEY (`id_vote`),
   KEY `id_user` (`id_user`),
   KEY `id_recipe` (`id_recipe`),
-  CONSTRAINT `vote_ibfk_2` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`),
-  CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`)
+  CONSTRAINT `vote_ibfk_4` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE,
+  CONSTRAINT `vote_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `VOTE` WRITE;

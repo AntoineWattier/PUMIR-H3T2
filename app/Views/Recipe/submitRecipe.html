@@ -7,15 +7,14 @@
 				<legend>Nom de la recette:</legend>
 				<input name="name_recipe" type="text" placeholder="Name" required/><br><br>
 				<legend>Ingredients de votre recette:</legend>
-				<?php if(isset($ingredients)):?>
+			<?php if(isset($allIngredients)):?>
 				<select name="ingredient_recipe[]">
 					<option value="-1" selected>-----</option>
-					<?php foreach($ingredients as $ingredient): ?>
+					<?php foreach($allIngredients as $ingredient): ?>
 						<option value="<?= $ingredient->id_ingredient ?>" ><?= $ingredient->name_ingredient ?></option>
 					<?php endforeach ?>
-				<?php endif; ?>
-
 				</select>
+			<?php endif; ?>		
 				<legend>Étapes de la recette:</legend>
 				+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape" required /><br>	
 

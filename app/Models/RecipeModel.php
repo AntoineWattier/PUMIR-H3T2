@@ -42,6 +42,40 @@ class RecipeModel extends Model{
 
 	}
 
+	function editRecipe($params){
+		$this->mapper->load(array("id_recipe = :id", ':id' => $params['id_recipe']));
+		$params['slug_recipe'] =  \Helpers\Tools::instance()->slugify(strtolower($params['name_recipe']));
+		// $params['id_user'];
+		$this->mapper->name_recipe = $params['name_recipe'];
+		$this->mapper->slug_recipe = $params['slug_recipe'];
+		$this->mapper->numberOfPeople_recipe = $params['numberOfPeople_recipe'];
+		$this->mapper->preparationTime_recipe= $params['preparationTime_recipe'];
+		//$this->mapper->id_user= $params[''];
+		$this->mapper->id_ambiance= $params['id_ambiance'];
+		$this->mapper->dateUpdate_recipe = date("Y-m-d H:i:s");
+		$this->mapper->save();
+
+		// $step_mapper = $this->getMapper('STEP');
+		// foreach ($_POST['step_recipe'] as $order => $content) {
+		// 	if(!empty($content)){	
+		// 		$step_mapper->load(array("id_recipe = :id", ':id' => $params['id_recipe']));
+		// 		$step_mapper->order_step = $order+1;
+		// 		$step_mapper->content_step = $content;
+		// 		$step_mapper->save();
+		// 	}
+		// }
+		// $compose_mapper = $this->getMapper('COMPOSE');
+		// foreach ($_POST['ingredient_recipe'] as $order => $content) {
+		// 	if(!empty($content) && $content != -1 ){	
+		// 		$compose_mapper->load(array("id_recipe = :id", ':id' => $params['id_recipe']));
+		// 		$compose_mapper->id_ingredient= $content;
+		// 		$compose_mapper->save();
+		// 	}
+		// }
+		return $this->mapper;
+
+	}
+
 	function getRecipes($params){
 		$req = array('order'=>'name_recipe');
 		if(isset($params['filter'] )){
