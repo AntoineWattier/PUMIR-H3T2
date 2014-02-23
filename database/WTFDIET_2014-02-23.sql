@@ -7,7 +7,7 @@
 #
 # Hôte: 127.0.0.1 (MySQL 5.6.16)
 # Base de données: WTFDIET
-# Temps de génération: 2014-02-22 01:21:17 +0000
+# Temps de génération: 2014-02-23 17:05:35 +0000
 # ************************************************************
 
 
@@ -80,18 +80,29 @@ CREATE TABLE `associate` (
 DROP TABLE IF EXISTS `COMMENT`;
 
 CREATE TABLE `COMMENT` (
-  `id_step` int(11) NOT NULL AUTO_INCREMENT,
+  `id_step` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_comment` int(11) NOT NULL,
+  `id_comment` int(11) NOT NULL AUTO_INCREMENT,
   `content_comment` text NOT NULL,
   `dateAdd_comment` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateUpdate_comment` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id_step`,`id_user`),
+  PRIMARY KEY (`id_comment`),
   KEY `id_user` (`id_user`),
+  KEY `id_step` (`id_step`),
   CONSTRAINT `comment_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
-  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_step`) REFERENCES `STEP` (`id_step`)
+  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_step`) REFERENCES `STEP` (`id_step`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `COMMENT` WRITE;
+/*!40000 ALTER TABLE `COMMENT` DISABLE KEYS */;
+
+INSERT INTO `COMMENT` (`id_step`, `id_user`, `id_comment`, `content_comment`, `dateAdd_comment`, `dateUpdate_comment`)
+VALUES
+	(5,1,7,'test','2014-02-22 21:37:43','0000-00-00 00:00:00'),
+	(5,1,8,'Salut','2014-02-22 21:38:00','0000-00-00 00:00:00');
+
+/*!40000 ALTER TABLE `COMMENT` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Affichage de la table COMPOSE
@@ -125,18 +136,46 @@ VALUES
 	(1520,7,NULL,NULL),
 	(1640,6,NULL,NULL),
 	(1730,7,NULL,NULL),
-	(1743,1,1,NULL),
+	(1743,1,NULL,NULL),
 	(1743,2,1,NULL),
 	(1793,7,NULL,NULL),
-	(1800,1,10,NULL),
+	(1794,3,NULL,NULL),
+	(1800,1,NULL,NULL),
 	(1822,2,500,NULL),
 	(1850,6,NULL,NULL),
 	(1896,7,NULL,NULL),
+	(1927,1,NULL,NULL),
 	(1937,7,NULL,NULL),
+	(1964,1,NULL,NULL),
 	(2022,6,NULL,NULL),
 	(2043,7,NULL,NULL);
 
 /*!40000 ALTER TABLE `COMPOSE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Affichage de la table DIFFICULTY
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `DIFFICULTY`;
+
+CREATE TABLE `DIFFICULTY` (
+  `id_difficulty` int(11) NOT NULL AUTO_INCREMENT,
+  `slug_difficulty` varchar(100) NOT NULL DEFAULT '',
+  `name_difficulty` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_difficulty`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `DIFFICULTY` WRITE;
+/*!40000 ALTER TABLE `DIFFICULTY` DISABLE KEYS */;
+
+INSERT INTO `DIFFICULTY` (`id_difficulty`, `slug_difficulty`, `name_difficulty`)
+VALUES
+	(1,'facile','Facile'),
+	(2,'moyen','Moyen'),
+	(3,'avance','Avancé');
+
+/*!40000 ALTER TABLE `DIFFICULTY` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -168,11 +207,15 @@ CREATE TABLE `fullrecipe` (
    `name_recipe` VARCHAR(50) NOT NULL,
    `votes_recipe` INT(11) NULL DEFAULT '0',
    `dateAdd_recipe` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
-   `preparationTime_recipe` INT(11) NOT NULL,
-   `difficulty_recipe` INT(1) NOT NULL DEFAULT '1',
+   `id_ambiance` INT(11) NOT NULL,
+   `id_preparationTime` INT(11) NOT NULL,
+   `id_difficulty` INT(1) NOT NULL DEFAULT '1',
+   `id_type` INT(1) NOT NULL DEFAULT '1',
    `numberOfPeople_recipe` INT(11) NOT NULL,
    `name_ambiance` VARCHAR(100) NOT NULL,
-   `id_ambiance` INT(11) NOT NULL DEFAULT '0'
+   `name_preparationTime` VARCHAR(100) NOT NULL DEFAULT '',
+   `name_difficulty` VARCHAR(100) NOT NULL DEFAULT '',
+   `name_type` VARCHAR(100) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM;
 
 
@@ -1247,6 +1290,49 @@ CREATE TABLE `MEDIA` (
 
 
 
+# Affichage de la table post
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `post`;
+
+CREATE TABLE `post` (
+   `id_user` INT(11) NOT NULL DEFAULT '0',
+   `firstname_user` VARCHAR(50) NOT NULL,
+   `lastname_user` VARCHAR(50) NOT NULL,
+   `id_comment` INT(11) NOT NULL DEFAULT '0',
+   `content_comment` TEXT NOT NULL,
+   `dateAdd_comment` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+   `id_step` INT(11) NOT NULL,
+   `id_recipe` INT(11) NOT NULL
+) ENGINE=MyISAM;
+
+
+
+# Affichage de la table PREPARATIONTIME
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `PREPARATIONTIME`;
+
+CREATE TABLE `PREPARATIONTIME` (
+  `id_preparationTime` int(11) NOT NULL AUTO_INCREMENT,
+  `slug_preparationTime` varchar(100) NOT NULL DEFAULT '',
+  `name_preparationTime` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_preparationTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `PREPARATIONTIME` WRITE;
+/*!40000 ALTER TABLE `PREPARATIONTIME` DISABLE KEYS */;
+
+INSERT INTO `PREPARATIONTIME` (`id_preparationTime`, `slug_preparationTime`, `name_preparationTime`)
+VALUES
+	(1,'10-min','10 min'),
+	(2,'20-min','20 min'),
+	(3,'30-min+','30 min+');
+
+/*!40000 ALTER TABLE `PREPARATIONTIME` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Affichage de la table RECIPE
 # ------------------------------------------------------------
 
@@ -1257,8 +1343,9 @@ CREATE TABLE `RECIPE` (
   `slug_recipe` varchar(50) NOT NULL,
   `name_recipe` varchar(50) NOT NULL,
   `numberOfPeople_recipe` int(11) NOT NULL,
-  `preparationTime_recipe` int(11) NOT NULL,
-  `difficulty_recipe` int(1) NOT NULL DEFAULT '1',
+  `id_preparationTime` int(11) NOT NULL,
+  `id_difficulty` int(1) NOT NULL DEFAULT '1',
+  `id_type` int(1) NOT NULL DEFAULT '1',
   `dateAdd_recipe` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateUpdate_recipe` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `id_user` int(11) NOT NULL,
@@ -1267,21 +1354,27 @@ CREATE TABLE `RECIPE` (
   PRIMARY KEY (`id_recipe`),
   KEY `id_user` (`id_user`),
   KEY `id_ambiance` (`id_ambiance`),
+  KEY `difficulty_recipe` (`id_difficulty`),
+  KEY `type_recipe` (`id_type`),
+  KEY `preparationTime_recipe` (`id_preparationTime`),
+  CONSTRAINT `recipe_ibfk_6` FOREIGN KEY (`id_preparationTime`) REFERENCES `preparationtime` (`id_preparationTime`),
+  CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`id_ambiance`) REFERENCES `AMBIANCE` (`id_ambiance`),
   CONSTRAINT `recipe_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
-  CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`id_ambiance`) REFERENCES `AMBIANCE` (`id_ambiance`)
+  CONSTRAINT `recipe_ibfk_4` FOREIGN KEY (`id_difficulty`) REFERENCES `DIFFICULTY` (`id_difficulty`),
+  CONSTRAINT `recipe_ibfk_5` FOREIGN KEY (`Id_type`) REFERENCES `TYPE` (`id_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `RECIPE` WRITE;
 /*!40000 ALTER TABLE `RECIPE` DISABLE KEYS */;
 
-INSERT INTO `RECIPE` (`id_recipe`, `slug_recipe`, `name_recipe`, `numberOfPeople_recipe`, `preparationTime_recipe`, `difficulty_recipe`, `dateAdd_recipe`, `dateUpdate_recipe`, `id_user`, `id_ambiance`, `votes_recipe`)
+INSERT INTO `RECIPE` (`id_recipe`, `slug_recipe`, `name_recipe`, `numberOfPeople_recipe`, `id_preparationTime`, `id_difficulty`, `id_type`, `dateAdd_recipe`, `dateUpdate_recipe`, `id_user`, `id_ambiance`, `votes_recipe`)
 VALUES
-	(1,'tarte-aux-pommes','Tarte aux pommes',8,1,1,'2014-02-19 17:27:46','2014-02-22 02:19:53',1,3,0),
-	(2,'tarte-aux-prunes','Tarte aux prunes',2,1,1,'2014-02-19 17:27:46','0000-00-00 00:00:00',2,2,1),
-	(3,'agneau-a-l-abricot','Agneau à l\'abricot',1,1,1,'2014-02-20 15:29:03','0000-00-00 00:00:00',1,3,0),
-	(5,'repoune-de-baleine','Repoune de baleine',6,3,1,'2014-02-21 09:41:43','0000-00-00 00:00:00',2,3,1),
-	(6,'salade-a-la-mingogo','Salade à la Mingogo',2,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,4,0),
-	(7,'salade-facon-mingoia','Salade façon Mingoia',2,1,1,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,1,0);
+	(1,'tarte-aux-pommes','Tarte aux pommes',8,3,1,3,'2014-02-19 17:27:46','2014-02-23 17:56:46',1,5,1),
+	(2,'tarte-aux-prunes','Tarte aux prunes',2,1,1,3,'2014-02-19 17:27:46','0000-00-00 00:00:00',2,2,1),
+	(3,'agneau-a-l-abricot','Agneau à l\'abricot',1,1,1,2,'2014-02-20 15:29:03','2014-02-22 19:59:00',1,3,1),
+	(5,'repoune-de-baleine','Repoune de baleine',6,3,1,2,'2014-02-21 09:41:43','0000-00-00 00:00:00',2,3,1),
+	(6,'salade-a-la-mingogo','Salade à la Mingogo',2,1,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,4,0),
+	(7,'salade-facon-mingoia','Salade façon Mingoia',2,1,1,2,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,1,0);
 
 /*!40000 ALTER TABLE `RECIPE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1298,6 +1391,7 @@ CREATE TABLE `STEP` (
   `content_step` text NOT NULL,
   `id_recipe` int(11) NOT NULL,
   PRIMARY KEY (`id_step`),
+  UNIQUE KEY `order_step` (`order_step`,`id_recipe`),
   KEY `id_recipe` (`id_recipe`),
   CONSTRAINT `step_ibfk_2` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1307,10 +1401,7 @@ LOCK TABLES `STEP` WRITE;
 
 INSERT INTO `STEP` (`id_step`, `order_step`, `content_step`, `id_recipe`)
 VALUES
-	(1,1,'Couper les pommes',1),
-	(2,2,'Etape 2',1),
 	(3,1,'Faire cuire',2),
-	(4,1,'ee',3),
 	(5,1,'Sortir les casseroles',5),
 	(6,2,'Mettre du sel',5),
 	(7,1,'Sortir la salade de la casserole',6),
@@ -1320,8 +1411,10 @@ VALUES
 	(11,4,'Déposer deux tranches fines de jambon de Parme découenné par assiette',7),
 	(12,5,'Saupoudrer de copeaux de parmesan',7),
 	(13,6,'Servir rapidement',7),
-	(14,1,'Couper les pommes',1),
-	(15,2,'Etape 2',1);
+	(73,1,'Tuer l\'agneau',3),
+	(91,1,'Faire cuire',1),
+	(98,2,'TEST3',1),
+	(99,2,'Manger',3);
 
 /*!40000 ALTER TABLE `STEP` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1341,6 +1434,31 @@ CREATE TABLE `submit` (
 
 
 
+# Affichage de la table TYPE
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `TYPE`;
+
+CREATE TABLE `TYPE` (
+  `id_type` int(11) NOT NULL AUTO_INCREMENT,
+  `slug_type` varchar(100) NOT NULL DEFAULT '',
+  `name_type` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `TYPE` WRITE;
+/*!40000 ALTER TABLE `TYPE` DISABLE KEYS */;
+
+INSERT INTO `TYPE` (`id_type`, `slug_type`, `name_type`)
+VALUES
+	(1,'entree','Entrée'),
+	(2,'plat','Plat'),
+	(3,'dessert','Dessert');
+
+/*!40000 ALTER TABLE `TYPE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Affichage de la table USER
 # ------------------------------------------------------------
 
@@ -1353,9 +1471,10 @@ CREATE TABLE `USER` (
   `firstname_user` varchar(50) NOT NULL,
   `lastname_user` varchar(50) NOT NULL,
   `mail_user` varchar(100) NOT NULL,
-  `password_user` varchar(100) NOT NULL,
+  `password_user` varchar(100) DEFAULT NULL,
   `karmaPoints_user` int(11) DEFAULT NULL,
-  `facebookId_user` int(50) DEFAULT NULL,
+  `facebookId_user` varchar(50) DEFAULT NULL,
+  `instagramId_user` varchar(50) DEFAULT NULL,
   `subscribeDate_user` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lastLogin_user` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id_user`)
@@ -1364,13 +1483,14 @@ CREATE TABLE `USER` (
 LOCK TABLES `USER` WRITE;
 /*!40000 ALTER TABLE `USER` DISABLE KEYS */;
 
-INSERT INTO `USER` (`id_user`, `slug_user`, `adminLevel_user`, `firstname_user`, `lastname_user`, `mail_user`, `password_user`, `karmaPoints_user`, `facebookId_user`, `subscribeDate_user`, `lastLogin_user`)
+INSERT INTO `USER` (`id_user`, `slug_user`, `adminLevel_user`, `firstname_user`, `lastname_user`, `mail_user`, `password_user`, `karmaPoints_user`, `facebookId_user`, `instagramId_user`, `subscribeDate_user`, `lastLogin_user`)
 VALUES
-	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test',NULL,NULL,'2014-02-19 16:36:22','2014-02-22 00:14:20'),
-	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test',NULL,NULL,'2014-02-19 18:35:23','2014-02-21 23:03:56'),
-	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon',NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
-	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test',NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
-	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty',NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00');
+	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test',NULL,NULL,NULL,'2014-02-19 16:36:22','2014-02-23 17:52:50'),
+	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test',NULL,NULL,NULL,'2014-02-19 18:35:23','2014-02-21 23:03:56'),
+	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon',NULL,NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
+	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test',NULL,NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
+	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty',NULL,NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00'),
+	(33,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com',NULL,NULL,'100001487385616',NULL,'2014-02-23 11:01:23','2014-02-23 12:19:04');
 
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1398,8 +1518,10 @@ LOCK TABLES `VOTE` WRITE;
 
 INSERT INTO `VOTE` (`id_vote`, `id_user`, `id_recipe`, `date_vote`)
 VALUES
-	(434,1,2,'2014-02-22 00:14:27'),
-	(435,1,5,'2014-02-22 00:15:00');
+	(435,1,5,'2014-02-22 00:15:00'),
+	(442,1,1,'2014-02-22 12:31:21'),
+	(445,1,2,'2014-02-22 17:09:12'),
+	(446,1,3,'2014-02-22 19:59:09');
 
 /*!40000 ALTER TABLE `VOTE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1415,6 +1537,24 @@ DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 
+
+
+# Replace placeholder table for post with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `post`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `post`
+AS SELECT
+   `u`.`id_user` AS `id_user`,
+   `u`.`firstname_user` AS `firstname_user`,
+   `u`.`lastname_user` AS `lastname_user`,
+   `c`.`id_comment` AS `id_comment`,
+   `c`.`content_comment` AS `content_comment`,
+   `c`.`dateAdd_comment` AS `dateAdd_comment`,
+   `c`.`id_step` AS `id_step`,
+   `s`.`id_recipe` AS `id_recipe`
+FROM ((`comment` `c` join `user` `u` on((`c`.`id_user` = `u`.`id_user`))) join `step` `s` on((`c`.`id_step` = `s`.`id_step`)));
 
 
 # Replace placeholder table for favorite with correct view syntax
@@ -1473,12 +1613,16 @@ AS SELECT
    `recipe`.`name_recipe` AS `name_recipe`,
    `recipe`.`votes_recipe` AS `votes_recipe`,
    `recipe`.`dateAdd_recipe` AS `dateAdd_recipe`,
-   `recipe`.`preparationTime_recipe` AS `preparationTime_recipe`,
-   `recipe`.`difficulty_recipe` AS `difficulty_recipe`,
+   `recipe`.`id_ambiance` AS `id_ambiance`,
+   `recipe`.`id_preparationTime` AS `id_preparationTime`,
+   `recipe`.`id_difficulty` AS `id_difficulty`,
+   `recipe`.`id_type` AS `id_type`,
    `recipe`.`numberOfPeople_recipe` AS `numberOfPeople_recipe`,
-   `adapt`.`name_ambiance` AS `name_ambiance`,
-   `adapt`.`id_ambiance` AS `id_ambiance`
-FROM ((`recipe` join `user` on((`recipe`.`id_user` = `user`.`id_user`))) join `adapt` on((`recipe`.`id_recipe` = `adapt`.`id_recipe`)));
+   `ambiance`.`name_ambiance` AS `name_ambiance`,
+   `preparationtime`.`name_preparationTime` AS `name_preparationTime`,
+   `difficulty`.`name_difficulty` AS `name_difficulty`,
+   `type`.`name_type` AS `name_type`
+FROM (((((`recipe` join `user` on((`recipe`.`id_user` = `user`.`id_user`))) join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`))) join `preparationtime` on((`recipe`.`id_preparationTime` = `preparationtime`.`id_preparationTime`))) join `difficulty` on((`recipe`.`id_difficulty` = `difficulty`.`id_difficulty`))) join `type` on((`recipe`.`id_type` = `type`.`id_type`)));
 
 
 # Replace placeholder table for submit with correct view syntax

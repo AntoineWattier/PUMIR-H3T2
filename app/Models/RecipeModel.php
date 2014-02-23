@@ -15,7 +15,7 @@ class RecipeModel extends Model{
 		$_POST['id_user'] = $params['id_user'];
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
-		    	array('name_recipe','slug_recipe','numberOfPeople_recipe','preparationTime_recipe','id_user','id_ambiance'))
+		    	array('name_recipe','slug_recipe','numberOfPeople_recipe','id_preparationTime','id_user','id_ambiance'))
 		    );
 		});
 		$this->mapper->save();
@@ -49,7 +49,7 @@ class RecipeModel extends Model{
 		$this->mapper->name_recipe = $params['name_recipe'];
 		$this->mapper->slug_recipe = $params['slug_recipe'];
 		$this->mapper->numberOfPeople_recipe = $params['numberOfPeople_recipe'];
-		$this->mapper->preparationTime_recipe= $params['preparationTime_recipe'];
+		$this->mapper->id_preparationTime= $params['id_preparationTime'];
 		//$this->mapper->id_user= $params[''];
 		$this->mapper->id_ambiance= $params['id_ambiance'];
 		$this->mapper->dateUpdate_recipe = date("Y-m-d H:i:s");
@@ -136,17 +136,18 @@ class RecipeModel extends Model{
 	function getRecipesByUser($params){
 		return $this->mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
-
 	function getRecipesByFilter($params){
 		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
-		if(isset($params['preparationTime_recipe']))
+		if(isset($params['id_preparationTime']))
 			$filter = array("id_ambiance = :id_ambiance 
-				AND preparationTime_recipe= :preparationTime_recipe 
-				AND difficulty_recipe= :difficulty_recipe
+				AND id_preparationTime= :id_preparationTime 
+				AND id_difficulty= :id_difficulty
+				AND id_type= :id_type
 				AND numberOfPeople_recipe = :numberOfPeople_recipe", 
 				':id_ambiance' => $params['id_ambiance'],
-				':preparationTime_recipe' => $params['preparationTime_recipe'],
-				':difficulty_recipe' => $params['difficulty_recipe'],
+				':id_preparationTime' => $params['id_preparationTime'],
+				':id_difficulty' => $params['id_difficulty'],
+				':id_type' => $params['id_type'],
 				':numberOfPeople_recipe' => $params['numberOfPeople_recipe']
 				);
 		else 
@@ -168,6 +169,21 @@ class RecipeModel extends Model{
 	function getAmbiances(){
 		$ambiance_mapper = $this->getMapper('AMBIANCE');
 		return $ambiance_mapper->find();
+	}
+
+	function getPreparationTimes(){
+		$preparationTime_mapper = $this->getMapper('PREPARATIONTIME');
+		return $preparationTime_mapper->find();
+	}
+
+	function getDifficulties(){
+		$difficulty_mapper = $this->getMapper('DIFFICULTY');
+		return $difficulty_mapper->find();
+	}
+
+	function getTypes(){
+		$type_mapper = $this->getMapper('TYPE');
+		return $type_mapper->find();
 	}
 
 	function getAmbiance($params){

@@ -2,15 +2,38 @@
 <body class="clearfix">
 	<h2>Conciergerie</h2>
 	<?php if(isset($ambiances)):?>
+		<form>
 		<?php foreach($ambiances as $ambiance): ?>
 			<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" ><?= $ambiance->name_ambiance ?><br>
 		<?php endforeach ?>
+			<legend>Difficulté:</legend>
+		<?php foreach($difficulties as $difficulty): ?>
+			<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" ><?= $difficulty->name_difficulty?><br>
+		<?php endforeach ?>
+			<legend>Temps de préparation:</legend>
+		<?php foreach($preparationTimes as $preparationTime): ?>
+			<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" ><?= $preparationTime->name_preparationTime?><br>
+		<?php endforeach ?>
+			<legend>Type de plat:</legend>
+		<?php foreach($types as $type): ?>
+			<input type="radio" name="id_type" value="<?= $type->id_type ?>" ><?= $type->name_type?><br>
+		<?php endforeach ?>
+			<legend>Nombre de personnes:</legend>
+			<input name="numberOfPeople_recipe" type="number" placeholder="Nombre de personnes" min="1" max="15" required/><br>
+			<input type="button" name="find" value="find">
+		</form>
 	<?php endif; ?>
 	<script type="text/javascript">
-	$('input[name="id_ambiance"]').on('click',function(e){
+	$('input[name="find"]').on('click',function(e){
 		$this=$(this);
+		$form = $this.parent("form");
 		e.preventDefault();
-		window.location = "/recipe/getRecipesByFilter/"+$this.val();
+		if($('input[name="id_difficulty"]:checked').val() != '' ){
+			window.location = "/recipe/getRecipesByFilter/"+$('input[name="id_ambiance"]:checked').val()+'&'+$('input[name="id_preparationTime"]:checked').val()+'&'+$('input[name="id_difficulty"]:checked').val()+'&'+$('input[name="id_type"]:checked').val()+'&'+$('input[name="numberOfPeople_recipe"]').val();
+		} else {
+			window.location = "/recipe/getRecipesByFilter/"+$('input[name="id_ambiance"]:checked').val();
+		}
+			
 	});
 	</script>
 </body>

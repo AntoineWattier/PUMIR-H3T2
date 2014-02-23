@@ -36,17 +36,23 @@
 
 
 				<legend>Difficulté:</legend>
-				<input type="radio" name="difficulty_recipe" value="1" checked> Easy<br>
-				<input type="radio" name="difficulty_recipe" value="2"> Medium<br>
-				<input type="radio" name="difficulty_recipe" value="3"> Hard<br>
+				<?php if(isset($difficulties)):?>
+					<?php foreach($difficulties as $difficulty): ?>
+						<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($recipe->id_difficulty == $difficulty->id_difficulty ) echo 'checked' ?>> <?= $difficulty->name_difficulty ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
 				<legend>Temps de préparation:</legend>
-				<input type="radio" name="preparationTime_recipe" value="1" <?php if($recipe->preparationTime_recipe ==1) echo 'checked' ?>> 10 min<br>
-				<input type="radio" name="preparationTime_recipe" value="2"<?php if($recipe->preparationTime_recipe ==2) echo 'checked' ?>> 20 min<br>
-				<input type="radio" name="preparationTime_recipe" value="3"<?php if($recipe->preparationTime_recipe ==3) echo 'checked' ?>> 30 min +<br>
+				<?php if(isset($preparationTimes)):?>
+					<?php foreach($preparationTimes as $preparationTime): ?>
+						<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($recipe->id_preparationTime == $preparationTime->id_preparationTime ) echo 'checked' ?>> <?= $preparationTime->name_preparationTime ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
 				<legend>Type de plat:</legend>
-				<input type="radio" name="type_recipe" value="1" checked> Entrée<br>
-				<input type="radio" name="type_recipe" value="2"> Plat<br>
-				<input type="radio" name="type_recipe" value="3"> Dessert<br>
+				<?php if(isset($types)):?>
+					<?php foreach($types as $type): ?>
+						<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($recipe->id_type == $type->id_type ) echo 'checked' ?>> <?= $type->name_type ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
 				<legend>Nombre de personnes:</legend>
 				<input name="numberOfPeople_recipe" type="number" placeholder="Nombre de personnes" min="1" max="15" value="<?= $recipe->numberOfPeople_recipe ?>" required/><br>
 				<legend>Ambiance de votre recette:</legend>

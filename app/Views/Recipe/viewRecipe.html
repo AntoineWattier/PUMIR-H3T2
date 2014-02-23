@@ -7,7 +7,7 @@
 		<tr><td>slug  <td><?= \Helpers\Tools::instance()->slugify($recipe->slug_recipe) ?>
 		<tr><td>name  <td><?= $recipe->name_recipe ?>
 		<tr><td>number of people  <td><?= $recipe->numberOfPeople_recipe ?>
-		<tr><td>preparation Time  <td><?= $recipe->preparationTime_recipe ?>
+		<tr><td>preparation Time  <td><?= $recipe->id_preparationTime ?>
 	<?php foreach ($steps as $step): ?>
 		<tr><td>Step nº<?= $step->order_step ?><td><?= $step->content_step ?>
 				<ul>
