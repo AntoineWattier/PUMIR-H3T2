@@ -37,19 +37,14 @@ class UserController extends Controller{
 			case 'POST':
 				$user = $this->model->register($f3->get('POST'));
 
-					//Si l'inscription a réussi on log l'user et on le redirige vers l'accueil
-					if($user){
-						$f3->set('user',$user);			
-						$f3->set('SESSION.id_user', $user->id_user);
-						$f3->set('SESSION.firstname_user', $user->firstname_user);
-						$f3->set('SESSION.lastname_user', $user->lastname_user);
-									
-						if($f3->get('AJAX')){
-							echo json_encode(array('status'=>true));
-						} else {
-							$f3->reroute('/');
-						}
-					} 
+				//Si l'inscription a réussi on log l'user et on le redirige vers l'accueil
+				if($user){
+					$f3->set('user',$user);			
+					$f3->set('SESSION.id_user', $user->id_user);
+					$f3->set('SESSION.firstname_user', $user->firstname_user);
+					$f3->set('SESSION.lastname_user', $user->lastname_user);		
+					$f3->reroute('/');
+				} 
 				
 				break;			
 			case 'GET':
@@ -58,6 +53,23 @@ class UserController extends Controller{
 				echo View::instance()->render('User/register.html');
 		}
 		
+	}
+
+
+	function FBConnect($f3){	
+		if($f3->get('VERB') == 'GET')
+			$f3->error(405); 
+
+		$user = $this->model->FBConnect($f3->get('POST'));
+
+		//Si l'inscription a réussi on log l'user et on le redirige vers l'accueil
+		if($user){
+			$f3->set('user',$user);			
+			$f3->set('SESSION.id_user', $user->id_user);
+			$f3->set('SESSION.firstname_user', $user->firstname_user);
+			$f3->set('SESSION.lastname_user', $user->lastname_user);				
+			echo json_encode(array('status'=>true));			
+		} 		
 	}
 
 	function checkMail($f3){

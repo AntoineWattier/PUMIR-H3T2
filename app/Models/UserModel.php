@@ -38,6 +38,29 @@ class UserModel extends Model{
 		return $this->mapper;
 	}
 
+	function FBConnect($params){
+		$this->mapper->load(array("facebookId_user = :facebookId_user", 'facebookId_user'=>$params['facebookId_user']));
+
+		//Si l'user n'est pas déjà register via FB on l'insert
+		if($this->mapper->dry()){
+			$this->mapper->reset();		
+			$_POST['adminLevel_user'] = 0;
+			$_POST['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
+			$this->mapper->copyfrom('POST',function($val) {
+			    return array_intersect_key($val, array_flip(
+			    	array('firstname_user','lastname_user','slug_user','mail_user','facebookId_user'))
+			    );
+			});
+			$this->mapper->save();
+		} else {
+		//Sinon on le log
+			$this->mapper->lastLogin_user = date("Y-m-d H:i:s");
+			$this->mapper->save();
+		}
+
+		return $this->mapper;
+	}
+
 	function checkMail($params){
 		$this->mapper->reset();
 		$this->mapper->load(array("mail_user = :mail", 'mail'=>$params['mail_user']));

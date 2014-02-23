@@ -77,13 +77,15 @@
 		FB.login(function(response) {
 			if (response.authResponse) {
 				FB.api('/me', function(response) {
+					console.log(response);
 					$.ajax({
 						dataType: "json",
-						url:'/user/register',
+						url:'/user/FBConnect',
 						method:'POST',
 						data: { 'firstname_user' : response.first_name,
 							'lastname_user' : response.last_name,
-							'mail_user': response.email
+							'mail_user': response.email,
+							'facebookId_user': response.id
 						}
 					})
 					.success(function(data){

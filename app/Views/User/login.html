@@ -1,5 +1,7 @@
 <?php include('./app/Views/partials/header.html') ?>
 <body class="clearfix">
+	<div id="fb-root"></div>
+	<input type="button" name="login" onclick="fb_login()" value="FB Login">   
 	<section id="form">
 		<form action="user/login" method="post">
 			<input type="text" name="mail_user" placeholder="Mail"></input>
