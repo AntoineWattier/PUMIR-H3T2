@@ -45,58 +45,6 @@
 		})
 		
 	}
-
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId: '638197152884786',
-			cookie: true,
-			xfbml: true,
-			oauth: true
-		});
-
-		/* This is used with facebook button */
-		// FB.Event.subscribe('auth.login', function(response) {
-		//  if (response.authResponse) {
-		//     // Specify the login page (the page in which your fb login button is situated)
-		//     
-		//  }
-		// });
-		// FB.Event.subscribe('auth.logout', function(response) {
-		//    window.location = 'logout.php';
-		// });
-	};
-
-	(function() {
-		var e = document.createElement('script'); e.async = true;
-		e.src = document.location.protocol +
-			'//connect.facebook.net/en_US/all.js';
-		document.getElementById('fb-root').appendChild(e);
-	}());
-
-	function fb_login(){
-		FB.login(function(response) {
-			if (response.authResponse) {
-				FB.api('/me', function(response) {
-					console.log(response);
-					$.ajax({
-						dataType: "json",
-						url:'/user/FBConnect',
-						method:'POST',
-						data: { 'firstname_user' : response.first_name,
-							'lastname_user' : response.last_name,
-							'mail_user': response.email,
-							'facebookId_user': response.id
-						}
-					})
-					.success(function(data){
-						window.location = "/";
-					});
-				});
-			} else {
-				console.log('cancelled');
-			}
-		},{scope: 'email'});  
-	}
 </script>
 </body>
 </html>
