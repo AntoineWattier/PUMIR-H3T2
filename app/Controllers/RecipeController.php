@@ -7,11 +7,11 @@ class RecipeController extends Controller{
 	}
 
 	function conciergerie($f3){
-		$f3->set('ambiances',$this->model->getAmbiances());
-		$f3->set('preparationTimes',$this->model->getPreparationTimes());
-		$f3->set('difficulties',$this->model->getDifficulties());
-		$f3->set('types',$this->model->getTypes());
-		$f3->set('allIngredients',$this->model->getAllIngredients());
+		$toCall = array('ambiances','preparationTimes','difficulties','types','allIngredients');
+		foreach ($toCall as $value) {
+			$s = "get".ucfirst($value);
+			$f3->set($value,$this->model->$s());
+		}
 		echo View::instance()->render('conciergerie.html');
 	}
 
@@ -31,12 +31,11 @@ class RecipeController extends Controller{
 			break;
 			
 			case 'GET':
-
-				$f3->set('ambiances',$this->model->getAmbiances());
-				$f3->set('preparationTimes',$this->model->getPreparationTimes());
-				$f3->set('difficulties',$this->model->getDifficulties());
-				$f3->set('types',$this->model->getTypes());
-				$f3->set('allIngredients',$this->model->getAllIngredients());
+				$toCall = array('ambiances','preparationTimes','difficulties','types','allIngredients');
+				foreach ($toCall as $value) {
+					$s = "get".ucfirst($value);
+					$f3->set($value,$this->model->$s());
+				}
 				echo View::instance()->render('Recipe/submitRecipe.html');
 		}
 		
@@ -81,18 +80,16 @@ class RecipeController extends Controller{
 				$f3->set('recipe',$this->model->getRecipe($f3->get('PARAMS')));
 				$f3->set('steps',$this->model->getSteps($f3->get('PARAMS')));
 				$f3->set('ingredients',$this->model->getIngredients($f3->get('PARAMS')));
-				$f3->set('ambiance',$this->model->getAmbiance($f3->get('PARAMS')));
 				
 				$f3->set('PARAMS.id_user', $f3->get('SESSION.id_user'));
 				$f3->set('isFavorite',$this->model->getIsFavorite($f3->get('PARAMS')));
 
 
-				$f3->set('preparationTimes',$this->model->getPreparationTimes());
-				$f3->set('difficulties',$this->model->getDifficulties());
-				$f3->set('types',$this->model->getTypes());
-				$f3->set('allIngredients',$this->model->getAllIngredients());
-				$f3->set('ambiances',$this->model->getAmbiances());
-				$f3->set('allIngredients',$this->model->getAllIngredients());
+				$toCall = array('ambiances','preparationTimes','difficulties','types','allIngredients');
+				foreach ($toCall as $value) {
+					$s = "get".ucfirst($value);
+					$f3->set($value,$this->model->$s());
+				}
 				echo View::instance()->render('Recipe/editRecipe.html');
 		}
 	}
