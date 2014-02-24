@@ -139,13 +139,15 @@ class RecipeModel extends Model{
 	function getRecipesByFilter($params){
 		$f3=\Base::instance();
 		$this->dB=new DB\SQL('mysql:host='.$f3->get('db_host').';port=3306;dbname='.$f3->get('db_server'),$f3->get('db_login'),$f3->get('db_password'));
-		
+
 		/**
 		*	Si on fait une recherche avancée, on utilise tous les critères.
 		* 	Le nombre d'ingrédients par recette n'étant pas limité, on ne peut pas faire une simple requête via le mapper sur une vue de la BDD
 		*	On construit donc une requête personnalisée et les résultats de celle-ci seront passés au mapper
 		*/
 		if(isset($params['id_ambiance']) && isset($params['id_preparationTime']) && isset($params['id_difficulty']) && isset($params['id_type'])){
+
+			//On construit la requête de recherche avancée de base.
 			$query = "SELECT DISTINCT r.id_recipe
 						FROM compose a
 						LEFT OUTER JOIN compose b ON a.id_recipe = b.id_recipe 
@@ -155,17 +157,21 @@ class RecipeModel extends Model{
 						AND r.id_preparationTime= :id_preparationTime
 						AND r.id_difficulty= :id_difficulty
 						AND r.id_type= :id_type";
-						// -- AND a.id_ingredient = :id_ingredient1
-						// -- AND b.id_ingredient = 1800 
-						// -- AND c.id_ingredient = 1927
+			$query_p = array(':id_ambiance' => $params['id_ambiance'], ':id_preparationTime' => $params['id_preparationTime'], ':id_difficulty' => $params['id_difficulty'], ':id_type' => $params['id_type']);
 
-			$query_p = array();
-			// $query_p[':id_ingredient1'] = 1743;
-
-			$query_p[':id_ambiance'] = $params['id_ambiance'];
-			$query_p[':id_preparationTime'] = $params['id_preparationTime'];
-			$query_p[':id_difficulty'] = $params['id_difficulty'];
-			$query_p[':id_type'] = $params['id_type'];
+			//Si des ingrédients sont spécifiés on les rajoute à la requête
+			if(isset($params['id_ingredient1'])){
+				$query .=" AND a.id_ingredient = :id_ingredient1";
+				$query_p[':id_ingredient1'] =  $params['id_ingredient1'];
+			}	
+			if(isset($params['id_ingredient2'])){
+				$query .=" AND b.id_ingredient = :id_ingredient2";
+				$query_p[':id_ingredient2'] =  $params['id_ingredient2'];
+			}	
+			if(isset($params['id_ingredient3'])){
+				$query .=" AND c.id_ingredient = :id_ingredient3";
+				$query_p[':id_ingredient3'] =  $params['id_ingredient3'];
+			}			
 
 			$result = $this->dB->exec($query, $query_p);
 
@@ -181,7 +187,7 @@ class RecipeModel extends Model{
 				}
 				$filter .= ")";
 			} else { 
-				//Sinon on met un filtre abérant pour ne pas avoir de résultats retourné -- TOFIX
+				//Sinon on met un filtre abérant pour ne pas avoir de résultat retourné -- TOFIX
 				$filter = "1 = 2";
 			}			
 		} else {
