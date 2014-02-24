@@ -137,22 +137,59 @@ class RecipeModel extends Model{
 		return $this->mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 	function getRecipesByFilter($params){
-		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
-		if(isset($params['id_preparationTime']))
-			$filter = array("id_ambiance = :id_ambiance 
-				AND id_preparationTime= :id_preparationTime 
-				AND id_difficulty= :id_difficulty
-				AND id_type= :id_type
-				AND numberOfPeople_recipe = :numberOfPeople_recipe", 
-				':id_ambiance' => $params['id_ambiance'],
-				':id_preparationTime' => $params['id_preparationTime'],
-				':id_difficulty' => $params['id_difficulty'],
-				':id_type' => $params['id_type'],
-				':numberOfPeople_recipe' => $params['numberOfPeople_recipe']
-				);
-		else 
+		$f3=\Base::instance();
+		$this->dB=new DB\SQL('mysql:host='.$f3->get('db_host').';port=3306;dbname='.$f3->get('db_server'),$f3->get('db_login'),$f3->get('db_password'));
+		
+		/**
+		*	Si on fait une recherche avancée, on utilise tous les critères.
+		* 	Le nombre d'ingrédients par recette n'étant pas limité, on ne peut pas faire une simple requête via le mapper sur une vue de la BDD
+		*	On construit donc une requête personnalisée et les résultats de celle-ci seront passés au mapper
+		*/
+		if(isset($params['id_ambiance']) && isset($params['id_preparationTime']) && isset($params['id_difficulty']) && isset($params['id_type'])){
+			$query = "SELECT DISTINCT r.id_recipe
+						FROM compose a
+						LEFT OUTER JOIN compose b ON a.id_recipe = b.id_recipe 
+						LEFT OUTER JOIN compose c ON a.id_recipe = c.id_recipe
+						join recipe r ON a.id_recipe = r.id_recipe
+						WHERE  r.id_ambiance = :id_ambiance
+						AND r.id_preparationTime= :id_preparationTime
+						AND r.id_difficulty= :id_difficulty
+						AND r.id_type= :id_type";
+						// -- AND a.id_ingredient = :id_ingredient1
+						// -- AND b.id_ingredient = 1800 
+						// -- AND c.id_ingredient = 1927
+
+			$query_p = array();
+			// $query_p[':id_ingredient1'] = 1743;
+
+			$query_p[':id_ambiance'] = $params['id_ambiance'];
+			$query_p[':id_preparationTime'] = $params['id_preparationTime'];
+			$query_p[':id_difficulty'] = $params['id_difficulty'];
+			$query_p[':id_type'] = $params['id_type'];
+
+			$result = $this->dB->exec($query, $query_p);
+
+			//On récupère le résultat de la recherche 
+			if(count($result) > 0 ){
+				// Si il y a des valeurs on construit le filtre pour le mapper
+				$filter = "id_recipe IN (";
+				foreach ($result as $key => $value) {
+					if($key == count($result) -1 )
+						$filter .= $value['id_recipe'];
+					else
+						$filter .= $value['id_recipe'].",";			
+				}
+				$filter .= ")";
+			} else { 
+				//Sinon on met un filtre abérant pour ne pas avoir de résultats retourné -- TOFIX
+				$filter = "1 = 2";
+			}			
+		} else {
+		//Sinon on tri seulement par ambiance
 			$filter = array("id_ambiance = :id_ambiance", ':id_ambiance' => $params['id_ambiance']);
-		return $fullrecipe_mapper->find($filter,array('order'=>'votes_recipe DESC'));
+		}
+		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		return $fullrecipe_mapper->find($filter,array('order'=>'votes_recipe DESC'));	
 	}
 
 	function getFavoritesRecipesByUser($params){
