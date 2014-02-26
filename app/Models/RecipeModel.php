@@ -137,9 +137,6 @@ class RecipeModel extends Model{
 		return $this->mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 	function getRecipesByFilter($params){
-		$f3=\Base::instance();
-		$this->dB=new DB\SQL('mysql:host='.$f3->get('db_host').';port=3306;dbname='.$f3->get('db_server'),$f3->get('db_login'),$f3->get('db_password'));
-
 		/**
 		*	Si on fait une recherche avancée, on utilise tous les critères.
 		* 	Le nombre d'ingrédients par recette n'étant pas limité, on ne peut pas faire une simple requête via le mapper sur une vue de la BDD

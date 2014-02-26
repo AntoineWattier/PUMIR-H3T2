@@ -100,7 +100,6 @@ class RecipeController extends Controller{
 	}
 
 	function getRecipesByFilter($f3){
-		var_dump($f3->get('PARAMS'));
 		$f3->set('recipes',$this->model->getRecipesByFilter($f3->get('PARAMS')));
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}	

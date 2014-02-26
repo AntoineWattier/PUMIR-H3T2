@@ -7,28 +7,36 @@
 	<title>Where The Fu** Do I Eat Tonight?</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<!-- DEV STYLESHEET -->
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-	<link href="public/stylesheet/wtfdiet.css" rel="stylesheet" type="text/css" />
+	<!-- /DEV STYLESHEET -->
+	<link href="public/styles/main.css" rel="stylesheet" type="text/css" />
 	
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 </head>
-<header>		
-	<nav>
-		<a href="/">WTFDIET</a>
-		<a <?php if(strpos($_SERVER['REQUEST_URI'],'/conciergerie') !== false) echo 'class="current"' ?>href="/conciergerie">Conciergerie</a>
-		<a <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/votes') !== false) echo 'class="current"' ?> href="/recipe/getRecipes/votes">Recettes populaires</a>
-		<a <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="current"' ?>href="/recipe/getRecipes/date">Toutes les recettes</a>
-		<span class="right">	
-	<?php if(isset($SESSION['id_user'])): ?>
+<body>
+<?php /*
+ 	<?php if(isset($SESSION['id_user'])): ?>
 		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/submitRecipe') echo 'class="current"' ?>href="/recipe/submitRecipe">Ecrire une recette</a>
 
 		<a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="current"' ?>href="/user/getUser/<?= $SESSION['id_user'] ?>"><?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?></a>
 		<a href="/user/logout/">Logout</a>
-	<?php else : ?>
-		<a href="/user/login">Sign in</a>
-		<a href="/user/register">Sign up</a>
-	<?php endif ?>
-		</span>
-	</nav>
-</header>
+	<?php else : ?> 
+*/ ?>
+	<header id="header">
+		<h1>wtfdiet</h1>
+		<nav id="nav">
+			<ul>
+				<li class="active"><a <?php if(strpos($_SERVER['REQUEST_URI'],'/conciergerie') !== false) echo 'class="current"' ?>href="/conciergerie">Conciergerie</a></li>
+				<li><a <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/votes') !== false) echo 'class="current"' ?> href="/recipe/getRecipes/votes">Recettes populaires</a></li>
+				<li><a <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="current"' ?>href="/recipe/getRecipes/date">Toutes les recettes</a></li>
+			</ul>
+		</nav>
+		<nav id="sign-in">
+			<ul>
+				<li><a href="/user/login">Se connecter</a></li>
+				<li><a class="btn" href="/user/register">Créer un compte</a></li>
+			</ul>
+		</nav>
+	</header>

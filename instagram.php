@@ -29,7 +29,7 @@ $usermedia = json_decode($usermedia, true);
 
 <html>
 <?php foreach ($usermedia['data'] as $key => $media): ?>
-	<img src="<?= $media['images']['thumbnail']['url'] ?>" /><br>
+	<img src="<?= $media['images']['standard_resolution']['url'] ?>" /><br>
 <?php endforeach ?>
 
 <a href="https://instagram.com/oauth/authorize/?client_id=f3d6c2c63c504f6185ddd60be864464a&redirect_uri=http://wtfdiet.local/instagram.php&response_type=code">Instagram</a>

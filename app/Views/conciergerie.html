@@ -1,26 +1,90 @@
 <?php include('partials/header.html') ?>
-<body class="clearfix">
-	<h2>Conciergerie</h2>
-	<?php if(isset($ambiances)):?>
-		<form>
-		<?php foreach($ambiances as $i => $ambiance): ?>
-			<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?> ><?= $ambiance->name_ambiance ?><br>
-		<?php endforeach ?>
-			<legend>Difficulté:</legend>
-		<?php foreach($difficulties as $i => $difficulty): ?>
-			<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($i == 0)echo "checked"; ?>><?= $difficulty->name_difficulty?><br>
-		<?php endforeach ?>
-			<legend>Temps de préparation:</legend>
-		<?php foreach($preparationTimes as $i => $preparationTime): ?>
-			<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($i == 0)echo "checked"; ?>><?= $preparationTime->name_preparationTime?><br>
-		<?php endforeach ?>
-			<legend>Type de plat:</legend>
-		<?php foreach($types as $i => $type): ?>
-			<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?>><?= $type->name_type?><br>
-		<?php endforeach ?>
-			<input type="button" name="find" value="find">
-		</form>
-	<?php endif; ?>
+	<div class="wrapper">
+		<section id="main">
+			<h1>La conciergerie</h1>
+			<p>Dites-nous vos envies quis nostrud exercitation ullamco <br />laboris nisi ut aliquip ex ea commodo consequat</p>
+			<hr />
+			<?php if(isset($ambiances)):?>
+			<form>
+				<?php foreach($ambiances as $i => $ambiance): ?>
+					<label class="vibes">
+						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?>/>
+						<div>
+							<img src="" width="180px" height="140px" alt="Repas léger">
+							<h2><?= explode(' ',$ambiance->name_ambiance)[0] ?><span><?= explode(' ',$ambiance->name_ambiance)[1] ?></span></h2>
+							<p>Des repas sur le pouces lorem ipsum dolor sit amet, consectetur incididunt ut labore et dolore magna aliqua.</p>
+							<span class="checked"></span>
+						</div>
+					</label>
+				<?php endforeach ?>
+				<div class="clear"></div>
+					<a href="" class="advanced-search"><i class="plus">+</i>Recherche avancée</a>
+
+					<section class="advanced-search">
+						<div class="one-third">
+							<h3>Temps total</h3>
+							<div class="group">
+								<?php foreach($preparationTimes as $i => $preparationTime): ?>
+									<label>
+										<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($i == 0)echo "checked"; ?>/>
+										<span><?= $preparationTime->name_preparationTime?></span>
+									</label>
+								<?php endforeach ?>
+							</div>
+							<div class="clear"></div>
+							<h3>Difficulté</h3>
+							<div class="group">
+								<?php foreach($difficulties as $i => $difficulty): ?>
+									<label>
+										<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($i == 0)echo "checked"; ?> />
+										<span><?= $difficulty->name_difficulty?></span>
+									</label>
+								<?php endforeach ?>
+							</div>
+							<div class="clear"></div>
+							<h3>Type de recette</h3>
+							<div class="group">
+								<?php foreach($types as $i => $type): ?>
+								<label>
+									<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?> />
+									<span><?= $type->name_type?></span>
+								</label>
+								<?php endforeach ?>
+							</div>
+						</div>
+						<div class="two-thirds">
+							<h3>Ingrédients désirés</h3>
+							<div class="ingredients suggest">
+							<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+							<i class="zoom"></i>
+							<ul class="suggestions">
+								<li><i class="checked sm"></i>Pommes</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+							</ul>
+							<ul class="choosen-ingredients">
+								<li><i class="checked sm"></i>Pommes</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+							</ul>
+							</div>
+						</div>
+					</section>
+
+
+					<hr />
+					<button type="submit" name="find" ><i class="checked"></i>Voir les recettes</button>
+					
+
+				</form>
+			<?php endif; ?>
+		</section>
+	</div>
 	<script type="text/javascript">
 	$('input[name="find"]').on('click',function(e){
 		$this=$(this);
