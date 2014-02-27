@@ -355,6 +355,91 @@ section#results article a {
 section#results article div a:hover h1,
 section#results article div a:hover ul li { 
   opacity: 0.5; }
+
+/****************/
+/* @group Login */
+/****************/
+section#login {
+  background: #635c78;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+}
+section#login div.wrapper {
+  width: 320px;
+  margin: 80px auto 0; }
+section#login h1 {
+  color: #fff;
+  font-size: 5.308em;
+  text-align: center;
+  font-family: "Damion", cursive;
+}
+section#login h1 + p {
+  color: #a09dac;
+  text-align: center;
+  margin: 10px 0 50px;
+  line-height: 1.200em;
+  font-size: 1.154em;
+}
+section#login a.fb {
+  border: 2px solid #a09dac;
+  border-radius: 4px;
+  display: block;
+  color: #fff;
+  font-size: 1.154em;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  padding: 15px;
+  font-weight: 600;
+  transition: border ease-out 0.3s; }
+section#login a.fb:hover {
+  border: 2px solid #fff; }
+section#login a.fb i.fb {
+  position: absolute;
+  top: 10px;
+  left: 20px; }
+section#login hr {
+  border-top: 2px dashed #7e798f;
+  margin: 30px 0; }
+section#login form input {
+  background: #fff;
+  border: 0;
+  border-radius: 4px;
+  width: 100%;
+  height: 40px;
+  color: #635c78;
+  font-size: 1.385em;
+  font-weight: normal; 
+  padding: 0 10px; 
+  margin-bottom: 10px;
+  box-sizing: border-box;}
+section#login form input::-webkit-input-placeholder {
+  color: #bdb8cc; font-style: italic; }
+section#login form button[type="submit"] {
+  font-size: 1.154em;
+  color: #f4f4f7;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 5px 0;
+  display: block;
+  border-radius: 3px;
+  border: 0;
+
+  padding: 15px 20px;
+  background: #fe8468;
+  cursor: pointer; }
+section#login form button[type="submit"] i.checked {
+  margin-right: 10px;
+  margin-bottom: -1px; }
+section#login p.legals {
+  margin-top: 60px;
+  font-size: 0.923em;
+  color: #a09dac;
+}
+/* @end of Login */
+
 /* @end of Main */
 
 
@@ -387,5 +472,8 @@ i.cup {
 i.bell { 
   background: url(../images/icons/bell.png) no-repeat;
   width: 12px; height: 13px; }
+i.fb { 
+  background: url(../images/icons/facebook.png) no-repeat;
+  width: 11px; height: 23px; }
 /* @end of Icons */
 /* @end of Master */
