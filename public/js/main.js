@@ -125,8 +125,9 @@ $('a.fb').on('click', function(e){
 		if (response.authResponse) {
 			FB.api("/me/picture?width=160&height=160",  function(r) {
 				var profileImage = r.data.url.split('https://')[1];//remove https to avoid any cert issues
+				console.log(profileImage);
 			});
-			console.log(profileImage);		
+					
 			FB.api('/me', function(response) {
 
 				console.log(response);
