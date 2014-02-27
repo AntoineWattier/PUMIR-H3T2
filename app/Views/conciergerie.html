@@ -85,7 +85,19 @@
 			<?php endif; ?>
 		</section>
 	</div>
+	<script type="text/javascript" src="public/js/textext/textext.core.js"></script>
+	<script type="text/javascript" src="public/js/textext/textext.plugin.autocomplete.js"></script>
+	<script type="text/javascript" src="public/js/textext/textext.plugin.tags.js"></script>
+	<script type="text/javascript" src="public/js/textext/textext.plugin.ajax.js"></script>
 	<script type="text/javascript">
+    $('.ingredients>input[type="text"]') .textext({
+            plugins : 'autocomplete tags ajax',
+            ajax : {
+                url : '/recipe/getAllIngredientsJSON',
+                dataType : 'json',
+                cacheResults : true
+            }
+        });
 	$('button[name="find"]').on('click',function(e){
 		$this=$(this);
 		$form = $this.parent("form");
