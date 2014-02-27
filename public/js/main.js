@@ -21,19 +21,23 @@ $('input[name="login"]').on('click',function(e){
 $('a.like').on('click',function(e){
 	e.preventDefault();
 	var $this=$(this);
-	$.ajax({
-		dataType: "json",
-		url:$this.attr('href'),
-		method:'POST'
-	})
-	.success(function(data){
-		console.log(data);
-		if(data.status==false){
-			$this.removeClass('on');
-		}else{
-			$this.addClass('on');
-		}
-	});
+	if($this.attr('href') == '/user/register'){
+		window.location = $this.attr('href');
+	} else {
+		$.ajax({
+			dataType: "json",
+			url:$this.attr('href'),
+			method:'POST'
+		})
+		.success(function(data){
+			console.log(data);
+			if(data.status==false){
+				$this.removeClass('liked');
+			}else{
+				$this.addClass('liked');
+			}
+		});
+	}
 });
 
 $('input[name="comment"]').on('click',function(e){

@@ -131,7 +131,7 @@ section#main > form label.vibes {
   margin-right: 15px;
   cursor: pointer; }
 section#main > form label.vibes:nth-child(5) { margin-right: 0; }
-section#main > form label.vibes input[name="vibes"] {
+section#main > form label.vibes input[name="id_ambiance"] {
   position: absolute;
   left: -999rem; }
 section#main > form label.vibes div {
@@ -169,9 +169,9 @@ section#main > form label.vibes div p {
   color: #a09dac;
   line-height: 1.385em;
   padding: 0 25px 30px; }
-section#main > form label.vibes input[name="vibes"]:checked + div span.checked { opacity: 1; }
-section#main > form label.vibes input[name="vibes"]:checked + div h2,
-section#main > form label.vibes input[name="vibes"]:checked + div p { color: #fe8468; }
+section#main > form label.vibes input[name="id_ambiance"]:checked + div span.checked { opacity: 1; }
+section#main > form label.vibes input[name="id_ambiance"]:checked + div h2,
+section#main > form label.vibes input[name="id_ambiance"]:checked + div p { color: #fe8468; }
 
 section#main > form a.advanced-search {
   color: #a09dac;

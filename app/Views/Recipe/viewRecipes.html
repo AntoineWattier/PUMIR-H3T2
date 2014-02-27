@@ -1,16 +1,76 @@
 <?php include('./app/Views/partials/header.html') ?>
-<body class="clearfix">
-	<h1>All Recipes</h1>
-	<?php if($recipes):?>
-		<?php foreach ($recipes as $recipe):?>
-			<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe."<br> Votes : ".$recipe->votes_recipe ?></a><br>
-			<a href="user/getUser/<?= $recipe->id_user?>">Par : <?= $recipe->firstname_user." ".$recipe->lastname_user ?></a>
-			<p>Ambiance : <?= $recipe->name_ambiance ?></p>
-		<?php endforeach; ?>
-	<?php else: ?>
-		Recipes not found
-	<?php endif; ?>
-	<br>
+<div class="wrapper">
+	<section id="main">
+		<aside id="filters">
+		<?php if(isset($ambiances)):?>
+			<form>
+				<select name="id_ambiance" >
+				<?php foreach($ambiances as $i => $ambiance): ?>
+					<option value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?> ><?= $ambiance->name_ambiance?></option>
+				<?php endforeach ?>
+				</select>
+				<hr />
+				<h3>Temps total</h3>
+				<div class="group">
+					<?php foreach($preparationTimes as $i => $preparationTime): ?>
+						<label>
+							<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($i == 0)echo "checked"; ?>/>
+							<span><?= $preparationTime->name_preparationTime?></span>
+						</label>
+					<?php endforeach ?>
+				</div>
+				<div class="clear"></div>
+				<h3>Difficulté</h3>
+				<div class="group">
+					<?php foreach($difficulties as $i => $difficulty): ?>
+						<label>
+							<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($i == 0)echo "checked"; ?> />
+							<span><?= $difficulty->name_difficulty?></span>
+						</label>
+					<?php endforeach ?>
+				</div>
+				<div class="clear"></div>
+				<h3>Type de recette</h3>
+				<div class="group">
+					<?php foreach($types as $i => $type): ?>
+					<label>
+						<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?> />
+						<span><?= $type->name_type?></span>
+					</label>
+					<?php endforeach ?>
+				</div>
+				<hr />
+				<h3>Ingrédients désirés</h3>
+				<input type="text" placeholder="Qu'y a-t-il dans votre frigo ?" />
+			</form>
+		<?php endif; ?>
+		</aside>
+		<section id="results">
+			<?php if($recipes):?>
+			<?php foreach ($recipes as $recipe):?>
+			<article>
+				<div>
+					<?php if(isset($SESSION['id_user'])): ?>
+					<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+					<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+					<?php else: ?>
+					<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+					<?php endif; ?>
+					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+						<h1><?= $recipe->name_recipe ?></h1>
+						<ul>
+							<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+							<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+							<li><i class="bell"></i><?= $recipe->name_type ?></li>
+						</ul>
+					</a>
+				</div>
+			</article>
+			<?php endforeach; ?>
+		<?php else: ?>
+			Aucune recette trouvée
+		<?php endif; ?>
+		</section>
 	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>

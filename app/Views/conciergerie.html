@@ -10,9 +10,9 @@
 					<label class="vibes">
 						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?>/>
 						<div>
-							<img src="" width="180px" height="140px" alt="Repas léger">
+							<img src="" width="180px" height="140px" alt="<?= $ambiance->name_ambiance?>">
 							<h2><?= explode(' ',$ambiance->name_ambiance)[0] ?><span><?= explode(' ',$ambiance->name_ambiance)[1] ?></span></h2>
-							<p>Des repas sur le pouces lorem ipsum dolor sit amet, consectetur incididunt ut labore et dolore magna aliqua.</p>
+							<p><?= $ambiance->description_ambiance?></p>
 							<span class="checked"></span>
 						</div>
 					</label>
@@ -86,7 +86,7 @@
 		</section>
 	</div>
 	<script type="text/javascript">
-	$('input[name="find"]').on('click',function(e){
+	$('button[name="find"]').on('click',function(e){
 		$this=$(this);
 		$form = $this.parent("form");
 		e.preventDefault();

@@ -95,12 +95,23 @@ class RecipeController extends Controller{
 	}
 
 	function getRecipes($f3){
+		$toCall = array('ambiances','preparationTimes','difficulties','types','allIngredients');
+		foreach ($toCall as $value) {
+			$s = "get".ucfirst($value);
+			$f3->set($value,$this->model->$s());
+		}
 		$f3->set('recipes',$this->model->getRecipes($f3->get('PARAMS')));
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}
 
 	function getRecipesByFilter($f3){
+
 		$f3->set('recipes',$this->model->getRecipesByFilter($f3->get('PARAMS')));
+		$toCall = array('ambiances','preparationTimes','difficulties','types','allIngredients');
+		foreach ($toCall as $value) {
+			$s = "get".ucfirst($value);
+			$f3->set($value,$this->model->$s());
+		}
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}	
 }
