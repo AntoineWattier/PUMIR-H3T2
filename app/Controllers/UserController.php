@@ -120,6 +120,8 @@ class UserController extends Controller{
 				if($f3->get('PARAMS.id') != $f3->get('SESSION.id_user'))
 					$f3->error(403); 
 
+				$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
+				$f3->set('followed',$this->model->getFollowed($f3->get('PARAMS')));
 				$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
 				echo View::instance()->render('User/editUser.html');
 		}			

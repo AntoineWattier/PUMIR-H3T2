@@ -1,0 +1,10 @@
+[
+<?php foreach($allIngredients as $ingredient): ?>
+{
+	"<?= $ingredient->id_ingredient ?>":"<?=  $ingredient->name_ingredient ?>"
+}
+	<?php if($ingredient !== end($allIngredients )): ?>
+		,
+	<?php endif; ?>
+<?php endforeach; ?>
+]

@@ -120,35 +120,37 @@ window.fbAsyncInit = function() {
 
 $('a.fb').on('click', function(e){
 	e.preventDefault();
-
+	
 	FB.login(function(response) {
 		if (response.authResponse) {
-			FB.api("/me/picture?width=160&height=160",  function(r) {
-				var profileImage = r.data.url.split('https://')[1];//remove https to avoid any cert issues
-				console.log(profileImage);
-			});
-					
+// var profileImage = "test";			
+// 			FB.api("/me/picture?width=160&height=160",  function(response) {
+// 				var profileImage = response.data.url.split('https://')[1];//remove https to avoid any cert issues		
+// 			});
+			
+// console.log(profileImage);	
 			FB.api('/me', function(response) {
 
-				console.log(response);
-				// $.ajax({
-				// 	dataType: "json",
-				// 	url:'/user/FBConnect',
-				// 	method:'POST',
-				// 	data: { 'firstname_user' : response.first_name,
-				// 		'lastname_user' : response.last_name,
-				// 		'mail_user': response.email,
-				// 		'facebookId_user': response.id
-				// 		'urlImage_user':response.
-				// 	}
-				// })
-				// .success(function(data){
-				// 	window.location = "/";
-				// });
+				console.log('https://graph.facebook.com/'+response.id+'/picture?type=large');
+				$.ajax({
+					dataType: "json",
+					url:'/user/FBConnect',
+					method:'POST',
+					data: { 'firstname_user' : response.first_name,
+						'lastname_user' : response.last_name,
+						'mail_user': response.email,
+						'facebookId_user': response.id,
+						'urlImage_user': 'https://graph.facebook.com/'+response.id+'/picture?type=large'
+					}
+				})
+				.success(function(data){
+					window.location = "/";
+				});
 			});
 		} else {
 			console.log('cancelled');
 		}
 	},{scope: 'email'});  
+
 });
 /* End Facebook Connect */

@@ -114,4 +114,9 @@ class RecipeController extends Controller{
 		}
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}	
+
+	function getAllIngredientsJSON($f3){
+		$f3->set('allIngredients',$this->model->getAllIngredients());
+		echo View::instance()->render('Recipe/allIngredients.json');
+	}
 }

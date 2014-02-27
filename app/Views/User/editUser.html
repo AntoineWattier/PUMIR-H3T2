@@ -1,48 +1,85 @@
 <?php include('./app/Views/partials/header.html') ?>
-<div id="createAccount">
-    <section>
-        <h1>Edit your account</h1>        
-        <form action="user/editUser" method="POST">
-            <fieldset>
-              <input name="id_user" type="hidden" value="<?= $user->id_user ?>"/>
-                <input name="firstname_user" type="text" placeholder="Firstname" value="<?= $user->firstname_user ?>"required/><br>
-                <input name="lastname_user" type="text" placeholder="Lastname" value="<?= $user->lastname_user ?>" required/><br>
-                <input name="mail_user" type="email" placeholder="Email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" required/><br>
-                <input id="password" name="password_user" type="password" placeholder="Password" value="<?= $user->password_user ?>"required/><br>
-                <input name="password_user_bis" type="password" placeholder="Retype your password" oninput="checkPass(this)" required/><br>
-                <input type="submit" value="Update account"/>
+<div class="wrapper">
+	<section id="main" class="user">
+		<header>
+			<?php if(!empty($user->urlImage_user)): ?>
+				<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+			<?php else: ?>
+				<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+			<?php endif; ?>
+			<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
+			<p><?= $user->bio_user ?></p>
+			<button disabled>C'est vous</button>
+			<ul>
+				<li><a href=""><span><?php if($followed){ echo count($followed->id_follow);} else { echo 0; } ?></span> Abonnements</a></li>
+				<li><a href=""><span><?php if($followers){ echo count($followers->id_follow);} else { echo 0; } ?></span> Abonnés</a></li>
+			</ul>
+		</header>
+		<section>
+			<h1>Paramètres du compte</h1>
+			<form action="user/editUser" method="POST">
+				<div>
+					<h3>Prénom</h3>
+					<input type="text" value="<?= $user->firstname_user ?>" name="firstname_user" />
 
-            </fieldset>
-        </form>
-        <button onclick="window.history.back()">Retour</button>
-    </section>
-</div>
+					<h3>Nom</h3>
+					<input type="text" value="<?= $user->lastname_user ?>" name="lastname_user"  />
+
+					<h3>Email</h3>
+					<input type="email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" name="mail_user"/>
+				</div>
+				<div>
+					<?php if(!empty($user->urlImage_user)): ?>
+						<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+					<?php else: ?>
+						<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+					<?php endif; ?>
+					<button>Changer la photo</button>
+				</div>
+				<div class="clear"></div>
+				<hr />
+				<h3>Courte description</h3>
+				<textarea name="bio_user"><?= $user->bio_user ?></textarea>
+			<?php if(empty($user->facebookId_user)): ?>
+				<hr />
+				<h3>Nouveau mot de passe</h3>
+				<input type="password"  value="<?= $user->password_user ?>" name="password_user" />
+				<h3>Répétez-le</h3>
+				<input type="password" class="fix" value="<?= $user->password_user ?>" name="password_user_bis" />
+			<?php endif; ?>
+				<hr />
+				<input name="id_user" type="hidden" value="<?= $user->id_user ?>"/>
+				<button type="submit"><i class="checked"></i> Enregistrer les modifications</button>
+			</form>
+		</section>
+	</section>
+ </div>  
 
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script>
-  function checkPass(input) {
-    if (input.value != document.getElementById('password').value) {
-      input.setCustomValidity('The two password must match.');
-    } else {
-      input.setCustomValidity('');
-    }
-  }
+	function checkPass(input) {
+		if (input.value != document.getElementById('password').value) {
+			input.setCustomValidity('The two password must match.');
+		} else {
+			input.setCustomValidity('');
+		}
+	}
 
-  function checkMail(input) {
-    $.ajax({
-        url:'user/checkMail',
-        method:'POST',
-        data:{ 'mail_user' : input.value }
-    })
-    .success(function(data){
-        if (data) {
-          input.setCustomValidity('This mail already exists');
-        } else {
-          input.setCustomValidity('');
-        }
-    })
-    
-  }
+	function checkMail(input) {
+		$.ajax({
+				url:'user/checkMail',
+				method:'POST',
+				data:{ 'mail_user' : input.value }
+		})
+		.success(function(data){
+				if (data) {
+					input.setCustomValidity('This mail already exists');
+				} else {
+					input.setCustomValidity('');
+				}
+		})
+		
+	}
 </script>
 </body>
 </html>

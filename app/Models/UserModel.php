@@ -48,7 +48,7 @@ class UserModel extends Model{
 			$_POST['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
 			$this->mapper->copyfrom('POST',function($val) {
 			    return array_intersect_key($val, array_flip(
-			    	array('firstname_user','lastname_user','slug_user','mail_user','facebookId_user'))
+			    	array('firstname_user','lastname_user','slug_user','mail_user','facebookId_user','urlImage_user'))
 			    );
 			});
 			$this->mapper->save();
@@ -82,6 +82,7 @@ class UserModel extends Model{
 		$this->mapper->slug_user = $params['slug_user'];
 		$this->mapper->mail_user = $params['mail_user'];
 		$this->mapper->password_user = $params['password_user'];
+		$this->mapper->bio_user = $params['bio_user'];
 		$this->mapper->save();
 		return $this->mapper;
 	}	
