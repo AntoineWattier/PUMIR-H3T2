@@ -29,7 +29,7 @@
 				<aside id="filters">
 					<form>
 						<h3>Ambiance des recettes</h3>
-						<select name="vibes">
+						<select name="id_ambiance">
 							<option value="">Repas léger</option>
 							<option value="">Repas gourmand</option>
 							<option value="">Repas végétarien</option>
@@ -85,12 +85,32 @@
 						</div>
 						<hr />
 						<h3>Ingrédients désirés</h3>
-						<input type="text" placeholder="Qu'y a-t-il dans votre frigo ?" />
+
+						<div class="ingredients suggest">
+							<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+							<i class="zoom sm"></i>
+							<ul class="suggestions">
+								<li><i class="checked sm"></i>Pommes</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+							</ul>
+							<ul class="choosen-ingredients">
+								<li><i class="checked sm"></i>Pommes</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+								<li><i class="checked sm"></i>Pommes de terre</li>
+							</ul>
+							</div>
 					</form>
 				</aside>
 
 				<section id="results">
 						<article>
+							<img src="http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg" alt="" />
 							<div>
 								<a class="like" href=""><i class="heart"></i>32</a>
 								<a href="">
