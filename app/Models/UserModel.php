@@ -101,6 +101,37 @@ class UserModel extends Model{
 	 	}	
 	}
 
+	function follow($params){
+		$follow_mapper = $this->getMapper('FOLLOW');
+ 		$follow = $follow_mapper->load(array('id_followed = ? and id_follower = ? ',$params['id_followed'],$params['id_follower']));
+ 		$follow_mapper->reset();
+	 	if (!$follow) {
+	 		$follow_mapper->id_followed = $params['id_followed'];
+		 	$follow_mapper->id_follower = $params['id_follower'];
+		 	$follow_mapper->save();
+		 	return true;
+	 	} else {
+	 		$follow->erase();
+	 		return false;
+	 	}	
+	}
+
+	function getIsFollowed($params){
+		$follow_mapper = $this->getMapper('FOLLOW');
+		$follow_mapper->load(array('id_followed = ? and id_follower = ? ',$params['id'],$params['id_follower']));
+		return $follow_mapper->dry();
+	}
+
+	function getFollowed($params){
+		$follow_mapper = $this->getMapper('FOLLOW');
+		return $follow_mapper->load(array('id_follower = ? ',$params['id']));
+	}
+
+	function getFollowers($params){
+		$follow_mapper = $this->getMapper('FOLLOW');
+		return $follow_mapper->load(array('id_followed = ? ',$params['id']));
+	}
+
 	function comment($params){
 		$comment_mapper = $this->getMapper('COMMENT');
 

@@ -1,5 +1,4 @@
 <?php include('./app/Views/partials/header.html') ?>
-<div class="wrapper">
 	<section id="main">
 		<aside id="filters">
 		<?php if(isset($ambiances)):?>
@@ -41,14 +40,28 @@
 				</div>
 				<hr />
 				<h3>Ingrédients désirés</h3>
-				<input type="text" placeholder="Qu'y a-t-il dans votre frigo ?" />
+				<div class="ingredients suggest">
+					<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+					<i class="zoom sm"></i>
+					<ul class="suggestions">
+						<li><i class="checked sm"></i>Pommes</li>
+						<li><i class="checked sm"></i>Pommes de terre</li>
+					</ul>
+					<ul class="choosen-ingredients">
+						<li><i class="checked sm"></i>Pommes</li>
+						<li><i class="checked sm"></i>Pommes de terre</li>
+						<li><i class="checked sm"></i>Pommes de terre</li>
+						<li><i class="checked sm"></i>Pommes de terre</li>
+					</ul>
+				</div>
 			</form>
 		<?php endif; ?>
 		</aside>
 		<section id="results">
-			<?php if($recipes):?>
+			<?php if($recipes):?> 
 			<?php foreach ($recipes as $recipe):?>
 			<article>
+				<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
 				<div>
 					<?php if(isset($SESSION['id_user'])): ?>
 					<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
@@ -71,6 +84,7 @@
 			Aucune recette trouvée
 		<?php endif; ?>
 		</section>
+	</section>
 	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>

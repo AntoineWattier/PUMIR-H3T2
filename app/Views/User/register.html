@@ -1,50 +1,29 @@
 <?php include('./app/Views/partials/header.html'); ?>
-				
-<div id="createAccount">
-		<section>
-				<h1>Create your account to join</h1>
-				<?php if(isset($_GET['e'])) echo "Veuillez créer un compte pour poster une recette" ?>
-				<div id="fb-root"></div>
-				<input type="button" name="login" onclick="fb_login()" value="FB Login">            
-				<form action="user/register" method="POST">
-						<fieldset>
-								<input name="firstname_user" type="text" placeholder="Firstname" required/><br>
-								<input name="lastname_user" type="text" placeholder="Lastname" required/><br>
-								<input name="mail_user" type="email" placeholder="Email" oninput="checkMail(this)" required/><br>
-								<input id="password" name="password_user" type="password" placeholder="Password" required/><br>
-								<input name="password_user_bis" type="password" placeholder="Retype your password" oninput="checkPass(this)" required/><br>
-								<input type="submit" value="Create account"/>
-						</fieldset>
-				</form>
-				<em><?php if(isset($info)){echo $info;} ?></em>
-		</section>
-</div>
 
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script>
-	function checkPass(input) {
-		if (input.value != document.getElementById('password').value) {
-			input.setCustomValidity('The two password must match.');
-		} else {
-			input.setCustomValidity('');
-		}
-	}
+	<?php if(isset($_GET['e'])) echo "Veuillez créer un compte pour poster une recette" ?>
+	<div id="fb-root"></div>
+	<section id="login">
+		<div class="wrapper">
+			<a href="/"><h1>wtfdiet</h1></a>
+			<p>Inscrivez-vous avec vos identifiants<br />
+				Facebook ou votre e-mail.<p>
+			<a href="" class="fb"><i class="fb">Fb</i>Inscription via Facebook</a>
+			<hr />
+			<form action="user/register" method="POST">
+				<input type="text" placeholder="Prénom" name="firstname_user"/>
+				<input type="text" placeholder="Nom" name="lastname_user"/>
+				<input type="email" placeholder="Email" name="mail_user" oninput="checkMail(this)" />
+				<input type="password" placeholder="Mot de passe" />
+				<button type="submit"><i class="checked"></i> Inscription</button>
+			</form>
 
-	function checkMail(input) {
-		$.ajax({
-				url:'user/checkMail',
-				method:'POST',
-				data:{ 'mail_user' : input.value }
-		})
-		.success(function(data){
-				if(data.status) {
-					input.setCustomValidity('This mail already exists');
-				} else {
-					input.setCustomValidity('');
-				}
-		})
-		
-	}
-</script>
+			<p class="legals">
+				En cliquant sur «Inscription» vous certifiez avoir lu et accepter les Conditions générales d’utilisation.
+			</p>
+		</div>
+	</section>
+
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
 </body>
 </html>

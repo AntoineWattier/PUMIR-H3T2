@@ -1,14 +1,19 @@
 <?php include('./app/Views/partials/header.html') ?>
-<body class="clearfix">
 	<div id="fb-root"></div>
-	<input type="button" name="login" onclick="fb_login()" value="FB Login">   
-	<section id="form">
-		<form action="user/login" method="post">
-			<input type="text" name="mail_user" placeholder="Mail"></input>
-			<input type="text" name="password_user" placeholder="Password"></input>
-			<input name="login" type="button" value="Login">
-		</form>
-	</section>	
+	<section id="login">
+			<div class="wrapper">
+				<a href="/"><h1>wtfdiet</h1></a>
+				<p>Connectez-vous avec vos identifiants<br />
+					Facebook ou votre e-mail.<p>
+				<a href="" class="fb" name="fb"><i class="fb">Fb</i>Connexion via Facebook</a>
+				<hr />
+				<form action="user/login" method="post">
+					<input type="email" name="mail_user" placeholder="Email" />
+					<input type="password" name="password_user" placeholder="Mot de passe" />
+					<button type="submit" name="login"><i class="checked"></i> Connexion</button>
+				</form>
+			</div>
+	</section>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 </body>

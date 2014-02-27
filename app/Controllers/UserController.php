@@ -88,6 +88,16 @@ class UserController extends Controller{
 		$recipe_model = new RecipeModel();
 		$f3->set('recipes', $recipe_model->getRecipesByUser($f3->get('PARAMS')));
 		$f3->set('favorites',$recipe_model->getFavoritesRecipesByUser($f3->get('PARAMS')));
+
+		//Gestion du follow
+		if($f3->exists('SESSION.id_user')){
+			$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));
+			$f3->set('isFollowed',$this->model->getIsFollowed($f3->get('PARAMS')));
+		}
+
+		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
+		$f3->set('followed',$this->model->getFollowed($f3->get('PARAMS')));
+
 		echo View::instance()->render('User/viewUser.html');
 	}
 
@@ -121,6 +131,23 @@ class UserController extends Controller{
 
 		$like = $this->model->like($f3->get('PARAMS'));
 		echo json_encode(array('status'=>$like));
+	}
+
+	function follow($f3){
+		if($f3->get('VERB') == 'GET')
+			$f3->error(405); 
+
+		$follow = $this->model->follow($f3->get('PARAMS'));
+		echo json_encode(array('status'=>$follow));
+	}
+
+	function getFollow($f3){	
+		if($f3->get('VERB') == 'POST')
+			$f3->error(405);
+
+		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
+		$f3->set('followed',$this->model->getFollowed($f3->get('PARAMS')));
+		echo View::instance()->render('User/viewFollow.html');
 	}
 
 	function comment($f3){
