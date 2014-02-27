@@ -15,7 +15,7 @@
 			<tr><td>subscribeDate <td><?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
 			<tr><td>lastLogin <td><?= $user->lastLogin_user ?></p>
 			<tr><td>followers <td><?php if($followers){ echo count($followers->id_follow);} else { echo 0; } ?></p>
-			<tr><td>followed <td><?php if($followed){ echo count($followed->id_follow);} else { echo 0; } ?></p>
+			<tr><td>following <td><?php if($following){ echo count($following->id_follow);} else { echo 0; } ?></p>
 		</table>
 		<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $user->id_user): ?>
 			<a href="user/editUser/<?= $user->id_user ?>" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
@@ -23,7 +23,7 @@
 		<?php endif; ?>
 		<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] != $user->id_user): ?>
 			<a href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" class="btn btn-primary follow"><i class="icon-heart icon-white"></i>Follow</a>
-			<?php if(!$isFollowed) echo 'ALREADY FOLLOW' ?>
+			<?php if(!$isFollowing) echo 'ALREADY FOLLOW' ?>
 		<?php endif; ?>
 		<?php if($recipes): ?>
 			<h2>Ses recettes</h2>

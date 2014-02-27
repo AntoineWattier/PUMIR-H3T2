@@ -1,8 +1,9 @@
 <?php include('./app/Views/partials/header.html') ?>
-	<section id="main">
+	<section id="main" class="recipes">
 		<aside id="filters">
 		<?php if(isset($ambiances)):?>
 			<form>
+				<h3>Ambiance des recettes</h3>
 				<select name="id_ambiance" >
 				<?php foreach($ambiances as $i => $ambiance): ?>
 					<option value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?> ><?= $ambiance->name_ambiance?></option>
@@ -19,6 +20,7 @@
 					<?php endforeach ?>
 				</div>
 				<div class="clear"></div>
+				<hr />
 				<h3>Difficulté</h3>
 				<div class="group">
 					<?php foreach($difficulties as $i => $difficulty): ?>
@@ -29,6 +31,7 @@
 					<?php endforeach ?>
 				</div>
 				<div class="clear"></div>
+				<hr />
 				<h3>Type de recette</h3>
 				<div class="group">
 					<?php foreach($types as $i => $type): ?>
@@ -57,33 +60,31 @@
 			</form>
 		<?php endif; ?>
 		</aside>
-		<section id="results">
-			<?php if($recipes):?> 
-			<?php foreach ($recipes as $recipe):?>
-			<article>
-				<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
-				<div>
-					<?php if(isset($SESSION['id_user'])): ?>
-					<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
-					<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
-					<?php else: ?>
-					<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
-					<?php endif; ?>
-					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
-						<h1><?= $recipe->name_recipe ?></h1>
-						<ul>
-							<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
-							<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
-							<li><i class="bell"></i><?= $recipe->name_type ?></li>
-						</ul>
-					</a>
-				</div>
-			</article>
-			<?php endforeach; ?>
-		<?php else: ?>
-			Aucune recette trouvée
-		<?php endif; ?>
-		</section>
+	<?php if($recipes):?> 
+		<?php foreach ($recipes as $recipe):?>
+		<article>
+			<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+			<div>
+				<?php if(isset($SESSION['id_user'])): ?>
+				<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+				<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+				<?php else: ?>
+				<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+				<?php endif; ?>
+				<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+					<h1><?= $recipe->name_recipe ?></h1>
+					<ul>
+						<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+						<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+						<li><i class="bell"></i><?= $recipe->name_type ?></li>
+					</ul>
+				</a>
+			</div>
+		</article>
+		<?php endforeach; ?>
+	<?php else: ?>
+		Aucune recette trouvée
+	<?php endif; ?>
 	</section>
 	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>

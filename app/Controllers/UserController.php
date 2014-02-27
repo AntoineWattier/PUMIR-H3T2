@@ -92,11 +92,11 @@ class UserController extends Controller{
 		//Gestion du follow
 		if($f3->exists('SESSION.id_user')){
 			$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));
-			$f3->set('isFollowed',$this->model->getIsFollowed($f3->get('PARAMS')));
+			$f3->set('isFollowing',$this->model->getIsFollowing($f3->get('PARAMS')));
 		}
 
 		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
-		$f3->set('followed',$this->model->getFollowed($f3->get('PARAMS')));
+		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 
 		echo View::instance()->render('User/viewUser.html');
 	}
@@ -121,7 +121,7 @@ class UserController extends Controller{
 					$f3->error(403); 
 
 				$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
-				$f3->set('followed',$this->model->getFollowed($f3->get('PARAMS')));
+				$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 				$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
 				echo View::instance()->render('User/editUser.html');
 		}			
@@ -148,7 +148,7 @@ class UserController extends Controller{
 			$f3->error(405);
 
 		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
-		$f3->set('followed',$this->model->getFollowed($f3->get('PARAMS')));
+		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 		echo View::instance()->render('User/viewFollow.html');
 	}
 

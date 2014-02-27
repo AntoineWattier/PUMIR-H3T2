@@ -11,8 +11,8 @@
 			<p><?= $user->bio_user ?></p>
 			<button disabled>C'est vous</button>
 			<ul>
-				<li><a href=""><span><?php if($followed){ echo count($followed->id_follow);} else { echo 0; } ?></span> Abonnements</a></li>
-				<li><a href=""><span><?php if($followers){ echo count($followers->id_follow);} else { echo 0; } ?></span> Abonnés</a></li>
+				<li><a href=""><span><?php if(isset($following)){ echo count($following);} else { echo 0; } ?></span> Abonnements</a></li>
+				<li><a href=""><span><?php if(isset($followers)){ echo count($followers);} else { echo 0; }?></span> Abonnés</a></li>
 			</ul>
 		</header>
 		<section>
