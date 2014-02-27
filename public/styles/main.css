@@ -169,8 +169,11 @@ section#login p.legals { margin-top: 60px; font-size: 0.923em; color: #a09dac; }
 /***************/
 section#main.user header { width: 240px; float: left; }
 section#main.user header img { width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
-section#main.user h1 { font-size: 2.154em; font-weight: 700; color: #635c78; margin-bottom: 10px; }
-section#main.user header + section > h1 { margin-bottom: 35px; }
+
+section#main.user h1,
+section#main.user.following header + section ul li a h2 { font-size: 2.154em; font-weight: 700; color: #635c78; margin-bottom: 10px; transition: color ease-out 0.3s; }
+
+section#main.user header + section > h1{ margin-bottom: 35px; }
 section#main.user header h1 + p { color: #a09dac; font-size: 1.077em; margin-bottom: 30px; }
 section#main.user header button { font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
 section#main.user header button:disabled { background: #f7d2cc; }
@@ -195,6 +198,14 @@ section#main.recipes.user article:nth-child(odd) { margin-right: 0; } /* before 
 section#main.recipes.user h3 { text-align: center; margin-bottom: 40px; }
 section#main.recipes.user h3 span.disabled { color: #a09dac; }
 section#main.recipes.user h3 i { margin: 0 15px -2px; }
+
+section#main.user.following header + section ul li { border-bottom: 1px solid #eae9ee; }
+section#main.user.following header + section ul li a { display: block; padding: 30px 0; background: url(../images/icons/arrow-side.png) no-repeat right center; transition: background ease-out 0.3s;  }
+section#main.user.following header + section ul li a:hover { background: url(../images/icons/arrow-side-orange.png) no-repeat right center; }
+section#main.user.following header + section ul li a:hover h2 { color: #fe8468; }
+
+section#main.user.following header + section ul li a p { color: #a09dac; font-size: 1.077em; }
+
 /* @end of User */
 
 /* @end of Main */
