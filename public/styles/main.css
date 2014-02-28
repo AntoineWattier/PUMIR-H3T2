@@ -25,7 +25,7 @@ h3 { text-transform: uppercase; font-style: italic; font-weight: 600; color: #6c
 /*******************/
 /* @group Header */
 /*******************/
-header#header { background: #fff; padding: 45px 0; }
+header#header { position: relative; background: #fff; padding: 45px 0; }
 header#header h1 { display: inline-block; margin: 0 30px; font-family: "Damion", cursive; font-size: 2.308em; color: #635c78; border-bottom: 2px solid #635c78; line-height: 0.8em; }
 
 header#header nav#nav { display: inline-block; }
@@ -35,10 +35,16 @@ header#header nav#nav ul li a { text-transform: uppercase; font-weight: 700; col
 header#header nav#nav ul li:last-child a { border-right: 0; }
 header#header nav#nav ul li.active a { color: #635c78; }
 
-header#header nav#sign-in { float: right; margin: 5px 30px; display: inline-block; }
-header#header nav#sign-in ul li { float: left; }
-header#header nav#sign-in ul li a { padding: 5px 15px; color: #fe8468; }
-header#header nav#sign-in ul li a.btn { border-radius: 3px; border: 2px solid #fe8468;  font-weight: 600; }
+header#header nav#sign-in,
+header#header nav#signed-in { position: absolute; top: 40px; right: 30px;  display: block; }
+header#header nav#sign-in ul li,
+header#header nav#signed-in ul li { float: left; }
+header#header nav#sign-in ul li a { display: block; padding: 12px 15px; color: #fe8468; }
+header#header nav#signed-in ul li a { display: block; padding: 12px 5px; color: #fe8468; }
+header#header nav#sign-in a.btn,
+header#header nav#signed-in a.btn {  padding: 10px 15px; color: #fe8468; border-radius: 3px; border: 2px solid #fe8468;  font-weight: 600; }
+header#header nav#signed-in a img { width: 40px; height: 40px; border-radius: 100%; float: left; margin: -12px 10px 0 15px;}
+header#header nav#signed-in ul li a { font-weight: 700; color: #635c78; }
 /* @end of Header */
 
 /******************/
@@ -249,5 +255,11 @@ i.switch.off {
   background: url(../images/icons/switch-off.png) no-repeat; }
 i.switch.on { 
   background: url(../images/icons/switch-on.png) no-repeat; }
+i.settings { 
+  background: url(../images/icons/settings.png) no-repeat;
+  width: 17px; height: 17px; }
+i.sign-out { 
+  background: url(../images/icons/sign-out.png) no-repeat;
+  width: 15px; height: 15px; }
 /* @end of Icons */
 /* @end of Master */
