@@ -1,47 +1,90 @@
 <?php include('./app/Views/partials/header.html') ?>
-<body class="clearfix">
-	<h2>User</h2>
 	<?php if($user):?>
-		<table class="table table-hover table-bordered">
-			<tr><td>user <td><?= $user->firstname_user." ".$user->lastname_user ?></p>
-			<tr><td>id <td><?= $user->id_user ?></p>
-			<tr><td>Picture <td><img src="<?= $user->urlImage_user ?>" height="160"></p>
-			<tr><td>slug  <td><?= $user->slug_user ?></p>
-			<tr><td>mail <td><?= $user->mail_user ?></p>
-			<tr><td>password <td><?= $user->password_user ?></p>
-			<tr><td>karmaPoints <td><?= $user->karmaPoints_user ?></p>
-			<tr><td>facebookId_user <td><?= $user->facebookId_user ?></p>
-			<tr><td>instagramId_user <td><?= $user->instagramId_user ?></p>
-			<tr><td>subscribeDate <td><?= date("H:i:s D M Y", strtotime($user->subscribeDate_user)) ?></p>
-			<tr><td>lastLogin <td><?= $user->lastLogin_user ?></p>
-			<tr><td>followers <td><?php if($followers){ echo count($followers->id_follow);} else { echo 0; } ?></p>
-			<tr><td>following <td><?php if($following){ echo count($following->id_follow);} else { echo 0; } ?></p>
-		</table>
+		  	<div class="wrapper">
+				<section id="main" class="user recipes">
+					<header>
+						<?php if(!empty($user->urlImage_user)): ?>
+							<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+						<?php else: ?>
+							<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+						<?php endif; ?>
+						<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
+						<p><?= $user->bio_user ?></p>
+						<button disabled>C'est vous</button>
+						<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] != $user->id_user): ?>
+							<a href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" class="btn btn-primary follow"><i class="icon-heart icon-white"></i>Follow</a>
+							<?php if(!$isFollowing) echo 'ALREADY FOLLOW' ?>
+						<?php endif; ?>
+						<ul>
+							<li><a href="/user/getFollowing/<?= $user->id_user ?>"><span><?php if(isset($following)){ echo count($following);} else { echo 0; } ?></span> Abonnements</a></li>
+							<li><a href="/user/getFollowers/<?= $user->id_user ?>"><span><?php if(isset($followers)){ echo count($followers);} else { echo 0; }?></span> Abonnés</a></li>
+						</ul>
+					</header>
+					<section>
+					<h3>Recettes postées <a href=""><i class="switch on"></i> <span class="disabled">Recettes favorites</span></a></h3>
+					<?php if($recipes):?> 
+					<?php foreach ($recipes as $recipe):?>
+						<article>
+							<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+							<div>
+								<?php if(isset($SESSION['id_user'])): ?>
+								<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+								<?php else: ?>
+								<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+								<?php endif; ?>
+								<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+									<h1><?= $recipe->name_recipe ?></h1>
+									<ul>
+										<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+										<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+										<li><i class="bell"></i><?= $recipe->name_type ?></li>
+									</ul>
+								</a>
+							</div>
+						</article>
+					<?php endforeach; ?>
+					<?php else: ?>
+						Aucune recette trouvée
+					<?php endif; ?>
+					</section>
+				</section>
+<?php /*				<section>
+					<h3>Recettes postées <a href=""><i class="switch off"></i> <span class="disabled">Recettes favorites</span></a></h3>
+					<?php if($favorites):?> 
+					<?php foreach ($favorites as $recipe):?>
+						<article>
+							<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+							<div>
+								<?php if(isset($SESSION['id_user'])): ?>
+								<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+								<?php else: ?>
+								<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+								<?php endif; ?>
+								<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+									<h1><?= $recipe->name_recipe ?></h1>
+									<ul>
+										<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+										<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+										<li><i class="bell"></i><?= $recipe->name_type ?></li>
+									</ul>
+								</a>
+							</div>
+						</article>
+					<?php endforeach; ?>
+					<?php else: ?>
+						Aucune recette trouvée
+					<?php endif; ?>
+					</section>
+				</section> */ ?>
+			</div>	
 		<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $user->id_user): ?>
-			<a href="user/editUser/<?= $user->id_user ?>" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
-			<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
+			<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete My Account</a>
 		<?php endif; ?>
-		<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] != $user->id_user): ?>
-			<a href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" class="btn btn-primary follow"><i class="icon-heart icon-white"></i>Follow</a>
-			<?php if(!$isFollowing) echo 'ALREADY FOLLOW' ?>
-		<?php endif; ?>
-		<?php if($recipes): ?>
-			<h2>Ses recettes</h2>
-			<?php foreach ($recipes as $recipe): ?>
-					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
-		<?php 	endforeach;
-		  	endif; ?>
-		<?php if($favorites): ?>
-			<h2>Recettes favorites</h2>
-			<?php foreach ($favorites as $recipe): ?>
-					<a href="recipe/getRecipe/<?= $recipe->id_recipe?>"><?= $recipe->name_recipe ?></a><br>
-		<?php 	endforeach;
-		  	endif; ?>
 	<?php else: ?>
 			User not found
 	<?php endif; ?>
-	<br>
-	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 </body>

@@ -16,14 +16,6 @@
 	<script type="text/javascript" src="public/js/main.js"></script>
 </head>
 <body>
-<?php /*
- 	<?php if(isset($SESSION['id_user'])): ?>
-		<a <?php if($_SERVER['REQUEST_URI']=='/recipe/submitRecipe') echo 'class="current"' ?>href="/recipe/submitRecipe">Ecrire une recette</a>
-
-		<a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="current"' ?>href="/user/getUser/<?= $SESSION['id_user'] ?>"><?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?></a>
-		<a href="/user/logout/">Logout</a>
-	<?php else : ?> 
-*/ ?>
 	<header id="header">
 		<a href="/"><h1>wtfdiet</h1></a>
 		<nav id="nav">
@@ -33,14 +25,23 @@
 				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="active"' ?>><a href="/recipe/getRecipes/date">Toutes les recettes</a></li>
 			</ul>
 		</nav>
+		
+			
+		<?php if(isset($SESSION['id_user'])): ?>
+		<nav id="signed-in">
+			<ul>
+			<li><a class="btn" <?php if($_SERVER['REQUEST_URI']=='/recipe/submitRecipe') echo 'class="active"' ?> href="/recipe/submitRecipe">Ajouter une recette</a></li>
+			<li><a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="active"' ?> href="/user/getUser/<?= $SESSION['id_user'] ?>">
+				<?php if(!empty($SESSION['urlImage_user'])): ?>
+					<img src="<?= $SESSION['urlImage_user'] ?>" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>" />
+				<?php else: ?>
+					<img src="/public/images/assets/pp-default.png" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>" />
+				<?php endif; ?><?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?></a></li>
+			<li><a href="/user/editUser/<?= $SESSION['id_user'] ?>"><i class="settings">Paramètres</i></a></li>
+			<li><a href="/user/logout/"><i class="sign-out">Déconnexion</i></a></li>
+		<?php else : ?> 
 		<nav id="sign-in">
 			<ul>
-		<?php if(isset($SESSION['id_user'])): ?>
-			<a <?php if($_SERVER['REQUEST_URI']=='/recipe/submitRecipe') echo 'class="current"' ?>href="/recipe/submitRecipe">Ecrire une recette</a>
-
-			<a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="current"' ?>href="/user/getUser/<?= $SESSION['id_user'] ?>"><?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?></a>
-			<a href="/user/logout/">Logout</a>
-		<?php else : ?> 
 				<li><a href="/user/login">Se connecter</a></li>
 				<li><a class="btn" href="/user/register">Créer un compte</a></li>
 		<?php endif; ?>

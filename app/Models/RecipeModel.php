@@ -134,7 +134,8 @@ class RecipeModel extends Model{
 	}
 
 	function getRecipesByUser($params){
-		return $this->mapper->find(array("id_user = :id", ':id' => $params['id']));
+		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		return $fullrecipe_mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 	function getRecipesByFilter($params){
 		/**

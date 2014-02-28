@@ -1,0 +1,43 @@
+<?php include('./app/Views/partials/header.html') ?>
+	<div class="wrapper">
+		<section id="main" class="user following">
+			<header>
+				<?php if(!empty($user->urlImage_user)): ?>
+					<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+				<?php else: ?>
+					<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+				<?php endif; ?>
+				<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
+				<p><?= $user->bio_user ?></p>
+				<button disabled>C'est vous</button>
+				<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] != $user->id_user): ?>
+					<a href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" class="btn btn-primary follow"><i class="icon-heart icon-white"></i>Follow</a>
+					<?php if(!$isFollowing) echo 'ALREADY FOLLOW' ?>
+				<?php endif; ?>
+				<ul>
+					<li><a href="/user/getFollowing/<?= $user->id_user ?>"><span><?php if(isset($following)){ echo count($following);} else { echo 0; } ?></span> Abonnements</a></li>
+					<li><a href="/user/getFollowers/<?= $user->id_user ?>"><span><?php if(isset($followers)){ echo count($followers);} else { echo 0; }?></span> Abonnés</a></li>
+				</ul>
+			</header>
+			<section>
+			<?php if($followers): ?>
+				<ul>
+					<?php foreach ($followers as $follow): ?>
+					<li>
+						<a href="/user/getUser/<?= $follow->id_follower ?>">
+							<h2><?= $follow->firstname_follower." ".$follow->lastname_follower ?></h2>
+							<p><?= $follow->bio_follower ?></p>
+						</a>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+			<?php else: ?>
+				No followers
+			<?php endif; ?>
+			</section>
+		</section>
+	</div>	
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
+</body>
+</html>

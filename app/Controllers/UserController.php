@@ -16,6 +16,7 @@ class UserController extends Controller{
 					$f3->set('SESSION.id_user', $user->id_user);
 					$f3->set('SESSION.firstname_user', $user->firstname_user);
 					$f3->set('SESSION.lastname_user', $user->lastname_user);
+					$f3->set('SESSION.urlImage_user', $user->urlImage_user);
 				} 
 				echo json_encode(array('status'=>$user));
 			break;			
@@ -42,7 +43,8 @@ class UserController extends Controller{
 					$f3->set('user',$user);			
 					$f3->set('SESSION.id_user', $user->id_user);
 					$f3->set('SESSION.firstname_user', $user->firstname_user);
-					$f3->set('SESSION.lastname_user', $user->lastname_user);		
+					$f3->set('SESSION.lastname_user', $user->lastname_user);
+					$f3->set('SESSION.urlImage_user', $user->urlImage_user);		
 					$f3->reroute('/');
 				} 
 				
@@ -67,7 +69,8 @@ class UserController extends Controller{
 			$f3->set('user',$user);			
 			$f3->set('SESSION.id_user', $user->id_user);
 			$f3->set('SESSION.firstname_user', $user->firstname_user);
-			$f3->set('SESSION.lastname_user', $user->lastname_user);				
+			$f3->set('SESSION.lastname_user', $user->lastname_user);
+			$f3->set('SESSION.urlImage_user', $user->urlImage_user);				
 			echo json_encode(array('status'=>true));			
 		} 		
 	}
@@ -94,7 +97,6 @@ class UserController extends Controller{
 			$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));
 			$f3->set('isFollowing',$this->model->getIsFollowing($f3->get('PARAMS')));
 		}
-
 		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
 		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 
@@ -113,6 +115,7 @@ class UserController extends Controller{
 					$f3->set('user',$user);			
 					$f3->set('SESSION.firstname_user', $user->firstname_user);
 					$f3->set('SESSION.lastname_user', $user->lastname_user);
+					$f3->set('SESSION.urlImage_user', $user->urlImage_user);
 					$f3->reroute('/user/getUser/'.$f3->get('SESSION.id_user'));
 				} 
 				break;			
@@ -120,8 +123,14 @@ class UserController extends Controller{
 				if($f3->get('PARAMS.id') != $f3->get('SESSION.id_user'))
 					$f3->error(403); 
 
+				//Gestion du follow
+				if($f3->exists('SESSION.id_user')){
+					$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));
+					$f3->set('isFollowing',$this->model->getIsFollowing($f3->get('PARAMS')));
+				}
 				$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
 				$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
+
 				$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
 				echo View::instance()->render('User/editUser.html');
 		}			
@@ -143,13 +152,37 @@ class UserController extends Controller{
 		echo json_encode(array('status'=>$follow));
 	}
 
-	function getFollow($f3){	
+	function getFollowing($f3){	
 		if($f3->get('VERB') == 'POST')
 			$f3->error(405);
 
+		//Gestion du follow
+		if($f3->exists('SESSION.id_user')){
+			$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));
+			$f3->set('isFollowing',$this->model->getIsFollowing($f3->get('PARAMS')));
+		}
 		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
 		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
-		echo View::instance()->render('User/viewFollow.html');
+
+		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
+		echo View::instance()->render('User/viewFollowing.html');
+	}
+
+	function getFollowers($f3){	
+		if($f3->get('VERB') == 'POST')
+			$f3->error(405);
+		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
+		
+		//Gestion du follow
+		if($f3->exists('SESSION.id_user')){
+			$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));
+			$f3->set('isFollowing',$this->model->getIsFollowing($f3->get('PARAMS')));
+		}
+		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
+		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
+
+		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
+		echo View::instance()->render('User/viewFollowers.html');
 	}
 
 	function comment($f3){

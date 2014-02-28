@@ -77,11 +77,16 @@ class UserModel extends Model{
 		$this->mapper->load(array("id_user = :id", ':id' => $params['id_user']));
 		// $params['adminLevel_user'] = 0;
 		$params['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
-		$this->mapper->firstname_user = $params['firstname_user'];
-		$this->mapper->lastname_user = $params['lastname_user'];
-		$this->mapper->slug_user = $params['slug_user'];
-		$this->mapper->mail_user = $params['mail_user'];
-		$this->mapper->password_user = $params['password_user'];
+		if(isset($params['firstname_user']))
+			$this->mapper->firstname_user = $params['firstname_user'];
+		if(isset($params['lastname_user']))
+			$this->mapper->lastname_user = $params['lastname_user'];
+		if(isset($params['slug_user']))
+			$this->mapper->slug_user = $params['slug_user'];
+		if(isset($params['mail_user']))
+			$this->mapper->mail_user = $params['mail_user'];
+		if(isset($params['password_user']))
+			$this->mapper->password_user = $params['password_user'];
 		$this->mapper->bio_user = $params['bio_user'];
 		$this->mapper->save();
 		return $this->mapper;
@@ -124,13 +129,13 @@ class UserModel extends Model{
 	}
 
 	function getFollowing($params){
-		$follow_mapper = $this->getMapper('FOLLOW');
-		return $follow_mapper->find(array('id_follower = ? ',$params['id']));
+		$subscribe_mapper = $this->getMapper('SUBSCRIBE');
+		return $subscribe_mapper->find(array('id_follower = ? ',$params['id']));
 	}
 
 	function getFollowers($params){
-		$follow_mapper = $this->getMapper('FOLLOW');
-		return $follow_mapper->find(array('id_following = ? ',$params['id']));
+		$subscribe_mapper = $this->getMapper('SUBSCRIBE');
+		return $subscribe_mapper->find(array('id_following = ? ',$params['id']));
 	}
 
 	function comment($params){
