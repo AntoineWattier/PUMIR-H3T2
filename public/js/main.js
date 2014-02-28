@@ -55,7 +55,7 @@ $('a.like').on('click',function(e){
 	}
 });
 
-$('a.follow').on('click',function(e){
+$('button.follow').on('click',function(e){
 	e.preventDefault();
 	var $this=$(this);
 	if($this.attr('href') == '/user/register'){
