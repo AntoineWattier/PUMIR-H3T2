@@ -78,9 +78,15 @@
 	<script type="text/javascript" src="public/js/textext/textext.plugin.autocomplete.js"></script>
 	<script type="text/javascript" src="public/js/textext/textext.plugin.tags.js"></script>
 	<script type="text/javascript" src="public/js/textext/textext.plugin.ajax.js"></script>
+	<script type="text/javascript" src="public/js/textext/textext.plugin.filter.js"></script>
 	<script type="text/javascript">
     var TextExtTags = $('.ingredients>input[type="text"]').textext({
-    		plugins :'tags'
+    		plugins :'autocomplete filter tags ajax',
+    		ajax : {
+                url : '/recipe/getAllIngredientsJSON',
+                dataType : 'json',
+                cacheResults : true
+            }
     	}).bind('isTagAllowed', function(e, data){
 			var formData = $(e.target).textext()[0].tags()._formData,
 			    list = eval(formData);
