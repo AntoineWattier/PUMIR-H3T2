@@ -83,7 +83,7 @@ form div.ingredients i.zoom { position: absolute; top: 22px; left: 20px; }
 form div.ingredients ul.suggestions { position: absolute; left: 0; top: 60px; width: 100%; display: none; border-top: 1px solid #ebeaf0; }
 form div.ingredients ul.suggestions li { display: block; background: #fff; font-size: 1.231em; color: #a09dac; padding: 8px 0; transition: background ease-out 0.3s, color ease-out 0.3s; }
 form div.ingredients ul.suggestions li:last-child { border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; }
-form div.ingredients ul.suggestions li:hover { background: #fe8468; color: #fff; }
+form div.ingredients ul.suggestions li:hover,form  div.ingredients ul.suggestions li.text-selected { background: #fe8468; color: #fff; }
 form div.ingredients ul.suggestions li i { margin: 0 16px; }
 form div.ingredients ul.choosen-ingredients { margin-top: 20px; }
 form div.ingredients ul.choosen-ingredients li {  padding: 15px 10px; text-transform: uppercase; color: #fff; background: #fe8468; display: inline-block; border-radius: 3px; margin: 0 4px 5px 0; font-weight: 600; cursor: pointer; }
@@ -126,7 +126,7 @@ section#main > form button[type="submit"] i.checked { margin-right: 10px; margin
 
 section#main > form section.advanced-search { margin-top: 50px; }
 section#main > form section.advanced-search div.one-third { width: 320px; overflow: hidden; float: left; }
-section#main > form section.advanced-search div.two-thirds { width: 600px; overflow: hidden; float: left; margin-left: 40px; }
+section#main > form section.advanced-search div.two-thirds { width: 600px; float: left; margin-left: 40px; }
 
 
 section#main.recipes aside#filters { width: 250px; left: 40px; position: fixed; }
