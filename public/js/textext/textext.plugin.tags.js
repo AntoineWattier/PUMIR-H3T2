@@ -28,13 +28,13 @@
 		CSS_DOT             = '.',
 		CSS_TAGS_ON_TOP     = 'text-tags-on-top',
 		CSS_DOT_TAGS_ON_TOP = CSS_DOT + CSS_TAGS_ON_TOP,
-		CSS_TAG             = 'text-tag',
+		CSS_TAG             = 'text-label',
 		CSS_DOT_TAG         = CSS_DOT + CSS_TAG,
-		CSS_TAGS            = 'text-tags',
+		CSS_TAGS            = 'text-label',
 		CSS_DOT_TAGS        = CSS_DOT + CSS_TAGS,
 		CSS_LABEL           = 'text-label',
 		CSS_DOT_LABEL       = CSS_DOT + CSS_LABEL,
-		CSS_REMOVE          = 'text-remove',
+		CSS_REMOVE          = 'text-label',
 		CSS_DOT_REMOVE      = CSS_DOT + CSS_REMOVE,
 
 		/**
@@ -164,8 +164,8 @@
 			},
 
 			html : {
-				tags : '<div class="text-tags"/>',
-				tag  : '<div class="text-tag"><div class="text-button"><span class="text-label"/><a class="text-remove"/></div></div>'
+				tags : '<ul class="choosen-ingredients text-tags"/>',
+				tag : '<li class="text-label"/>'
 			}
 		}
 		;
@@ -388,13 +388,6 @@
 			pos.left += lastTag.innerWidth();
 		else
 			pos = self._originalPadding;
-
-		self._paddingBox = pos;
-
-		self.input().css({
-			paddingLeft : pos.left,
-			paddingTop  : pos.top
-		});
 	};
 
 	/**
@@ -418,35 +411,10 @@
 			;
 
 		if(source.is(CSS_DOT_TAGS))
-		{
-			focus = 1;
-		}
-		else if(source.is(CSS_DOT_REMOVE))
-		{
-			self.removeTag(source.parents(CSS_DOT_TAG + ':first'));
-			focus = 1;
-		}
-		else if(source.is(CSS_DOT_LABEL))
-		{
-			tag = source.parents(CSS_DOT_TAG + ':first');
-			self.trigger(EVENT_TAG_CLICK, tag, tag.data(CSS_TAG), tagClickCallback);
-		}
-
-		function tagClickCallback(newValue, refocus)
-		{
-			tag.data(CSS_TAG, newValue);
-			tag.find(CSS_DOT_LABEL).text(self.itemManager().itemToString(newValue));
-
-			self.updateFormCache();
-			core.getFormData();
-			core.invalidateBounds();
-
-			if(refocus)
-				core.focusInput();
-		}
-
-		if(focus)
-			core.focusInput();
+			self.removeTag(source.text());
+		else if(source.is('.checked'))
+			self.removeTag(source.parent().text());
+		core.focusInput();
 	};
 
 	/**
@@ -691,7 +659,7 @@
 			node = $(self.opts(OPT_HTML_TAG))
 			;
 
-		node.find('.text-label').text(self.itemManager().itemToString(tag));
+		node.html('<i class="checked sm"></i>'+self.itemManager().itemToString(tag));
 		node.data(CSS_TAG, tag);
 		return node;
 	};

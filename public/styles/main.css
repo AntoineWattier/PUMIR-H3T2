@@ -264,7 +264,7 @@ section#main > form button[type="submit"] i.checked {
 
 section#main > form section.advanced-search { margin-top: 50px; }
 section#main > form section.advanced-search div.one-third { width: 320px; overflow: hidden; float: left; }
-section#main > form section.advanced-search div.two-thirds { width: 600px; overflow: hidden; float: left; margin-left: 40px; }
+section#main > form section.advanced-search div.two-thirds { width: 600px; float: left; margin-left: 40px; }
 
 
 

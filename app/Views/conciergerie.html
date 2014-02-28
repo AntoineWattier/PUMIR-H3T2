@@ -57,21 +57,10 @@
 							<div class="ingredients suggest">
 							<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
 							<i class="zoom"></i>
-							<ul class="suggestions">
+							<!--<ul class="suggestions">
 								<li><i class="checked sm"></i>Pommes</li>
 								<li><i class="checked sm"></i>Pommes de terre</li>
-							</ul>
-							<ul class="choosen-ingredients">
-								<li><i class="checked sm"></i>Pommes</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
-							</ul>
+							</ul>-->
 							</div>
 						</div>
 					</section>
@@ -90,15 +79,16 @@
 	<script type="text/javascript" src="public/js/textext/textext.plugin.tags.js"></script>
 	<script type="text/javascript" src="public/js/textext/textext.plugin.ajax.js"></script>
 	<script type="text/javascript">
-    $('.ingredients>input[type="text"]') .textext({
-            plugins : 'autocomplete tags ajax',
-            ajax : {
-                url : '/recipe/getAllIngredientsJSON',
-                dataType : 'json',
-                cacheResults : true
-            }
-        });
-	$('button[name="find"]').on('click',function(e){
+    var TextExtTags = $('.ingredients>input[type="text"]').textext({
+    		plugins :'tags'
+    	}).bind('isTagAllowed', function(e, data){
+			var formData = $(e.target).textext()[0].tags()._formData,
+			    list = eval(formData);
+			if (formData.length && list.indexOf(data.tag) >= 0)
+			       data.result = false;
+		});
+
+	$('button[name="find"]').bind('click',function(e){
 		$this=$(this);
 		$form = $this.parent("form");
 		e.preventDefault();
