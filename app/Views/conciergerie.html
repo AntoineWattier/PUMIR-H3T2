@@ -83,7 +83,7 @@
     var TextExtTags = $('.ingredients>input[type="text"]').textext({
     		plugins :'autocomplete filter tags ajax',
     		ajax : {
-                url : '/WTFDIET/dataJson.json',
+                url : '/recipe/getAllIngredientsJSON',
                 dataType : 'json',
                 cacheResults : true
             },
@@ -131,15 +131,18 @@
 		});
 
 	$('button[name="find"]').bind('click',function(e){
-		$this=$(this);
-		$form = $this.parent("form");
+		var $this=$(this),
+			$input = $('input[name="ingredients"]');
+		$this.parent("form");
 		e.preventDefault();
+		//reformat ingredient
+		$input.val( $input.val().replace(/\{\"label\":\"[a-zâäàéèùêëîïôöçñ_-]+\",\"value\":\"/ig, '').replace(/\"\}/g, '').substring(1).replace(/\]/, '') );
+
 		if($('input[name="id_difficulty"]:checked').val() != '' ){
 			window.location = "/recipe/getRecipesByFilter/"+$('input[name="id_ambiance"]:checked').val()+'&'+$('input[name="id_preparationTime"]:checked').val()+'&'+$('input[name="id_difficulty"]:checked').val()+'&'+$('input[name="id_type"]:checked').val();
 		} else {
 			window.location = "/recipe/getRecipesByFilter/"+$('input[name="id_ambiance"]:checked').val();
 		}
-			
 	});
 	</script>
 </body>
