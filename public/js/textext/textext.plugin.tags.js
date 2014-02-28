@@ -595,7 +595,7 @@
 
 		for(i = 0; i < list.length; i++) {
 			item = $(list[i]);
-			if(self.itemManager().compareItems(item.data(CSS_TAG), tag))
+			if(self.itemManager().compareItems(item.data(CSS_TAG).label, tag))
 				return item;
 		}
 		
@@ -620,7 +620,7 @@
 			core = self.core(),
 			element
 			;
-
+		console.log(tag);
 		if(tag instanceof $)
 		{
 			element = tag;
@@ -630,7 +630,7 @@
 		{
 			element = self.getTagElement(tag);
 			if (element === null) {
-				//Tag does not exist
+				alert();
 				return;
 			}
 		}

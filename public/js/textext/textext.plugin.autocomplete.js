@@ -241,8 +241,10 @@
 			},
 
 			html : {
-				dropdown   : '<div class="text-dropdown"><div class="text-list"/></div>',
-				suggestion : '<div class="text-suggestion"><span class="text-label"/></div>'
+				// dropdown   : '<div class="text-dropdown"><div class="text-list"/></div>',
+				// suggestion : '<div class="text-suggestion"><span class="text-label"/></div>'
+				dropdown   : '<div class="text-dropdown"><ul class="suggestions text-list" /></div>',
+				suggestion : '<li class="text-suggestion"><i class="checked sm"></i><span class="text-label"/></li>'
 			}
 		}
 		;
@@ -437,12 +439,12 @@
 	 */
 	p.onBackspaceKeyPress = function(e)
 	{
-		var self    = this,
-			isEmpty = self.val().length > 0
-			;
+		// var self    = this,
+		// 	isEmpty = self.val().length > 0
+		// 	;
 
-		if(isEmpty || self.isDropdownVisible())
-			self.getSuggestions();
+		// if(isEmpty || self.isDropdownVisible())
+		// 	self.getSuggestions();
 	};
 
 	/**
