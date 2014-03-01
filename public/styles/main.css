@@ -235,7 +235,7 @@ section#main.user.following header + section ul li a h2 { font-size: 2.154em; fo
 section#main.user header + section > h1{ margin-bottom: 35px; }
 section#main.user header h1 + p { color: #a09dac; font-size: 1.077em; margin-bottom: 30px; }
 section#main.user header button { cursor: pointer; font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
-section#main.user header button:disabled { background: #f7d2cc; }
+section#main.user header button:disabled { cursor: default; background: #f7d2cc; }
 section#main.user header ul { margin: 20px 0;}
 section#main.user header ul li a { width: 120px; text-align: center; text-transform: uppercase; color: #a09dac; font-size: 0.923em; float: left; display: block; text-align: center; padding: 5px; box-sizing: border-box; }
 section#main.user header ul li a span { font-weight: 600; color: #635c78; display: block; font-size: 1.833em; }
