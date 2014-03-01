@@ -108,7 +108,18 @@ class UserController extends Controller{
 			case 'POST':
 				if($f3->get('POST.id_user') != $f3->get('SESSION.id_user'))
 					$f3->error(403); 
-				
+
+				$file = $_FILES['urlImage_user'];
+				$fileDir = $f3->get('UPLOADS').'user/'.$f3->get('SESSION.id_user').'/';
+				$fileName = $file ? $fileDir.$f3->camelcase($file['name']) : null;
+
+				if (!file_exists($fileDir) && !empty($fileName)){
+    						mkdir($fileDir, 0777, true);
+				}
+				if(move_uploaded_file($file['tmp_name'], $fileName) && !empty($fileName)){
+					$f3->set('POST.urlImage_user', $fileName);
+				}
+
 				$user = $this->model->editUser($f3->get('POST'));
 				//Si l'edit a réussi on le redirige vers son profil
 				if($user){						

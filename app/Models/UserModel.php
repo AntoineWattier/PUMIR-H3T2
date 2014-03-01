@@ -87,10 +87,8 @@ class UserModel extends Model{
 			$this->mapper->mail_user = $params['mail_user'];
 		if(isset($params['password_user']))
 			$this->mapper->password_user = $params['password_user'];
-		
-		\Web::instance()->receive(function($urlImage_user){
-			$this->mapper->urlImage_user = $urlImage_user['name'];
-		},true,true);
+		if(isset($params['urlImage_user']))
+			$this->mapper->urlImage_user = $params['urlImage_user'];
 
 		$this->mapper->bio_user = $params['bio_user'];
 		$this->mapper->save();
