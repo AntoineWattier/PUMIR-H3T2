@@ -108,7 +108,7 @@ class UserController extends Controller{
 			case 'POST':
 				if($f3->get('POST.id_user') != $f3->get('SESSION.id_user'))
 					$f3->error(403); 
-
+				
 				$user = $this->model->editUser($f3->get('POST'));
 				//Si l'edit a réussi on le redirige vers son profil
 				if($user){						
@@ -172,7 +172,7 @@ class UserController extends Controller{
 		if($f3->get('VERB') == 'POST')
 			$f3->error(405);
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
-		
+
 		//Gestion du follow
 		if($f3->exists('SESSION.id_user')){
 			$f3->set('PARAMS.id_follower', $f3->get('SESSION.id_user'));

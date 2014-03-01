@@ -7,6 +7,7 @@ class HomeController extends Controller{
 	}
 		
 	function home($f3){
-		echo View::instance()->render('home.html');   
+		$f3->reroute('/conciergerie');
+		// echo View::instance()->render('home.html');   
 	}
 }

@@ -1,23 +1,10 @@
 <?php include('./app/Views/partials/header.html') ?>
 <div class="wrapper">
 	<section id="main" class="user">
-		<header>
-			<?php if(!empty($user->urlImage_user)): ?>
-				<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
-			<?php else: ?>
-				<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
-			<?php endif; ?>
-			<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
-			<p><?= $user->bio_user ?></p>
-			<button disabled>C'est vous</button>
-			<ul>
-				<li><a href="/user/getFollowing/<?= $user->id_user ?>"><span><?php if(isset($following)){ echo count($following);} else { echo 0; } ?></span> Abonnements</a></li>
-				<li><a href="/user/getFollowers/<?= $user->id_user ?>"><span><?php if(isset($followers)){ echo count($followers);} else { echo 0; }?></span> Abonnés</a></li>
-			</ul>
-		</header>
+		<?php include('./app/Views/partials/headerUser.html') ?>
 		<section>
 			<h1>Paramètres du compte</h1>
-			<form action="user/editUser" method="POST">
+			<form action="user/editUser" method="POST" enctype="multipart/form-data">
 				<div>
 					<h3>Prénom</h3>
 					<input type="text" value="<?= $user->firstname_user ?>" name="firstname_user" />
@@ -34,7 +21,9 @@
 					<?php else: ?>
 						<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
 					<?php endif; ?>
-					<button>Changer la photo</button>
+					<button>Changer la photo
+					<input type='file' name="urlImage_user" onchange="readURL(this);" />
+					</button>
 				</div>
 				<div class="clear"></div>
 				<hr />
@@ -79,6 +68,18 @@
 				}
 		})
 		
+	}
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e){ 
+					$('form img').attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
 	}
 </script>
 </body>

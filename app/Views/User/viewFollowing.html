@@ -1,29 +1,7 @@
 <?php include('./app/Views/partials/header.html') ?>
 	<div class="wrapper">
 		<section id="main" class="user following">
-			<header>
-				<?php if(!empty($user->urlImage_user)): ?>
-					<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
-				<?php else: ?>
-					<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
-				<?php endif; ?>
-				<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
-				<p><?= $user->bio_user ?></p>
-				<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $user->id_user): ?>
-				<button disabled>C'est vous</button>
-				<?php endif; ?>
-				<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] != $user->id_user): ?>					
-					<?php if(!$isFollowing): ?>
-						<button class="follow" href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>">Ne plus suivre <?= $user->firstname_user ?></button>
-					<?php else: ?>
-						<button class="follow" href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" >Suivre <?= $user->firstname_user ?></button>
-					<?php endif; ?>
-				<?php endif; ?>
-				<ul>
-					<li><a href="/user/getFollowing/<?= $user->id_user ?>"><span><?php if(isset($following)){ echo count($following);} else { echo 0; } ?></span> Abonnements</a></li>
-					<li><a href="/user/getFollowers/<?= $user->id_user ?>"><span><?php if(isset($followers)){ echo count($followers);} else { echo 0; }?></span> Abonnés</a></li>
-				</ul>
-			</header>
+			<?php include('./app/Views/partials/headerUser.html') ?>	
 			<section>
 			<?php if($following): ?>
 				<ul>

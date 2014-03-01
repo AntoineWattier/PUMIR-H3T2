@@ -122,13 +122,7 @@ $('a.fb').on('click', function(e){
 	e.preventDefault();
 	
 	FB.login(function(response) {
-		if (response.authResponse) {
-// var profileImage = "test";			
-// 			FB.api("/me/picture?width=160&height=160",  function(response) {
-// 				var profileImage = response.data.url.split('https://')[1];//remove https to avoid any cert issues		
-// 			});
-			
-// console.log(profileImage);	
+		if (response.authResponse) {	
 			FB.api('/me', function(response) {
 
 				console.log('https://graph.facebook.com/'+response.id+'/picture?type=large');
@@ -151,6 +145,5 @@ $('a.fb').on('click', function(e){
 			console.log('cancelled');
 		}
 	},{scope: 'email'});  
-
 });
 /* End Facebook Connect */
