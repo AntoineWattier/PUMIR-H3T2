@@ -242,7 +242,8 @@ section#main.user header + section { float: left; width: 670px; margin-left: 50p
 section#main.user header + section form div:first-child { float: left; width: 355px; }
 section#main.user header + section form div:nth-child(2) { float: left; width: 315px; text-align: center; }
 section#main.user header + section form div img { display: block; height: 96px; width: 96px; border-radius: 100%; margin: 25px auto;}
-section#main.user header + section form div button { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#main.user header + section form div label { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: inline-block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#main.user header + section form div input[type="file"] { display: none;}
 section#main.user header + section form input { margin-bottom: 20px; font-size: 1.231em; }
 section#main.user header + section form div input:last-child,
 section#main.user header + section form input.fix { margin-bottom: 5px; }
@@ -268,9 +269,14 @@ section#main.user.following header + section ul li a p { color: #a09dac; font-si
 /************************/
 /* @group Create-recipe */
 /************************/
-section#main.create-recipe {
-  background: #635c78;
-}
+section#main.create-recipe { background: #635c78; }
+section#main.create-recipe a.cancel { text-transform: uppercase; color: #a09dac; font-weight: 600; font-size: 0.923em; }
+section#main.create-recipe h1 { font-size: 1.385em; color: #fff; text-transform: uppercase; font-weight: 700; margin-top: 10px; }
+section#main.create-recipe div.title { position: relative; }
+section#main.create-recipe div.title input { border-bottom: 1px solid #a09dac; border-radius: 0; margin: 30px 0; width: 720px; background: transparent; padding: 5px 0 5px 40px; text-transform: uppercase; font-weight: 700; font-size: 2.308em; color: #fff; }
+section#main.create-recipe div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
+section#main.create-recipe form div.ingredients { width: 480px; float: left; }
+
 /* @end of Create-recipe */
 
 /****************/
