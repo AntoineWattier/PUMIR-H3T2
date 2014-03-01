@@ -162,7 +162,7 @@ section#main.recipes article div a:hover ul li { opacity: 0.5; }
 /*****************/
 /* @group Recipe */
 /*****************/
-section#main.recipe article header { background: #fff; position: relative; border-radius: 4px;  padding: 25px 25px 25px 345px; box-sizing: border-box; }
+section#main.recipe article header { background: #fff; position: relative; border-radius: 4px;  padding: 25px 25px 25px 345px; box-sizing: border-box; margin-top: 20px;}
 section#main.recipe article header img { width: 320px; height: 320px; position: absolute; border-radius: 4px; left: 0; top: -10px; }
 section#main.recipe article header h1 { margin-bottom: 10px; color: #635c78; text-transform: uppercase; font-weight: 700; font-size: 1.846em; }
 section#main.recipe article header h1 span { display: block; font-size: 0.500em; color: #a19ead; font-weight: 600; margin-bottom: 10px; }
@@ -173,6 +173,30 @@ section#main.recipe article header a.like { box-sizing: border-box; padding: 25p
 section#main.recipe article header a.like:hover { opacity: 0.5; }
 section#main.recipe article header a.liked { border: 1px solid #fe8468; background: url(../images/icons/heart-full.png) no-repeat 11px 10px; color: #fe8468; }
 
+
+section#main.recipe article section.steps { box-sizing: border-box; padding: 25px; width: 615px; margin: 25px 0 0 25px; background: #fff; border-radius: 4px; float: left; }
+section#main.recipe article section.steps > ul > li { min-height: 60px; position: relative; overflow: hidden; border-bottom: 1px solid #f4f4f7; padding: 15px 10px 15px 60px; }
+section#main.recipe article section.steps > ul > li:first-child { border-top: 1px solid #f4f4f7; }
+section#main.recipe article section.steps > ul > li > p { margin-top: 5px; font-size: 1.385em; line-height: 1em; color: #635c78; }
+
+section#main.recipe article section.steps div.step { position: absolute; left: 10px; top: 15px; text-align: center; width: 32px; }
+section#main.recipe article section.steps div.step span { display: block; padding: 10px 0; width: 100%; font-family: "Damion", cursive; font-size: 2.308em; line-height: 0.600em; color: #fff; background: #fe8468; border-top-left-radius: 3px; border-top-right-radius: 3px; }
+section#main.recipe article section.steps div.step a { font-size: 1.077em; border: 1px solid #fe8468; display: block; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-top: 0; color: #fe8468; padding: 3px 0; }
+section#main.recipe article section.steps div.step a i.chat { background: url(../images/icons/chat-orange.png) no-repeat; }
+section#main.recipe article section.steps div.step a.no-comment { border: 1px solid #dedee4; color: #dedee4; }
+section#main.recipe article section.steps div.step a.no-comment i.chat { background: url(../images/icons/chat.png) no-repeat; }
+section#main.recipe article section.steps ul.comments { margin-top: 15px; box-sizing: border-box; width: 100%;}
+section#main.recipe article section.steps ul.comments li { line-height: 1.286em; font-size: 1.077em; color: #a09dac; padding: 10px 10px 10px 40px; position: relative; min-height: 10px; background: #fcfcfc; border-bottom: 1px solid #fff; }
+section#main.recipe article section.steps ul.comments li img { position: absolute; top: 0; left: 0; width: 30px; height: 30px; }
+section#main.recipe article section.steps ul.comments li span.user { font-weight: 600; color: #635c78; }
+section#main.recipe article section.steps ul.comments li input { font-family: "Source Sans Pro", sans-serif; color: #a09dac; font-size: 1.077em; border: 0; background: transparent; width: 100%; }
+section#main.recipe article section.steps ul.comments li:last-child { background-color: transparent; text-align: right; text-decoration: underline; padding: 0; cursor: pointer; }
+
+section#main.recipe article aside { margin-top: 130px; width: 320px; float: left; overflow: hidden;}
+section#main.recipe article aside ul.ingredients { margin-bottom: 30px;}
+section#main.recipe article aside ul.ingredients li:first-child { border-top: 1px solid #635c78; }
+section#main.recipe article aside ul.ingredients li { border-bottom: 1px solid #dedee4; color: #635c78; padding: 15px 10px; text-transform: uppercase; font-weight: 600; }
+section#main.recipe article aside ul.ingredients li span { text-transform: none; display: block; font-weight: normal; margin-top: 10px; }
 /* @end of Recipe */
 
 
@@ -285,5 +309,8 @@ i.settings {
 i.sign-out { 
   background: url(../images/icons/sign-out.png) no-repeat;
   width: 15px; height: 15px; }
+i.chat { 
+  background: url(../images/icons/chat.png) no-repeat;
+  width: 10px; height: 9px; }
 /* @end of Icons */
 /* @end of Master */
