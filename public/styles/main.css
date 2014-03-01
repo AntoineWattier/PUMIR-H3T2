@@ -153,7 +153,7 @@ section#main.recipes article { max-height: 200px; min-height: 100px; border-radi
 section#main.recipes article img { width: 100%; height: auto; border-radius: 4px; }
 section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
 section#main.recipes article div h1 { font-size: 1.385em; line-height: 1.111em; font-weight: 600; color: #635c78; margin-bottom: 10px; transition: opacity ease-out 0.3s; }
-section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 40px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
+section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 50px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like:hover { opacity: 0.5; }
 section#main.recipes article div a.liked { background: url(../images/icons/heart-full.png) no-repeat 2px 3px; color: #fe8468; }
 
@@ -234,7 +234,7 @@ section#main.user.following header + section ul li a h2 { font-size: 2.154em; fo
 
 section#main.user header + section > h1{ margin-bottom: 35px; }
 section#main.user header h1 + p { color: #a09dac; font-size: 1.077em; margin-bottom: 30px; }
-section#main.user header button { font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
+section#main.user header button { cursor: pointer; font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
 section#main.user header button:disabled { background: #f7d2cc; }
 section#main.user header ul { margin: 20px 0;}
 section#main.user header ul li a { width: 120px; text-align: center; text-transform: uppercase; color: #a09dac; font-size: 0.923em; float: left; display: block; text-align: center; padding: 5px; box-sizing: border-box; }
