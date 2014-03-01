@@ -45,9 +45,6 @@ class RecipeController extends Controller{
 		$f3->set('recipe',$this->model->getRecipe($f3->get('PARAMS')));
 		$f3->set('steps',$this->model->getSteps($f3->get('PARAMS')));
 
-		//TOCHANGE 
-		$f3->set('PARAMS.id_step', 5);
-		$f3->set('comments',$this->model->getComments($f3->get('PARAMS')));
 		$f3->set('ingredients',$this->model->getIngredients($f3->get('PARAMS')));
 		$f3->set('ambiance',$this->model->getAmbiance($f3->get('PARAMS')));
 		$f3->set('author',$this->model->getAuthor($f3->get('PARAMS')));
@@ -118,5 +115,11 @@ class RecipeController extends Controller{
 	function getAllIngredientsJSON($f3){
 		$f3->set('allIngredients',$this->model->getAllIngredients());
 		echo View::instance()->render('Recipe/allIngredients.json');
+	}
+
+	function getComments($f3){
+		$f3->set('comments',$this->model->getComments($f3->get('PARAMS')));
+		$f3->set('step',$f3->get('PARAMS.id_step'));
+		echo View::instance()->render('partials/comments.html');
 	}
 }

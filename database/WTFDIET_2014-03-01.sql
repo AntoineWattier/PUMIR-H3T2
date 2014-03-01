@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Hôte: 127.0.0.1 (MySQL 5.6.16)
-# Base de données: WTFDIET
-# Temps de génération: 2014-03-01 12:37:02 +0000
+# H�te: 127.0.0.1 (MySQL 5.6.16)
+# Base de donn�es: WTFDIET
+# Temps de g�n�ration: 2014-03-01 17:25:49 +0000
 # ************************************************************
 
 
@@ -71,7 +71,7 @@ CREATE TABLE `associate` (
    `id_ingredient` INT(11) NOT NULL DEFAULT '0',
    `name_ingredient` VARCHAR(100) NOT NULL,
    `id_recipe` INT(11) NOT NULL,
-   `quantity_ingredient` INT(5) NULL DEFAULT NULL
+   `quantity_ingredient` VARCHAR(50) NULL DEFAULT NULL
 ) ENGINE=MyISAM;
 
 
@@ -101,11 +101,21 @@ LOCK TABLES `COMMENT` WRITE;
 INSERT INTO `COMMENT` (`id_step`, `id_user`, `id_comment`, `content_comment`, `dateAdd_comment`, `dateUpdate_comment`)
 VALUES
 	(5,1,7,'test','2014-02-22 21:37:43','0000-00-00 00:00:00'),
-	(5,1,8,'Salut','2014-02-22 21:38:00','0000-00-00 00:00:00'),
+	(5,2,8,'Salut','2014-02-22 21:38:00','0000-00-00 00:00:00'),
 	(5,1,9,'LOL','2014-02-24 15:55:17','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `COMMENT` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DELIMITER ;;
+/*!50003 SET SESSION SQL_MODE="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `INCREMENT_COMMENT` AFTER INSERT ON `COMMENT` FOR EACH ROW UPDATE STEP SET countComment_step = countComment_step + 1
+WHERE id_step = NEW.id_step; */;;
+/*!50003 SET SESSION SQL_MODE="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `DECREMENT_COMMENT` BEFORE DELETE ON `COMMENT` FOR EACH ROW UPDATE STEP SET countComment_step = countComment_step - 1
+WHERE id_step = OLD.id_step; */;;
+DELIMITER ;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 
 # Affichage de la table COMPOSE
@@ -116,12 +126,12 @@ DROP TABLE IF EXISTS `COMPOSE`;
 CREATE TABLE `COMPOSE` (
   `id_ingredient` int(11) NOT NULL,
   `id_recipe` int(11) NOT NULL,
-  `quantity_ingredient` int(5) DEFAULT NULL,
+  `quantity_ingredient` varchar(50) DEFAULT NULL,
   `measure_ingredient` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ingredient`,`id_recipe`),
   KEY `id_recipe` (`id_recipe`),
-  CONSTRAINT `compose_ibfk_3` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE,
-  CONSTRAINT `compose_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `INGREDIENT` (`id_ingredient`)
+  CONSTRAINT `compose_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `INGREDIENT` (`id_ingredient`),
+  CONSTRAINT `compose_ibfk_3` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `COMPOSE` WRITE;
@@ -129,8 +139,8 @@ LOCK TABLES `COMPOSE` WRITE;
 
 INSERT INTO `COMPOSE` (`id_ingredient`, `id_recipe`, `quantity_ingredient`, `measure_ingredient`)
 VALUES
-	(1033,3,NULL,NULL),
-	(1035,3,NULL,NULL),
+	(1033,3,'3 gros',NULL),
+	(1035,3,'500g',NULL),
 	(1050,6,NULL,NULL),
 	(1121,6,NULL,NULL),
 	(1123,5,NULL,NULL),
@@ -140,11 +150,11 @@ VALUES
 	(1640,6,NULL,NULL),
 	(1730,7,NULL,NULL),
 	(1743,1,NULL,NULL),
-	(1743,2,1,NULL),
+	(1743,2,'1',NULL),
 	(1793,7,NULL,NULL),
 	(1794,3,NULL,NULL),
 	(1800,1,NULL,NULL),
-	(1822,2,500,NULL),
+	(1822,2,'500',NULL),
 	(1850,6,NULL,NULL),
 	(1896,7,NULL,NULL),
 	(1927,1,NULL,NULL),
@@ -1347,6 +1357,7 @@ CREATE TABLE `post` (
    `id_user` INT(11) NOT NULL DEFAULT '0',
    `firstname_user` VARCHAR(50) NOT NULL,
    `lastname_user` VARCHAR(50) NOT NULL,
+   `urlImage_user` VARCHAR(255) NULL DEFAULT NULL,
    `id_comment` INT(11) NOT NULL DEFAULT '0',
    `content_comment` TEXT NOT NULL,
    `dateAdd_comment` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -1439,6 +1450,7 @@ CREATE TABLE `STEP` (
   `order_step` int(5) NOT NULL,
   `content_step` text NOT NULL,
   `id_recipe` int(11) NOT NULL,
+  `countComment_step` int(11) NOT NULL,
   PRIMARY KEY (`id_step`),
   UNIQUE KEY `order_step` (`order_step`,`id_recipe`),
   KEY `id_recipe` (`id_recipe`),
@@ -1448,22 +1460,22 @@ CREATE TABLE `STEP` (
 LOCK TABLES `STEP` WRITE;
 /*!40000 ALTER TABLE `STEP` DISABLE KEYS */;
 
-INSERT INTO `STEP` (`id_step`, `order_step`, `content_step`, `id_recipe`)
+INSERT INTO `STEP` (`id_step`, `order_step`, `content_step`, `id_recipe`, `countComment_step`)
 VALUES
-	(3,1,'Faire cuire',2),
-	(5,1,'Sortir les casseroles',5),
-	(6,2,'Mettre du sel',5),
-	(7,1,'Sortir la salade de la casserole',6),
-	(8,1,'Pour la sauce, mélanger une cuillère à café de moutarde de Dijon, 3 cuillères à soupe d\'huile d\'olive, 1 cuillère à soupe de vinaigre balsamique, et assaisonner à sa guise',7),
-	(9,2,'Disposer la salade dans des assiettes',7),
-	(10,3,'Y mettre la sauce',7),
-	(11,4,'Déposer deux tranches fines de jambon de Parme découenné par assiette',7),
-	(12,5,'Saupoudrer de copeaux de parmesan',7),
-	(13,6,'Servir rapidement',7),
-	(73,1,'Tuer l\'agneau',3),
-	(91,1,'Faire cuire',1),
-	(98,2,'TEST3',1),
-	(99,2,'Manger',3);
+	(3,1,'Faire cuire',2,0),
+	(5,1,'Sortir les casseroles',5,3),
+	(6,2,'Mettre du sel',5,0),
+	(7,1,'Sortir la salade de la casserole',6,0),
+	(8,1,'Pour la sauce, mélanger une cuillère à café de moutarde de Dijon, 3 cuillères à soupe d\'huile d\'olive, 1 cuillère à soupe de vinaigre balsamique, et assaisonner à sa guise',7,0),
+	(9,2,'Disposer la salade dans des assiettes',7,0),
+	(10,3,'Y mettre la sauce',7,0),
+	(11,4,'Déposer deux tranches fines de jambon de Parme découenné par assiette',7,0),
+	(12,5,'Saupoudrer de copeaux de parmesan',7,0),
+	(13,6,'Servir rapidement',7,0),
+	(73,1,'Tuer l\'agneau',3,0),
+	(91,1,'Faire cuire',1,0),
+	(98,2,'TEST3',1,0),
+	(99,2,'Manger',3,0);
 
 /*!40000 ALTER TABLE `STEP` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1554,12 +1566,12 @@ LOCK TABLES `USER` WRITE;
 
 INSERT INTO `USER` (`id_user`, `slug_user`, `adminLevel_user`, `firstname_user`, `lastname_user`, `mail_user`, `password_user`, `bio_user`, `urlImage_user`, `karmaPoints_user`, `facebookId_user`, `instagramId_user`, `subscribeDate_user`, `lastLogin_user`)
 VALUES
-	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test','Salut je suis le premier utilisateur du site, c\'est un grand honneur.',NULL,NULL,NULL,NULL,'2014-02-19 16:36:22','2014-02-28 23:32:04'),
-	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test','',NULL,NULL,NULL,NULL,'2014-02-19 18:35:23','2014-02-21 23:03:56'),
+	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test','Salut je suis le premier utilisateur du site, c\'est un grand honneur.','public/uploads/user/1/panda.jpg',NULL,NULL,NULL,'2014-02-19 16:36:22','2014-03-01 14:40:02'),
+	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test','','',NULL,NULL,NULL,'2014-02-19 18:35:23','2014-03-01 14:12:20'),
 	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon','',NULL,NULL,NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
 	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test','',NULL,NULL,NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
 	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty','',NULL,NULL,NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00'),
-	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/panda.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-01 00:13:36');
+	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/user/35/PP.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-01 17:43:20');
 
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1632,6 +1644,7 @@ AS SELECT
    `u`.`id_user` AS `id_user`,
    `u`.`firstname_user` AS `firstname_user`,
    `u`.`lastname_user` AS `lastname_user`,
+   `u`.`urlImage_user` AS `urlImage_user`,
    `c`.`id_comment` AS `id_comment`,
    `c`.`content_comment` AS `content_comment`,
    `c`.`dateAdd_comment` AS `dateAdd_comment`,

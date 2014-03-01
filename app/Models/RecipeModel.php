@@ -130,7 +130,8 @@ class RecipeModel extends Model{
 	}
 
 	function getRecipe($params){
-		return $this->mapper->load(array("id_recipe = :id", ':id' => $params['id']));
+		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		return $fullrecipe_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
 
 	function getRecipesByUser($params){
@@ -244,7 +245,7 @@ class RecipeModel extends Model{
 
 	function getComments($params){
 		$post_mapper = $this->getMapper('POST');
-		return $post_mapper->find(array("id_step = :id_step", ':id_step' => $params['id_step']),array('order'=>'dateAdd_comment DESC'));
+		return $post_mapper->find(array("id_step = :id_step AND id_recipe = :id_recipe", ':id_step' => $params['id_step'], ':id_recipe' => $params['id_recipe']),array('order'=>'dateAdd_comment DESC'));
 	}
 
 	function getVotes($params){

@@ -1,48 +1,84 @@
 <?php include('./app/Views/partials/header.html') ?>
-<body class="clearfix">
-	<h1>Recipe</h1>
 	<?php if($recipe && $steps && $ambiance && $ingredients && $author):?>
-	<table class="table table-hover table-bordered">
-		<tr><td>id <td><?= $recipe->id_recipe ?>
-		<tr><td>slug  <td><?= \Helpers\Tools::instance()->slugify($recipe->slug_recipe) ?>
-		<tr><td>name  <td><?= $recipe->name_recipe ?>
-		<tr><td>number of people  <td><?= $recipe->numberOfPeople_recipe ?>
-		<tr><td>preparation Time  <td><?= $recipe->id_preparationTime ?>
-	<?php foreach ($steps as $step): ?>
-		<tr><td>Step nº<?= $step->order_step ?><td><?= $step->content_step ?>
-				<ul>
-				<?php foreach ($comments as $comment): ?>
-					<li> Comment by <?= $comment->firstname_user ?> : <?= $comment->content_comment ?>
-				<?php endforeach ?>
-				<?php if(isset($SESSION['id_user'])): ?>
-					<li><form action="user/comment/<?= $SESSION['id_user'] ?>&<?= $step->id_step ?>">
-							<input type="textarea" name="content_comment">
-							<input type="button" name="comment" value="Comment">
-						</form>
-				<?php endif; ?>
-				</ul>
-	<?php endforeach; ?>
-	<?php foreach ($ingredients as $i => $ingredient): ?>
-		<tr><td>Ingredient nº<?= $i+1 ?><td><?= $ingredient->name_ingredient ?>
-	<?php endforeach; ?>
-		<tr><td>ambiance  <td><?= $ambiance->name_ambiance ?>
-		<tr><td>author  <td><a href="/user/getUser/<?= $author->id_user ?>"><?= $author->lastname_user." ".$author->firstname_user?></a>
-		<tr><td>votes count  <td><?= $recipe->votes_recipe ?>
-	</table>
-	<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $recipe->id_user): ?>
-		<a href="recipe/editRecipe/<?= $recipe->id_recipe?>" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
-		<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
-	<?php endif; ?>
-	<?php if(isset($SESSION['id_user'])): ?>
-		<a href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>" class="btn btn-primary like <?php if(!$isFavorite) echo 'on' ?>"><i class="icon-heart icon-white"></i>Vote</a>
-		<?php if(!$isFavorite) echo 'ALREADY VOTE' ?>
-	<?php endif; ?>
+	<section id="main" class="recipe">
+		<div class="wrapper">
+			<a href="" onclick="window.history.back()">« Retour aux résultats</a>
+			<article>
+				<header <?php if(empty($recipe->urlImage_recipe)) 	echo 'class="no-image"'?>>
+					<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+					<h1>
+						<span><a href="/user/getUser/<?= $author->id_user ?>"><?= $author->firstname_user." ".$author->lastname_user?></a> vous propose...</span>
+						<?= $recipe->name_recipe ?>
+					</h1>
+					<ul class="meta">
+						<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+						<li><i class="cup"></i><?= $recipe->name_difficulty ?></li>
+						<li><i class="bell"></i><?= $recipe->name_type ?></li>
+					</ul>
+					<hr />
+					<?php if(isset($SESSION['id_user'])): ?>
+					<a class="like <?php if(!$isFavorite) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+					<?php else: ?>
+					<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+					<?php endif; ?>
+
+					<div class="clear"></div>
+				</header>
+
+				<aside>
+					<h3>Ingrédients</h3>
+					<ul class="ingredients">
+						<?php foreach ($ingredients as $ingredient): ?>
+							<li><?= $ingredient->name_ingredient ?><span><?= $ingredient->quantity_ingredient ?></span></li>
+						<?php endforeach; ?>
+					</ul>
+				</aside>
+
+				<section class="steps">
+					<h3>La recette en <?= count($steps) ?> étapes</h3>
+					<ul>
+						<?php foreach ($steps as $step): ?>
+							<li>
+								<div class="step"><span><?= $step->order_step ?></span>
+									<a <?php if(count($step->countComment_step)==0) echo 'class="no-comment"'?> class="no-comment" href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>">
+									<!-- SI COMMENT <a href=""><i class="chat"></i>1</a> -->
+									<i class="chat"></i> <?= $step->countComment_step ?></a>
+								</div>
+								<p><?= $step->content_step ?></p>
+							</li>
+						<?php endforeach; ?>
+						<li>
+							<div class="step"><span>3</span><a href=""><i class="chat"></i> 1</a></div>
+							<p>I don't know</p>
+						</li>
+					</ul>
+
+				</section>
+				<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $recipe->id_user): ?>
+				<a href="recipe/editRecipe/<?= $recipe->id_recipe?>" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
+				<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
+			<?php endif; ?>
+			</article>
+		</div>
+	</section>
 	<?php else: ?>
 		Recipe not found
 	<?php endif; ?>
-	<br>
-	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
+	<script type="text/javascript">
+	$('div.step a').on('click', function(e){
+		e.preventDefault();
+		var $this = $(this);
+		$.ajax({
+			dataType: "html",
+			url:$this.attr('href'),
+			method:'POST'
+		})
+		.success(function(data){
+			$this.parent().parent().append(data);
+		});
+	});
+	</script>
 </body>
 </html>
