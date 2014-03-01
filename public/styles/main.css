@@ -218,7 +218,8 @@ section#login a.fb:hover { border: 2px solid #fff; }
 section#login a.fb i.fb { position: absolute; top: 10px; left: 20px; }
 section#login hr { border-top: 2px dashed #7e798f; margin: 30px 0; }
 section#login form input { font-size: 1.385em; }
-
+section#login div.error { box-sizing: border-box; position: fixed; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+section#login div.error i.close { float: right; }
 section#login p.legals { margin-top: 60px; font-size: 0.923em; color: #a09dac; }
 /* @end of Login */
 
@@ -330,5 +331,8 @@ i.sign-out {
 i.chat { 
   background: url(../images/icons/chat.png) no-repeat;
   width: 10px; height: 9px; }
+i.close.xl{
+  background: url(../images/icons/close-xl.png) no-repeat;
+  width: 14px; height: 15px;}
 /* @end of Icons */
 /* @end of Master */
