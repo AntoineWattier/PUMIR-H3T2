@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Hôte: 127.0.0.1 (MySQL 5.6.16)
-# Base de données: WTFDIET
-# Temps de génération: 2014-02-27 17:13:12 +0000
+# HÃ´te: 127.0.0.1 (MySQL 5.6.16)
+# Base de donnÃ©es: WTFDIET
+# Temps de gÃ©nÃ©ration: 2014-03-01 12:37:02 +0000
 # ************************************************************
 
 
@@ -189,10 +189,22 @@ DROP VIEW IF EXISTS `favorite`;
 
 CREATE TABLE `favorite` (
    `id_user` INT(11) NOT NULL DEFAULT '0',
-   `firstname_user` VARCHAR(50) NOT NULL,
    `lastname_user` VARCHAR(50) NOT NULL,
+   `firstname_user` VARCHAR(50) NOT NULL,
    `id_recipe` INT(11) NOT NULL DEFAULT '0',
-   `name_recipe` VARCHAR(50) NOT NULL
+   `name_recipe` VARCHAR(50) NOT NULL,
+   `urlImage_recipe` VARCHAR(255) NULL DEFAULT NULL,
+   `votes_recipe` INT(11) NULL DEFAULT '0',
+   `dateAdd_recipe` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+   `id_ambiance` INT(11) NOT NULL,
+   `id_preparationTime` INT(11) NOT NULL,
+   `id_difficulty` INT(1) NOT NULL DEFAULT '1',
+   `id_type` INT(1) NOT NULL DEFAULT '1',
+   `numberOfPeople_recipe` INT(11) NOT NULL,
+   `name_ambiance` VARCHAR(100) NOT NULL,
+   `name_preparationTime` VARCHAR(100) NOT NULL DEFAULT '',
+   `name_difficulty` VARCHAR(100) NOT NULL DEFAULT '',
+   `name_type` VARCHAR(100) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM;
 
 
@@ -204,20 +216,26 @@ DROP TABLE IF EXISTS `FOLLOW`;
 
 CREATE TABLE `FOLLOW` (
   `id_follow` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `id_followed` int(11) NOT NULL,
+  `id_following` int(11) NOT NULL,
   `id_follower` int(11) NOT NULL,
   `date_follow` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_follow`),
   KEY `id_follower` (`id_follower`),
-  KEY `id_follow` (`id_followed`)
+  KEY `id_follow` (`id_following`),
+  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`id_follower`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
+  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`id_following`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `FOLLOW` WRITE;
 /*!40000 ALTER TABLE `FOLLOW` DISABLE KEYS */;
 
-INSERT INTO `FOLLOW` (`id_follow`, `id_followed`, `id_follower`, `date_follow`)
+INSERT INTO `FOLLOW` (`id_follow`, `id_following`, `id_follower`, `date_follow`)
 VALUES
-	(5,1,33,'2014-02-27 16:21:58');
+	(6,35,1,'2014-02-27 23:52:42'),
+	(7,35,2,'2014-02-27 23:52:50'),
+	(14,7,35,'2014-02-27 23:53:29'),
+	(15,1,35,'2014-02-28 01:08:37'),
+	(17,2,35,'2014-02-28 15:23:36');
 
 /*!40000 ALTER TABLE `FOLLOW` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1465,6 +1483,24 @@ CREATE TABLE `submit` (
 
 
 
+# Affichage de la table subscribe
+# ------------------------------------------------------------
+
+DROP VIEW IF EXISTS `subscribe`;
+
+CREATE TABLE `subscribe` (
+   `id_follower` INT(11) NOT NULL,
+   `firstname_follower` VARCHAR(50) NOT NULL,
+   `lastname_follower` VARCHAR(50) NOT NULL,
+   `bio_follower` TEXT NULL DEFAULT NULL,
+   `id_following` INT(11) NOT NULL,
+   `firstname_following` VARCHAR(50) NOT NULL,
+   `lastname_following` VARCHAR(50) NOT NULL,
+   `bio_following` TEXT NULL DEFAULT NULL
+) ENGINE=MyISAM;
+
+
+
 # Affichage de la table TYPE
 # ------------------------------------------------------------
 
@@ -1518,13 +1554,12 @@ LOCK TABLES `USER` WRITE;
 
 INSERT INTO `USER` (`id_user`, `slug_user`, `adminLevel_user`, `firstname_user`, `lastname_user`, `mail_user`, `password_user`, `bio_user`, `urlImage_user`, `karmaPoints_user`, `facebookId_user`, `instagramId_user`, `subscribeDate_user`, `lastLogin_user`)
 VALUES
-	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test','',NULL,NULL,NULL,NULL,'2014-02-19 16:36:22','2014-02-27 17:29:04'),
+	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test','Salut je suis le premier utilisateur du site, c\'est un grand honneur.',NULL,NULL,NULL,NULL,'2014-02-19 16:36:22','2014-02-28 23:32:04'),
 	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test','',NULL,NULL,NULL,NULL,'2014-02-19 18:35:23','2014-02-21 23:03:56'),
 	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon','',NULL,NULL,NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
 	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test','',NULL,NULL,NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
 	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty','',NULL,NULL,NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00'),
-	(33,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com',NULL,'',NULL,NULL,'100001487385616',NULL,'2014-02-23 11:01:23','2014-02-27 17:22:58'),
-	(34,'test-test',0,'Test','TEST','test@tes',NULL,NULL,NULL,NULL,NULL,NULL,'2014-02-27 17:23:31','0000-00-00 00:00:00');
+	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/panda.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-01 00:13:36');
 
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1555,8 +1590,7 @@ VALUES
 	(435,1,5,'2014-02-22 00:15:00'),
 	(442,1,1,'2014-02-22 12:31:21'),
 	(445,1,2,'2014-02-22 17:09:12'),
-	(446,1,3,'2014-02-22 19:59:09'),
-	(449,33,2,'2014-02-27 01:09:14');
+	(446,1,3,'2014-02-22 19:59:09');
 
 /*!40000 ALTER TABLE `VOTE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1572,6 +1606,20 @@ DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 
+
+
+# Replace placeholder table for submit with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `submit`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `submit`
+AS SELECT
+   `user`.`id_user` AS `id_user`,
+   `user`.`firstname_user` AS `firstname_user`,
+   `user`.`lastname_user` AS `lastname_user`,
+   `recipe`.`id_recipe` AS `id_recipe`
+FROM (`user` join `recipe` on((`user`.`id_user` = `recipe`.`id_user`)));
 
 
 # Replace placeholder table for post with correct view syntax
@@ -1599,39 +1647,24 @@ DROP TABLE `favorite`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `favorite`
 AS SELECT
-   `u`.`id_user` AS `id_user`,
-   `u`.`firstname_user` AS `firstname_user`,
-   `u`.`lastname_user` AS `lastname_user`,
+   `user`.`id_user` AS `id_user`,
+   `user`.`lastname_user` AS `lastname_user`,
+   `user`.`firstname_user` AS `firstname_user`,
    `recipe`.`id_recipe` AS `id_recipe`,
-   `recipe`.`name_recipe` AS `name_recipe`
-FROM ((`vote` `v` join `user` `u` on((`v`.`id_user` = `u`.`id_user`))) join `recipe` on((`v`.`id_recipe` = `recipe`.`id_recipe`)));
-
-
-# Replace placeholder table for adapt with correct view syntax
-# ------------------------------------------------------------
-
-DROP TABLE `adapt`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adapt`
-AS SELECT
-   `ambiance`.`id_ambiance` AS `id_ambiance`,
+   `recipe`.`name_recipe` AS `name_recipe`,
+   `recipe`.`urlImage_recipe` AS `urlImage_recipe`,
+   `recipe`.`votes_recipe` AS `votes_recipe`,
+   `recipe`.`dateAdd_recipe` AS `dateAdd_recipe`,
+   `recipe`.`id_ambiance` AS `id_ambiance`,
+   `recipe`.`id_preparationTime` AS `id_preparationTime`,
+   `recipe`.`id_difficulty` AS `id_difficulty`,
+   `recipe`.`id_type` AS `id_type`,
+   `recipe`.`numberOfPeople_recipe` AS `numberOfPeople_recipe`,
    `ambiance`.`name_ambiance` AS `name_ambiance`,
-   `recipe`.`id_recipe` AS `id_recipe`
-FROM (`recipe` join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`)));
-
-
-# Replace placeholder table for associate with correct view syntax
-# ------------------------------------------------------------
-
-DROP TABLE `associate`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `associate`
-AS SELECT
-   `ingredient`.`id_ingredient` AS `id_ingredient`,
-   `ingredient`.`name_ingredient` AS `name_ingredient`,
-   `compose`.`id_recipe` AS `id_recipe`,
-   `compose`.`quantity_ingredient` AS `quantity_ingredient`
-FROM (`ingredient` join `compose` on((`ingredient`.`id_ingredient` = `compose`.`id_ingredient`)));
+   `preparationtime`.`name_preparationTime` AS `name_preparationTime`,
+   `difficulty`.`name_difficulty` AS `name_difficulty`,
+   `type`.`name_type` AS `name_type`
+FROM ((((((`vote` `v` join `user` on((`v`.`id_user` = `user`.`id_user`))) join `recipe` on((`v`.`id_recipe` = `recipe`.`id_recipe`))) join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`))) join `preparationtime` on((`recipe`.`id_preparationTime` = `preparationtime`.`id_preparationTime`))) join `difficulty` on((`recipe`.`id_difficulty` = `difficulty`.`id_difficulty`))) join `type` on((`recipe`.`id_type` = `type`.`id_type`)));
 
 
 # Replace placeholder table for fullrecipe with correct view syntax
@@ -1661,18 +1694,49 @@ AS SELECT
 FROM (((((`recipe` join `user` on((`recipe`.`id_user` = `user`.`id_user`))) join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`))) join `preparationtime` on((`recipe`.`id_preparationTime` = `preparationtime`.`id_preparationTime`))) join `difficulty` on((`recipe`.`id_difficulty` = `difficulty`.`id_difficulty`))) join `type` on((`recipe`.`id_type` = `type`.`id_type`)));
 
 
-# Replace placeholder table for submit with correct view syntax
+# Replace placeholder table for subscribe with correct view syntax
 # ------------------------------------------------------------
 
-DROP TABLE `submit`;
+DROP TABLE `subscribe`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `submit`
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `subscribe`
 AS SELECT
-   `user`.`id_user` AS `id_user`,
-   `user`.`firstname_user` AS `firstname_user`,
-   `user`.`lastname_user` AS `lastname_user`,
+   `follow`.`id_follower` AS `id_follower`,
+   `u`.`firstname_user` AS `firstname_follower`,
+   `u`.`lastname_user` AS `lastname_follower`,
+   `u`.`bio_user` AS `bio_follower`,
+   `follow`.`id_following` AS `id_following`,
+   `uu`.`firstname_user` AS `firstname_following`,
+   `uu`.`lastname_user` AS `lastname_following`,
+   `uu`.`bio_user` AS `bio_following`
+FROM ((`follow` join `user` `u` on((`u`.`id_user` = `follow`.`id_follower`))) join `user` `uu` on((`uu`.`id_user` = `follow`.`id_following`)));
+
+
+# Replace placeholder table for associate with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `associate`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `associate`
+AS SELECT
+   `ingredient`.`id_ingredient` AS `id_ingredient`,
+   `ingredient`.`name_ingredient` AS `name_ingredient`,
+   `compose`.`id_recipe` AS `id_recipe`,
+   `compose`.`quantity_ingredient` AS `quantity_ingredient`
+FROM (`ingredient` join `compose` on((`ingredient`.`id_ingredient` = `compose`.`id_ingredient`)));
+
+
+# Replace placeholder table for adapt with correct view syntax
+# ------------------------------------------------------------
+
+DROP TABLE `adapt`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adapt`
+AS SELECT
+   `ambiance`.`id_ambiance` AS `id_ambiance`,
+   `ambiance`.`name_ambiance` AS `name_ambiance`,
    `recipe`.`id_recipe` AS `id_recipe`
-FROM (`user` join `recipe` on((`user`.`id_user` = `recipe`.`id_user`)));
+FROM (`recipe` join `ambiance` on((`recipe`.`id_ambiance` = `ambiance`.`id_ambiance`)));
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

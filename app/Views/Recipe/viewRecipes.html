@@ -66,14 +66,14 @@
 			<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
 			<div>
 				<?php if(isset($SESSION['id_user'])): ?>
-				<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+				<!-- NEED TO FIX HERE - TEMP SOLUTION -->
 				<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
 				<?php else: ?>
 				<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
 				<?php endif; ?>
 				<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
 					<h1><?= $recipe->name_recipe ?></h1>
-					<ul>
+					<ul class="meta">
 						<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
 						<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
 						<li><i class="bell"></i><?= $recipe->name_type ?></li>
@@ -86,7 +86,6 @@
 		Aucune recette trouvée
 	<?php endif; ?>
 	</section>
-	<button onclick="window.history.back()">Retour</button>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 </body>
