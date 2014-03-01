@@ -43,8 +43,11 @@ header#header nav#sign-in ul li a { display: block; padding: 12px 15px; color: #
 header#header nav#signed-in ul li a { display: block; padding: 12px 5px; color: #fe8468; }
 header#header nav#sign-in a.btn,
 header#header nav#signed-in a.btn {  padding: 10px 15px; color: #fe8468; border-radius: 3px; border: 2px solid #fe8468;  font-weight: 600; }
-header#header nav#signed-in a img { width: 40px; height: 40px; border-radius: 100%; float: left; margin: -12px 10px 0 15px;}
+header#header nav#signed-in ul li a div.user-img { overflow: hidden; position: relative; width: 40px; height: 40px; border-radius: 100%; float: left; margin: -12px 10px 0 15px; }
+header#header nav#signed-in ul li a div.user-img img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
 header#header nav#signed-in ul li a { font-weight: 700; color: #635c78; }
+
+
 /* @end of Header */
 
 /******************/
@@ -223,7 +226,8 @@ section#login p.legals { margin-top: 60px; font-size: 0.923em; color: #a09dac; }
 /* @group User */
 /***************/
 section#main.user header { width: 240px; float: left; }
-section#main.user header img { width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
+section#main.user header div.user-img { overflow: hidden; position: relative; width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
+section#main.user header img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
 
 section#main.user h1,
 section#main.user.following header + section ul li a h2 { font-size: 2.154em; font-weight: 700; color: #635c78; margin-bottom: 10px; transition: color ease-out 0.3s; }
@@ -239,9 +243,10 @@ section#main.user header ul li a:hover span { color: #fe8468; }
 section#main.user header ul li:first-child a { border-right: 1px solid #eae9ee; }
 section#main.user header + section { float: left; width: 670px; margin-left: 50px; }
 
-section#main.user header + section form div:first-child { float: left; width: 355px; }
-section#main.user header + section form div:nth-child(2) { float: left; width: 315px; text-align: center; }
-section#main.user header + section form div img { display: block; height: 96px; width: 96px; border-radius: 100%; margin: 25px auto;}
+section#main.user header + section form > div:first-child { float: left; width: 355px; }
+section#main.user header + section form > div:nth-child(2) { float: left; width: 315px; text-align: center; }
+section#main.user header + section form div div.user-img { position: relative; overflow: hidden; height: 96px; width: 96px; border-radius: 100%; margin: 25px auto;}
+section#main.user header + section form div div.user-img img { position: absolute; width: 100%; height: auto; left: 0; right: 0; bottom: 0; top: 0; margin: auto; }
 section#main.user header + section form div label { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: inline-block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
 section#main.user header + section form div input[type="file"] { display: none;}
 section#main.user header + section form input { margin-bottom: 20px; font-size: 1.231em; }
