@@ -10,7 +10,7 @@
 					<label class="vibes">
 						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?>/>
 						<div>
-							<img src="" width="180px" height="140px" alt="<?= $ambiance->name_ambiance?>">
+							<img src="<?= $ambiance->urlImage_ambiance?>" width="180px" height="140px" alt="<?= $ambiance->name_ambiance?>">
 							<h2><?= explode(' ',$ambiance->name_ambiance)[0] ?><span><?= explode(' ',$ambiance->name_ambiance)[1] ?></span></h2>
 							<p><?= $ambiance->description_ambiance?></p>
 							<span class="checked"></span>

@@ -31,12 +31,18 @@
 		<nav id="signed-in">
 			<ul>
 			<li><a class="btn" <?php if($_SERVER['REQUEST_URI']=='/recipe/submitRecipe') echo 'class="active"' ?> href="/recipe/submitRecipe">Ajouter une recette</a></li>
-			<li><a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="active"' ?> href="/user/getUser/<?= $SESSION['id_user'] ?>">
+			<li>
+				<a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="active"' ?> href="/user/getUser/<?= $SESSION['id_user'] ?>">
+				<div class="user-img">
 				<?php if(!empty($SESSION['urlImage_user'])): ?>
 					<img src="<?= $SESSION['urlImage_user'] ?>" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>" />
 				<?php else: ?>
 					<img src="/public/images/assets/pp-default.png" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>" />
-				<?php endif; ?><?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?></a></li>
+				<?php endif; ?>
+				</div>
+				<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>
+				</a>
+			</li>
 			<li><a href="/user/editUser/<?= $SESSION['id_user'] ?>"><i class="settings">Paramètres</i></a></li>
 			<li><a href="/user/logout/"><i class="sign-out">Déconnexion</i></a></li>
 		<?php else : ?> 

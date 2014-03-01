@@ -76,26 +76,58 @@ $('button.follow').on('click',function(e){
 		});
 	}
 });
+$('div.step a').on('click', function(e){
+	e.preventDefault();
+	var $this = $(this);
+	var $comment = $this.parent().siblings('.comments');
+	if($comment.length == 0){
+		$.ajax({
+			dataType: "html",
+			url:$this.attr('href'),
+			method:'POST'
+		})
+		.success(function(data){
+			$this.parent().parent().append(data);
+		});
+	} else {
+		$comment.remove();
+	}
+});
 
-$('input[name="comment"]').on('click',function(e){
+$('.steps').on('submit','.comments form',function(e){
 	e.preventDefault();
 	
 	var $this=$(this);
-	var $form=$this.parent('form');
-	if($('input[name="content_comment"]').val() != ''){
+	var $content = $this.children('input[name="content_comment"]');
+
+	if($content.val() != ''){
 		$.ajax({
 			dataType: "json",
-			url:$form.attr('action'),
+			url:$this.attr('action'),
 			method:'POST',
-			data: { 'content_comment' : $('input[name="content_comment"]').val() }
+			data: { 'content_comment' : $content.val() }
 		})
 		.success(function(data){
-			 console.log(data);
-			// if(data.status==false){
-			// 	$this.removeClass('on');
-			// }else{
-			// 	$this.addClass('on');
-			// }
+			console.log(data);
+			if(data.status==false){
+				console.log('ERROR');
+			} else {
+				$content.val('');
+				$comment = $this.parent().parent();
+				$li = $comment.parent();
+				$href = $comment.parent().children('.step').children('a').attr('href');
+
+				$comment.remove();
+
+				$.ajax({
+					dataType: "html",
+					url:$href,
+					method:'POST'
+				})
+				.success(function(data){
+					$li.append(data);
+				});
+			}
 		});
 	}
 });

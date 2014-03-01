@@ -40,17 +40,15 @@
 						<?php foreach ($steps as $step): ?>
 							<li>
 								<div class="step"><span><?= $step->order_step ?></span>
-									<a <?php if(count($step->countComment_step)==0) echo 'class="no-comment"'?> class="no-comment" href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>">
-									<!-- SI COMMENT <a href=""><i class="chat"></i>1</a> -->
-									<i class="chat"></i> <?= $step->countComment_step ?></a>
+									<?php if($step->countComment_step == 0 ): ?>
+									<a class="no-comment" href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>"><i class="chat"></i> +</a>
+									<?php else: ?>
+									 <a href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>"><i class="chat"></i> <?= $step->countComment_step ?></a>
+									<?php endif; ?>
 								</div>
 								<p><?= $step->content_step ?></p>
 							</li>
 						<?php endforeach; ?>
-						<li>
-							<div class="step"><span>3</span><a href=""><i class="chat"></i> 1</a></div>
-							<p>I don't know</p>
-						</li>
 					</ul>
 
 				</section>
@@ -66,19 +64,5 @@
 	<?php endif; ?>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
-	<script type="text/javascript">
-	$('div.step a').on('click', function(e){
-		e.preventDefault();
-		var $this = $(this);
-		$.ajax({
-			dataType: "html",
-			url:$this.attr('href'),
-			method:'POST'
-		})
-		.success(function(data){
-			$this.parent().parent().append(data);
-		});
-	});
-	</script>
 </body>
 </html>

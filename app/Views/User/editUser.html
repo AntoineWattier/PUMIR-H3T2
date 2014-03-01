@@ -16,14 +16,14 @@
 					<input type="email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" name="mail_user"/>
 				</div>
 				<div>
+					<div class="user-img">
 					<?php if(!empty($user->urlImage_user)): ?>
 						<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
 					<?php else: ?>
 						<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
 					<?php endif; ?>
-					<button>Changer la photo
-					<input type='file' name="urlImage_user" onchange="readURL(this);" />
-					</button>
+					</div>
+					<label><input type="file" name="urlImage_user" onchange="readURL(this);"/>Changer la photo</label>
 				</div>
 				<div class="clear"></div>
 				<hr />

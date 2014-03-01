@@ -43,8 +43,11 @@ header#header nav#sign-in ul li a { display: block; padding: 12px 15px; color: #
 header#header nav#signed-in ul li a { display: block; padding: 12px 5px; color: #fe8468; }
 header#header nav#sign-in a.btn,
 header#header nav#signed-in a.btn {  padding: 10px 15px; color: #fe8468; border-radius: 3px; border: 2px solid #fe8468;  font-weight: 600; }
-header#header nav#signed-in a img { width: 40px; height: 40px; border-radius: 100%; float: left; margin: -12px 10px 0 15px;}
+header#header nav#signed-in ul li a div.user-img { overflow: hidden; position: relative; width: 40px; height: 40px; border-radius: 100%; float: left; margin: -12px 10px 0 15px; }
+header#header nav#signed-in ul li a div.user-img img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
 header#header nav#signed-in ul li a { font-weight: 700; color: #635c78; }
+
+
 /* @end of Header */
 
 /******************/
@@ -148,7 +151,7 @@ section#main.recipes { padding-left: 320px; overflow: hidden; width: 1020px; mar
 
 section#main.recipes article { max-height: 200px; min-height: 100px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; margin-right: 30px; float: left; }
 section#main.recipes article img { width: 100%; height: auto; border-radius: 4px; }
-section#main.recipes article div { position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
+section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
 section#main.recipes article div h1 { font-size: 1.385em; line-height: 1.111em; font-weight: 600; color: #635c78; margin-bottom: 10px; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 50px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like:hover { opacity: 0.5; }
@@ -163,6 +166,7 @@ section#main.recipes article div a:hover ul li { opacity: 0.5; }
 /* @group Recipe */
 /*****************/
 section#main.recipe article header { background: #fff; position: relative; border-radius: 4px;  padding: 25px 25px 25px 345px; box-sizing: border-box; margin-top: 20px;}
+section#main.recipe article header.no-image { padding: 25px; }
 section#main.recipe article header img { width: 320px; height: 320px; position: absolute; border-radius: 4px; left: 0; top: -10px; }
 section#main.recipe article header h1 { margin-bottom: 10px; color: #635c78; text-transform: uppercase; font-weight: 700; font-size: 1.846em; }
 section#main.recipe article header h1 span { display: block; font-size: 0.500em; color: #a19ead; font-weight: 600; margin-bottom: 10px; }
@@ -222,15 +226,16 @@ section#login p.legals { margin-top: 60px; font-size: 0.923em; color: #a09dac; }
 /* @group User */
 /***************/
 section#main.user header { width: 240px; float: left; }
-section#main.user header img { width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
+section#main.user header div.user-img { overflow: hidden; position: relative; width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
+section#main.user header img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
 
 section#main.user h1,
 section#main.user.following header + section ul li a h2 { font-size: 2.154em; font-weight: 700; color: #635c78; margin-bottom: 10px; transition: color ease-out 0.3s; }
 
 section#main.user header + section > h1{ margin-bottom: 35px; }
 section#main.user header h1 + p { color: #a09dac; font-size: 1.077em; margin-bottom: 30px; }
-section#main.user header button { font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
-section#main.user header button:disabled { background: #f7d2cc; }
+section#main.user header button { cursor: pointer; font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
+section#main.user header button:disabled { cursor: default; background: #f7d2cc; }
 section#main.user header ul { margin: 20px 0;}
 section#main.user header ul li a { width: 120px; text-align: center; text-transform: uppercase; color: #a09dac; font-size: 0.923em; float: left; display: block; text-align: center; padding: 5px; box-sizing: border-box; }
 section#main.user header ul li a span { font-weight: 600; color: #635c78; display: block; font-size: 1.833em; }
@@ -238,10 +243,12 @@ section#main.user header ul li a:hover span { color: #fe8468; }
 section#main.user header ul li:first-child a { border-right: 1px solid #eae9ee; }
 section#main.user header + section { float: left; width: 670px; margin-left: 50px; }
 
-section#main.user header + section form div:first-child { float: left; width: 355px; }
-section#main.user header + section form div:nth-child(2) { float: left; width: 315px; text-align: center; }
-section#main.user header + section form div img { display: block; height: 96px; width: 96px; border-radius: 100%; margin: 25px auto;}
-section#main.user header + section form div button { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#main.user header + section form > div:first-child { float: left; width: 355px; }
+section#main.user header + section form > div:nth-child(2) { float: left; width: 315px; text-align: center; }
+section#main.user header + section form div div.user-img { position: relative; overflow: hidden; height: 96px; width: 96px; border-radius: 100%; margin: 25px auto;}
+section#main.user header + section form div div.user-img img { position: absolute; width: 100%; height: auto; left: 0; right: 0; bottom: 0; top: 0; margin: auto; }
+section#main.user header + section form div label { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: inline-block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#main.user header + section form div input[type="file"] { display: none;}
 section#main.user header + section form input { margin-bottom: 20px; font-size: 1.231em; }
 section#main.user header + section form div input:last-child,
 section#main.user header + section form input.fix { margin-bottom: 5px; }
@@ -264,7 +271,18 @@ section#main.user.following header + section ul li a p { color: #a09dac; font-si
 
 /* @end of Main */
 
+/************************/
+/* @group Create-recipe */
+/************************/
+section#main.create-recipe { background: #635c78; }
+section#main.create-recipe a.cancel { text-transform: uppercase; color: #a09dac; font-weight: 600; font-size: 0.923em; }
+section#main.create-recipe h1 { font-size: 1.385em; color: #fff; text-transform: uppercase; font-weight: 700; margin-top: 10px; }
+section#main.create-recipe div.title { position: relative; }
+section#main.create-recipe div.title input { border-bottom: 1px solid #a09dac; border-radius: 0; margin: 30px 0; width: 720px; background: transparent; padding: 5px 0 5px 40px; text-transform: uppercase; font-weight: 700; font-size: 2.308em; color: #fff; }
+section#main.create-recipe div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
+section#main.create-recipe form div.ingredients { width: 480px; float: left; }
 
+/* @end of Create-recipe */
 
 /****************/
 /* @group Icons */

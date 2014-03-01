@@ -1,9 +1,11 @@
 <header>
+	<div class="user-img">
 	<?php if(!empty($user->urlImage_user)): ?>
 		<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
 	<?php else: ?>
 		<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
 	<?php endif; ?>
+	</div>
 	<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
 	<p><?= $user->bio_user ?></p>
 	<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $user->id_user): ?>
