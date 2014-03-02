@@ -164,7 +164,7 @@ section#main.recipes article div a.like { float: left; background: url(../images
 section#main.recipes article div a.like:hover { opacity: 0.5; }
 section#main.recipes article div a.liked { background: url(../images/icons/heart-full.png) no-repeat 2px 3px; color: #fe8468; }
 
-section#main section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
+section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
 
 section#main.recipes article a { overflow: hidden; display: block;  }
 section#main.recipes article div a:hover h1,
@@ -342,6 +342,14 @@ section#popin.img section.select label.insta div span.checked { box-sizing: bord
 section#popin.img section.select label.insta input:checked + div span.checked { opacity: 1; }
 
 /* @end of Popin */
+
+/***********************/
+/* @group Message user */
+/***********************/
+div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+div.error i.close { float: right; cursor:pointer;}
+
+/* @end of Message user */
 
 /****************/
 /* @group Icons */
