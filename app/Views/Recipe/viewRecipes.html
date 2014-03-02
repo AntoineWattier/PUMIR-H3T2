@@ -1,12 +1,14 @@
 <?php include('./app/Views/partials/header.html') ?>
 	<section id="main" class="recipes">
 		<aside id="filters">
+			<?php var_dump($allparams) ?>
 		<?php if(isset($ambiances)):?>
 			<form>
 				<h3>Ambiance des recettes</h3>
 				<select name="id_ambiance" >
 				<?php foreach($ambiances as $i => $ambiance): ?>
-					<option value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?> ><?= $ambiance->name_ambiance?></option>
+					<option value="<?= $ambiance->id_ambiance ?>" 
+						<?php if(isset($allparams['id_ambiance']) && $ambiance->id_ambiance == $allparams['id_ambiance']){echo "selected";} else if($i == 0){echo "selected";} ?> ><?= $ambiance->name_ambiance?></option>
 				<?php endforeach ?>
 				</select>
 				<hr />
@@ -14,7 +16,7 @@
 				<div class="group">
 					<?php foreach($preparationTimes as $i => $preparationTime): ?>
 						<label>
-							<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($i == 0)echo "checked"; ?>/>
+							<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if(isset($allparams['id_preparationTime']) && $preparationTime->id_preparationTime == $allparams['id_preparationTime']){echo "checked";} else if($i == 0){echo "checked";} ?>/>
 							<span><?= $preparationTime->name_preparationTime?></span>
 						</label>
 					<?php endforeach ?>
@@ -25,7 +27,7 @@
 				<div class="group">
 					<?php foreach($difficulties as $i => $difficulty): ?>
 						<label>
-							<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($i == 0)echo "checked"; ?> />
+							<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if(isset($allparams['id_difficulty']) && $difficulty->id_difficulty == $allparams['id_difficulty']){echo "checked";} else if($i == 0){echo "checked";} ?> />
 							<span><?= $difficulty->name_difficulty?></span>
 						</label>
 					<?php endforeach ?>
@@ -36,7 +38,7 @@
 				<div class="group">
 					<?php foreach($types as $i => $type): ?>
 					<label>
-						<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?> />
+						<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if(isset($allparams['id_type']) && $type->id_type == $allparams['id_type']){echo "checked";}else if($i == 0){echo "checked";} ?> />
 						<span><?= $type->name_type?></span>
 					</label>
 					<?php endforeach ?>

@@ -21,8 +21,8 @@
 		<nav id="nav">
 			<ul>
 				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/conciergerie') !== false) echo 'class="active"' ?>><a href="/conciergerie">Conciergerie</a></li>
-				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/votes') !== false) echo 'class="active"' ?>><a  href="/recipe/getRecipes/votes">Recettes populaires</a></li>
-				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="active"' ?>><a href="/recipe/getRecipes/date">Toutes les recettes</a></li>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/votes') !== false) echo 'class="active"' ?>><a  href="/recipe/getRecipesByFilter/votes">Recettes populaires</a></li>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="active"' ?>><a href="/recipe/getRecipesByFilter/date">Toutes les recettes</a></li>
 			</ul>
 		</nav>
 		

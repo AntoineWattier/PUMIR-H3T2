@@ -109,6 +109,7 @@ class RecipeController extends Controller{
 			$s = "get".ucfirst($value);
 			$f3->set($value,$this->model->$s());
 		}
+		$f3->set('allparams', $f3->get('PARAMS'));
 		echo View::instance()->render('Recipe/viewRecipes.html');
 	}	
 

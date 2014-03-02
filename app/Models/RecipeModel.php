@@ -139,6 +139,9 @@ class RecipeModel extends Model{
 		return $fullrecipe_mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 	function getRecipesByFilter($params){
+
+		$filter = array();
+
 		/**
 		*	Si on fait une recherche avancée, on utilise tous les critères.
 		* 	Le nombre d'ingrédients par recette n'étant pas limité, on ne peut pas faire une simple requête via le mapper sur une vue de la BDD
@@ -189,10 +192,17 @@ class RecipeModel extends Model{
 				//Sinon on met un filtre abérant pour ne pas avoir de résultat retourné -- TOFIX
 				$filter = "1 = 2";
 			}			
-		} else {
+		} else if(isset($params['id_ambiance'])){
 		//Sinon on tri seulement par ambiance
 			$filter = array("id_ambiance = :id_ambiance", ':id_ambiance' => $params['id_ambiance']);
+		} 
+
+		if($params['filter'] == 'date'){
+			$req = array('order'=>'dateAdd_recipe DESC');
+		} else if($params['filter'] == 'votes'){
+			$req = array('order'=>'votes_recipe DESC');
 		}
+		
 		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
 		return $fullrecipe_mapper->find($filter,array('order'=>'votes_recipe DESC'));	
 	}
