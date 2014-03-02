@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# H�te: 127.0.0.1 (MySQL 5.6.16)
-# Base de donn�es: WTFDIET
-# Temps de g�n�ration: 2014-03-01 17:25:49 +0000
+# Hôte: 127.0.0.1 (MySQL 5.6.16)
+# Base de données: WTFDIET
+# Temps de génération: 2014-03-02 11:07:42 +0000
 # ************************************************************
 
 
@@ -43,20 +43,20 @@ CREATE TABLE `AMBIANCE` (
   `slug_ambiance` varchar(100) NOT NULL,
   `name_ambiance` varchar(100) NOT NULL,
   `description_ambiance` varchar(255) DEFAULT '',
-  `image_ambiance` varchar(255) DEFAULT '',
+  `urlImage_ambiance` varchar(255) DEFAULT '',
   PRIMARY KEY (`id_ambiance`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `AMBIANCE` WRITE;
 /*!40000 ALTER TABLE `AMBIANCE` DISABLE KEYS */;
 
-INSERT INTO `AMBIANCE` (`id_ambiance`, `slug_ambiance`, `name_ambiance`, `description_ambiance`, `image_ambiance`)
+INSERT INTO `AMBIANCE` (`id_ambiance`, `slug_ambiance`, `name_ambiance`, `description_ambiance`, `urlImage_ambiance`)
 VALUES
-	(1,'repas-leger','Repas léger','Description d\'un repas léger',''),
-	(2,'repas-romantique','Repas romantique','Description d\'un repas léger',''),
-	(3,'saveurs-d-ailleurs','Saveurs d\'ailleurs','Description d\'un repas léger',''),
-	(4,'repas-vegetarien','Repas végétarien','Description d\'un repas léger',''),
-	(5,'repas-gourmand','Repas gourmand','Description d\'un repas léger','');
+	(1,'repas-leger','Repas léger','Description d\'un repas léger','public/images/assets/repas-leger.png'),
+	(2,'repas-rapide','Repas rapide','Description d\'un repas léger','public/images/assets/repas-rapide.png'),
+	(3,'saveurs-d-ailleurs','Saveurs d\'ailleurs','Description d\'un repas léger','public/images/assets/repas-ailleurs.png'),
+	(4,'repas-vegetarien','Repas végétarien','Description d\'un repas léger','public/images/assets/repas-vegetarien.png'),
+	(5,'repas-gourmand','Repas gourmand','Description d\'un repas léger','public/images/assets/repas-gourmand.png');
 
 /*!40000 ALTER TABLE `AMBIANCE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -91,8 +91,8 @@ CREATE TABLE `COMMENT` (
   PRIMARY KEY (`id_comment`),
   KEY `id_user` (`id_user`),
   KEY `id_step` (`id_step`),
-  CONSTRAINT `comment_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
-  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_step`) REFERENCES `STEP` (`id_step`) ON DELETE CASCADE
+  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`id_step`) REFERENCES `STEP` (`id_step`) ON DELETE CASCADE,
+  CONSTRAINT `comment_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `COMMENT` WRITE;
@@ -100,9 +100,8 @@ LOCK TABLES `COMMENT` WRITE;
 
 INSERT INTO `COMMENT` (`id_step`, `id_user`, `id_comment`, `content_comment`, `dateAdd_comment`, `dateUpdate_comment`)
 VALUES
-	(5,1,7,'test','2014-02-22 21:37:43','0000-00-00 00:00:00'),
-	(5,2,8,'Salut','2014-02-22 21:38:00','0000-00-00 00:00:00'),
-	(5,1,9,'LOL','2014-02-24 15:55:17','0000-00-00 00:00:00');
+	(5,35,10,'Trop bien','2014-03-01 22:04:26','0000-00-00 00:00:00'),
+	(5,35,11,'J\'aime pas l\'sel','2014-03-01 22:30:15','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `COMMENT` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -232,8 +231,8 @@ CREATE TABLE `FOLLOW` (
   PRIMARY KEY (`id_follow`),
   KEY `id_follower` (`id_follower`),
   KEY `id_follow` (`id_following`),
-  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`id_follower`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
-  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`id_following`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE
+  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`id_following`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
+  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`id_follower`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `FOLLOW` WRITE;
@@ -245,7 +244,7 @@ VALUES
 	(7,35,2,'2014-02-27 23:52:50'),
 	(14,7,35,'2014-02-27 23:53:29'),
 	(15,1,35,'2014-02-28 01:08:37'),
-	(17,2,35,'2014-02-28 15:23:36');
+	(34,37,35,'2014-03-02 02:20:55');
 
 /*!40000 ALTER TABLE `FOLLOW` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1431,7 +1430,7 @@ INSERT INTO `RECIPE` (`id_recipe`, `slug_recipe`, `name_recipe`, `urlImage_recip
 VALUES
 	(1,'tarte-aux-pommes','Tarte aux pommes','',8,3,1,3,'2014-02-19 17:27:46','2014-02-23 17:56:46',1,5,1),
 	(2,'tarte-aux-prunes','Tarte aux prunes','',2,1,1,3,'2014-02-19 17:27:46','0000-00-00 00:00:00',2,2,2),
-	(3,'agneau-a-l-abricot','Agneau à l\'abricot','',1,1,1,2,'2014-02-20 15:29:03','2014-02-22 19:59:00',1,3,1),
+	(3,'agneau-a-l-abricot','Agneau à l\'abricot','',1,1,1,2,'2014-02-20 15:29:03','2014-02-22 19:59:00',1,3,2),
 	(5,'repoune-de-baleine','Repoune de baleine','http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg',6,3,1,2,'2014-02-21 09:41:43','0000-00-00 00:00:00',2,3,1),
 	(6,'salade-a-la-mingogo','Salade à la Mingogo','',2,1,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,4,0),
 	(7,'salade-facon-mingoia','Salade façon Mingoia','',2,1,1,2,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,1,0);
@@ -1463,7 +1462,7 @@ LOCK TABLES `STEP` WRITE;
 INSERT INTO `STEP` (`id_step`, `order_step`, `content_step`, `id_recipe`, `countComment_step`)
 VALUES
 	(3,1,'Faire cuire',2,0),
-	(5,1,'Sortir les casseroles',5,3),
+	(5,1,'Sortir les casseroles',5,2),
 	(6,2,'Mettre du sel',5,0),
 	(7,1,'Sortir la salade de la casserole',6,0),
 	(8,1,'Pour la sauce, mélanger une cuillère à café de moutarde de Dijon, 3 cuillères à soupe d\'huile d\'olive, 1 cuillère à soupe de vinaigre balsamique, et assaisonner à sa guise',7,0),
@@ -1571,7 +1570,8 @@ VALUES
 	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon','',NULL,NULL,NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
 	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test','',NULL,NULL,NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
 	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty','',NULL,NULL,NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00'),
-	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/user/35/PP.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-01 17:43:20');
+	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/user/35/PP.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-02 02:19:32'),
+	(37,'julien-perriere',0,'Julien','Perrière','julien@creativecretin.com','test','Photoshop master. Short trousers lover. Yoga addict','public/uploads/user/37/ju.jpg',NULL,NULL,NULL,'2014-03-02 02:15:09','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1590,8 +1590,8 @@ CREATE TABLE `VOTE` (
   PRIMARY KEY (`id_vote`),
   KEY `id_user` (`id_user`),
   KEY `id_recipe` (`id_recipe`),
-  CONSTRAINT `vote_ibfk_4` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE,
-  CONSTRAINT `vote_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE
+  CONSTRAINT `vote_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
+  CONSTRAINT `vote_ibfk_4` FOREIGN KEY (`id_recipe`) REFERENCES `RECIPE` (`id_recipe`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `VOTE` WRITE;
@@ -1602,7 +1602,8 @@ VALUES
 	(435,1,5,'2014-02-22 00:15:00'),
 	(442,1,1,'2014-02-22 12:31:21'),
 	(445,1,2,'2014-02-22 17:09:12'),
-	(446,1,3,'2014-02-22 19:59:09');
+	(446,1,3,'2014-02-22 19:59:09'),
+	(469,35,3,'2014-03-02 00:09:17');
 
 /*!40000 ALTER TABLE `VOTE` ENABLE KEYS */;
 UNLOCK TABLES;

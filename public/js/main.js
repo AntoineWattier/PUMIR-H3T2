@@ -33,8 +33,16 @@ function checkMail(input) {
 	})	
 }
 
-//TOFIX : Find a solution to execute only once on change.
-$('select[name="id_ambiance"], input[name="id_preparationTime"], input[name="id_difficulty"], input[name="id_type"]').on('click change',function(e){
+$('a.advanced-search').on('click', function(e){
+	e.preventDefault();
+	console.log('click');
+	$('section.advanced-search').css('display') == 'none' ? $('section.advanced-search').css('display', 'block') : $('section.advanced-search').css('display', 'none');
+});
+
+$('input[name="id_preparationTime"],input[name="id_difficulty"],input[name="id_type"]').on('click',getRecipes);
+$('select[name="id_ambiance"]').on('change',getRecipes);
+
+function getRecipes(e){
 	var $this = $(this);
 
 	var str = "/recipe/getRecipesByFilter/vote/"
@@ -59,7 +67,9 @@ $('select[name="id_ambiance"], input[name="id_preparationTime"], input[name="id_
 		$('.recipes article, .no-result').remove();
 		$('.recipes').append(data);
 	});
-});
+}
+
+
 
 $('.recipes, .recipe').on('click','a.like',function(e){
 	e.preventDefault();

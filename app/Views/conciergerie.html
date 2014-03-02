@@ -71,6 +71,7 @@
 		</section>
 	</div>
 	<script type="text/javascript" src="public/js/textext/textext.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
 	<script type="text/javascript">
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
     		plugins :'autocomplete filter tags ajax',
@@ -130,7 +131,7 @@
 		//reformat ingredient
 		// $input.val( $input.val().replace(/\{\"label\":\"[a-zâäàéèùêëîïôöçñ_-]+\",\"value\":\"/ig, '').replace(/\"\}/g, '').substring(1).replace(/\]/, '') );
 
-		if($('input[name="id_difficulty"]:checked').val() != '' ){
+		if($('section.advanced-search').css('display') != 'none' ){
 			var str = "/recipe/getRecipesByFilter/vote/"
 			+$('input[name="id_ambiance"]:checked').val()
 			+'/'+$('input[name="id_preparationTime"]:checked').val()
