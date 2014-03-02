@@ -83,10 +83,11 @@
 	<script type="text/javascript" src="public/js/main.js"></script>
 	<script type="text/javascript" src="public/js/textext/textext.min.js"></script>
 	<script type="text/javascript">
+	var $ingredients;
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
     		plugins :'autocomplete filter tags ajax',
     		ajax : {
-                url : '/recipe/getAllIngredientsJSON',
+                url : '/wtfdiet/recipe/getAllIngredientsJSON',
                 dataType : 'json',
                 cacheResults : true
             },
@@ -128,10 +129,51 @@
 		    }
     	}).bind('isTagAllowed', function(e, data){
 			var formData = $(e.target).textext()[0].tags()._formData,
-			    list = JSON.stringify(formData);
-			if (formData.length && list.indexOf(data.tag.label) >= 0)
-			       data.result = false;
+			    list = JSON.stringify(formData),
+			    $error = '';
+			if (formData.length >= 3 || list.indexOf(data.tag.label) >= 0) {
+		        data.result = false;
+		        if (formData.length >= 3) 
+		       		$error = 'Oops, vous ne pouvez ajouter que 3 éléments.';
+		       	if (formData.length >= 3 && list.indexOf(data.tag.label) >= 0)
+		       		$error += '<br />';
+		        if (list.indexOf(data.tag.label) >= 0) 
+		       		$error += 'Oops, vous ne pouvez ajouter que 3 éléments.';
+			} else {
+				data.result = true;
+			}
+			if($error) {
+				$('#main').prepend('<div class="error">'+$error+'<i class="close xl">Close</i></div>');
+				$('.error').slideDown();
+			}
 		});
+
+	    $( "#main" ).on( "click", ".error", function(e) {
+	    	$(this).slideUp();
+	    });
+	    <?php if ($allparams['id_ingredient1']) : ?>
+		    $(document).ready(function() {
+				$.ajax({
+	                url : '/wtfdiet/recipe/getAllIngredientsJSON',
+	                dataType : 'json',
+	                success : function(data) {
+	                	var result = $.parseJSON(JSON.stringify(data));
+	                	$.each(result, function(k, v) {
+					        if(
+					        	v.value == <?php echo $allparams['id_ingredient1']; ?> 
+				        	 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
+				        	 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
+					        	 ) {
+					        	$ingredients = result[k];
+					    		TextExtTags.textext()[0].tags().addTags([$ingredients]);
+					        }
+
+					    });
+	                }
+	            });
+		    });
+	    <? endif; ?>
+
 		</script>
 </body>
 </html>
