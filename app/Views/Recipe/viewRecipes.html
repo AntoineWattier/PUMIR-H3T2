@@ -47,16 +47,6 @@
 				<div class="ingredients suggest">
 					<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
 					<i class="zoom sm"></i>
-					<ul class="suggestions">
-						<li><i class="checked sm"></i>Pommes</li>
-						<li><i class="checked sm"></i>Pommes de terre</li>
-					</ul>
-					<ul class="choosen-ingredients">
-						<li><i class="checked sm"></i>Pommes</li>
-						<li><i class="checked sm"></i>Pommes de terre</li>
-						<li><i class="checked sm"></i>Pommes de terre</li>
-						<li><i class="checked sm"></i>Pommes de terre</li>
-					</ul>
 				</div>
 			</form>
 		<?php endif; ?>
@@ -91,5 +81,57 @@
 	</section>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
+	<script type="text/javascript" src="public/js/textext/textext.min.js"></script>
+	<script type="text/javascript">
+	var TextExtTags = $('.ingredients>input[type="text"]').textext({
+    		plugins :'autocomplete filter tags ajax',
+    		ajax : {
+                url : '/recipe/getAllIngredientsJSON',
+                dataType : 'json',
+                cacheResults : true
+            },
+            ext: {
+		        itemManager: {
+		            stringToItem: function(str)
+		            {
+		                var val;
+		                $.each(this.list, function(idx, item) {
+		                    if(item.label == str){
+		                        val = item.value;
+		                    }
+		                });
+		                return { label: str, value: val };
+		            },
+		            itemToString: function(item)
+		            {
+		                return item.label;
+		            },
+		            compareItems: function(item1, item2)
+		            {
+		                return item1.value == item2.value;
+		            },
+		            filter: function(list, query){
+		                this.list = list;
+
+		                var result = [],
+		                    i, item
+		                    ;
+		                for(i = 0; i < list.length; i++)
+		                {
+		                    item = list[i];
+		                    if(this.itemContains(item, query))
+		                        result.push(item);
+		                }
+		                return result;
+		            }
+		        }
+		    }
+    	}).bind('isTagAllowed', function(e, data){
+			var formData = $(e.target).textext()[0].tags()._formData,
+			    list = JSON.stringify(formData);
+			if (formData.length && list.indexOf(data.tag.label) >= 0)
+			       data.result = false;
+		});
+		</script>
 </body>
 </html>
