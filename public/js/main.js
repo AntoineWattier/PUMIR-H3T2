@@ -45,11 +45,13 @@ $('a.like').on('click',function(e){
 			method:'POST'
 		})
 		.success(function(data){
-			console.log(data);
+			$count = parseInt($this.children('span').html());
 			if(data.status==false){
 				$this.removeClass('liked');
+				$this.children('span').html($count - 1);
 			}else{
 				$this.addClass('liked');
+				$this.children('span').html($count + 1);
 			}
 		});
 	}
@@ -67,15 +69,19 @@ $('button.follow').on('click',function(e){
 			method:'POST'
 		})
 		.success(function(data){
-			console.log(data);
+			$span = $this.siblings('ul').children('li:last').children('a').children('span');
+			$count = parseInt($span.html());
 			if(data.status==false){
-				$this.removeClass('liked');
+				$span.html($count - 1);
+				$this.children('.msg').html('Suivre');
 			}else{
-				$this.addClass('liked');
+				$span.html($count + 1);
+				$this.children('.msg').html('Ne plus suivrer');
 			}
 		});
 	}
 });
+
 $('div.step a').on('click', function(e){
 	e.preventDefault();
 	var $this = $(this);
@@ -115,22 +121,36 @@ $('.steps').on('submit','.comments form',function(e){
 				$content.val('');
 				$comment = $this.parent().parent();
 				$li = $comment.parent();
-				$href = $comment.parent().children('.step').children('a').attr('href');
+				$a= $comment.parent().children('.step').children('a');
 
 				$comment.remove();
 
 				$.ajax({
 					dataType: "html",
-					url:$href,
+					url:$a.attr('href'),
 					method:'POST'
 				})
 				.success(function(data){
 					$li.append(data);
+					$a.removeClass('no-comment');
+					$count = parseInt($a.children('span').html());
+					if(isNaN($count))
+						$a.children('span').html(' 1');
+					else 
+						$a.children('span').html(' '+($count + 1));
 				});
 			}
 		});
 	}
 });
+
+$('.steps').on('click','ul.comments li:last',function(e) {
+	e.preventDefault();
+	
+	var $this=$(this);
+	$this.parent().remove();
+});
+
 
 
 /* Facebook Connect */

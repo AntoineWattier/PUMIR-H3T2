@@ -12,9 +12,9 @@
 							<div>
 								<?php if(isset($SESSION['id_user'])): ?>
 								<!-- NEED TO FIX HERE - TEMP SOLUTION -->
-								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 								<?php else: ?>
-								<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+								<a class="like" href="/user/register"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 								<?php endif; ?>
 								<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
 									<h1><?= $recipe->name_recipe ?></h1>
@@ -28,7 +28,9 @@
 						</article>
 					<?php endforeach; ?>
 					<?php else: ?>
-						Aucune recette trouvée
+						<section class="no-result">
+							<p>Aucune recette trouvée ici :(</p>
+						</section>
 					<?php endif; ?>
 					</section>
 				</section>
@@ -66,7 +68,9 @@
 			<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete My Account</a>
 		<?php endif; ?>
 	<?php else: ?>
-			User not found
+		<section class="no-result">
+			<p>Aucun utilisateur trouvé ici :(</p>
+		</section>
 	<?php endif; ?>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>

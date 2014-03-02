@@ -13,9 +13,9 @@
 	<?php endif; ?>
 	<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] != $user->id_user): ?>					
 		<?php if(!$isFollowing): ?>
-			<button class="follow" href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>">Ne plus suivre <?= $user->firstname_user ?></button>
+			<button class="follow" href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>"><span class='msg'>Ne plus suivre</span> <?= $user->firstname_user ?></button>
 		<?php else: ?>
-			<button class="follow" href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" >Suivre <?= $user->firstname_user ?></button>
+			<button class="follow" href="/user/follow/<?= $user->id_user.'&'.$SESSION['id_user'] ?>" ><span class='msg'>Suivre</span> <?= $user->firstname_user ?></button>
 		<?php endif; ?>
 	<?php endif; ?>
 	<ul>

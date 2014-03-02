@@ -17,9 +17,9 @@
 					</ul>
 					<hr />
 					<?php if(isset($SESSION['id_user'])): ?>
-					<a class="like <?php if(!$isFavorite) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+					<a class="like <?php if(!$isFavorite) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 					<?php else: ?>
-					<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+					<a class="like" href="/user/register"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 					<?php endif; ?>
 
 					<div class="clear"></div>
@@ -41,9 +41,9 @@
 							<li>
 								<div class="step"><span><?= $step->order_step ?></span>
 									<?php if($step->countComment_step == 0 ): ?>
-									<a class="no-comment" href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>"><i class="chat"></i> +</a>
+									<a class="no-comment" href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>"><i class="chat"></i><span> +</span></a>
 									<?php else: ?>
-									 <a href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>"><i class="chat"></i> <?= $step->countComment_step ?></a>
+									 <a href="recipe/getComments/<?= $step->id_step.'&'.$recipe->id_recipe ?>"><i class="chat"></i><span> <?= $step->countComment_step ?></span></a>
 									<?php endif; ?>
 								</div>
 								<p><?= $step->content_step ?></p>
@@ -60,7 +60,9 @@
 		</div>
 	</section>
 	<?php else: ?>
-		Recipe not found
+		<section class="no-result">
+			<p>Aucune recette trouvée ici :(</p>
+		</section>
 	<?php endif; ?>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>

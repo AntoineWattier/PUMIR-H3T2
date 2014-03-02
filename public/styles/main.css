@@ -157,7 +157,9 @@ section#main.recipes article div a.like { float: left; background: url(../images
 section#main.recipes article div a.like:hover { opacity: 0.5; }
 section#main.recipes article div a.liked { background: url(../images/icons/heart-full.png) no-repeat 2px 3px; color: #fe8468; }
 
-section#main.recipes article a { overflow: hidden; display: block; }
+section#main.recipes section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
+
+section#main.recipes article a { overflow: hidden; display: block;  }
 section#main.recipes article div a:hover h1,
 section#main.recipes article div a:hover ul li { opacity: 0.5; }
 /* @end of Recipes */
@@ -184,7 +186,7 @@ section#main.recipe article section.steps > ul > li:first-child { border-top: 1p
 section#main.recipe article section.steps > ul > li > p { margin-top: 5px; font-size: 1.385em; line-height: 1em; color: #635c78; }
 
 section#main.recipe article section.steps div.step { position: absolute; left: 10px; top: 15px; text-align: center; width: 32px; }
-section#main.recipe article section.steps div.step span { display: block; padding: 10px 0; width: 100%; font-family: "Damion", cursive; font-size: 2.308em; line-height: 0.600em; color: #fff; background: #fe8468; border-top-left-radius: 3px; border-top-right-radius: 3px; }
+section#main.recipe article section.steps div.step span:nth-child(1) { display: block; padding: 10px 0; width: 100%; font-family: "Damion", cursive; font-size: 2.308em; line-height: 0.600em; color: #fff; background: #fe8468; border-top-left-radius: 3px; border-top-right-radius: 3px; }
 section#main.recipe article section.steps div.step a { font-size: 1.077em; border: 1px solid #fe8468; display: block; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-top: 0; color: #fe8468; padding: 3px 0; }
 section#main.recipe article section.steps div.step a i.chat { background: url(../images/icons/chat-orange.png) no-repeat; }
 section#main.recipe article section.steps div.step a.no-comment { border: 1px solid #dedee4; color: #dedee4; }
@@ -208,7 +210,7 @@ section#main.recipe article aside ul.ingredients li span { text-transform: none;
 /****************/
 /* @group Login */
 /****************/
-section#login { background: #635c78; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+section#login { background: #635c78; width: 100%; height: 100%; position: absolute; top: 0; left: 0; overflow: scroll; }
 section#login div.wrapper { width: 320px; margin: 80px auto 0; }
 section#login h1 { color: #fff; font-size: 5.308em; text-align: center; font-family: "Damion", cursive; transition: opacity ease-out 0.3s; }
 section#login a:hover h1 { opacity: 0.8; }
@@ -218,8 +220,10 @@ section#login a.fb:hover { border: 2px solid #fff; }
 section#login a.fb i.fb { position: absolute; top: 10px; left: 20px; }
 section#login hr { border-top: 2px dashed #7e798f; margin: 30px 0; }
 section#login form input { font-size: 1.385em; }
-
+section#login div.error { box-sizing: border-box; position: fixed; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+section#login div.error i.close { float: right; }
 section#login p.legals { margin-top: 60px; font-size: 0.923em; color: #a09dac; }
+section#login a:last-child { display: block; margin-top: 20px; color: #a09dac; }
 /* @end of Login */
 
 /***************/
@@ -284,6 +288,17 @@ section#main.create-recipe form div.ingredients { width: 480px; float: left; }
 
 /* @end of Create-recipe */
 
+
+/****************/
+/* @group Error */
+/****************/
+section#main.error { background: #635c78; text-align: center; padding: 150px 0; }
+section#main.error h1 { letter-spacing: 0; text-align: center; color: #716a85; font-size: 17.000em; font-weight: 900; }
+section#main.error h1 span { letter-spacing: 0; display: block; font-size: 0.181em; text-transform: lowercase; font-weight: 600; line-height: 0.575em; }
+section#main.error a { display: inline-block; color: #fff; padding: 15px 20px; background: #fe8468; border-radius: 4px; text-transform: uppercase; font-weight: 700; margin-top: 50px; }
+/* @end of Error */
+
+
 /****************/
 /* @group Icons */
 /****************/
@@ -330,5 +345,8 @@ i.sign-out {
 i.chat { 
   background: url(../images/icons/chat.png) no-repeat;
   width: 10px; height: 9px; }
+i.close.xl{
+  background: url(../images/icons/close-xl.png) no-repeat;
+  width: 14px; height: 15px;}
 /* @end of Icons */
 /* @end of Master */
