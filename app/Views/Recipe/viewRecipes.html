@@ -149,7 +149,9 @@
 		});
 
 	    $( "#main" ).on( "click", ".error", function(e) {
-	    	$(this).slideUp();
+	    	$(this).slideUp('normal', function() {
+	    		$(this).remove();
+	    	});
 	    });
 	    <?php if ($allparams['id_ingredient1']) : ?>
 		    $(document).ready(function() {
