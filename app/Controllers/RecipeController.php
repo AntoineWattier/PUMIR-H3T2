@@ -110,7 +110,14 @@ class RecipeController extends Controller{
 			$f3->set($value,$this->model->$s());
 		}
 		$f3->set('allparams', $f3->get('PARAMS'));
-		echo View::instance()->render('Recipe/viewRecipes.html');
+
+		switch ($f3->get('VERB')) {
+			case 'POST':
+				echo View::instance()->render('partials/recipes.html');
+			break;
+			case 'GET':
+				echo View::instance()->render('Recipe/viewRecipes.html');
+		}
 	}	
 
 	function getAllIngredientsJSON($f3){

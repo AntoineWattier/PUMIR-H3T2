@@ -131,7 +131,11 @@
 		// $input.val( $input.val().replace(/\{\"label\":\"[a-zâäàéèùêëîïôöçñ_-]+\",\"value\":\"/ig, '').replace(/\"\}/g, '').substring(1).replace(/\]/, '') );
 
 		if($('input[name="id_difficulty"]:checked').val() != '' ){
-			var str = "/recipe/getRecipesByFilter/vote/"+$('input[name="id_ambiance"]:checked').val()+'/'+$('input[name="id_preparationTime"]:checked').val()+'/'+$('input[name="id_difficulty"]:checked').val()+'/'+$('input[name="id_type"]:checked').val();
+			var str = "/recipe/getRecipesByFilter/vote/"
+			+$('input[name="id_ambiance"]:checked').val()
+			+'/'+$('input[name="id_preparationTime"]:checked').val()
+			+'/'+$('input[name="id_difficulty"]:checked').val()
+			+'/'+$('input[name="id_type"]:checked').val();
 
 			var parseVal = JSON.parse($('input[name="ingredients"]').val());
 			for (var i = 0; i < parseVal.length; i++) {
@@ -140,7 +144,7 @@
 			
 			window.location = str;
 		} else {
-			window.location = "/recipe/getRecipesByFilter/"+$('input[name="id_ambiance"]:checked').val();
+			window.location = "/recipe/getRecipesByFilter/vote/"+$('input[name="id_ambiance"]:checked').val();
 		}
 	});
 	</script>

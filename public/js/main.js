@@ -33,7 +33,35 @@ function checkMail(input) {
 	})	
 }
 
-$('a.like').on('click',function(e){
+//TOFIX : Find a solution to execute only once on change.
+$('select[name="id_ambiance"], input[name="id_preparationTime"], input[name="id_difficulty"], input[name="id_type"]').on('click change',function(e){
+	var $this = $(this);
+
+	var str = "/recipe/getRecipesByFilter/vote/"
+	+$('select[name="id_ambiance"] option:checked').val()
+	+'/'+$('input[name="id_preparationTime"]:checked').val()
+	+'/'+$('input[name="id_difficulty"]:checked').val()
+	+'/'+$('input[name="id_type"]:checked').val();
+
+	if( $('input[name="ingredients"]').val() != '' ){
+		var parseVal = JSON.parse( $('input[name="ingredients"]').val() );
+
+		for (var i = 0; i < parseVal.length; i++) {
+			str = str+"/"+parseVal[i].value;
+		}
+	}
+	$.ajax({
+		dataType: "html",
+		url:str,
+		method:'POST'
+	})
+	.success(function(data){
+		$('.recipes article, .no-result').remove();
+		$('.recipes').append(data);
+	});
+});
+
+$('.recipes, .recipe').on('click','a.like',function(e){
 	e.preventDefault();
 	var $this=$(this);
 	if($this.attr('href') == '/user/register'){

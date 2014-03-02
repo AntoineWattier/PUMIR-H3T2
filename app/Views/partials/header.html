@@ -7,9 +7,6 @@
 	<title>Where The Fu** Do I Eat Tonight?</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
-	<!-- DEV STYLESHEET -->
-	<!-- <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> -->
-	<!-- /DEV STYLESHEET -->
 	<link href="public/styles/main.css" rel="stylesheet" type="text/css" />
 	
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -21,8 +18,8 @@
 		<nav id="nav">
 			<ul>
 				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/conciergerie') !== false) echo 'class="active"' ?>><a href="/conciergerie">Conciergerie</a></li>
-				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/votes') !== false) echo 'class="active"' ?>><a  href="/recipe/getRecipesByFilter/votes">Recettes populaires</a></li>
-				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipes/date') !== false) echo 'class="active"' ?>><a href="/recipe/getRecipesByFilter/date">Toutes les recettes</a></li>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipesByFilter/votes') !== false) echo 'class="active"' ?>><a  href="/recipe/getRecipesByFilter/votes">Recettes populaires</a></li>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipesByFilter/date') !== false) echo 'class="active"' ?>><a href="/recipe/getRecipesByFilter/date">Toutes les recettes</a></li>
 			</ul>
 		</nav>
 		
