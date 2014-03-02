@@ -127,7 +127,7 @@ section#main > form a.advanced-search i.plus { margin-right: 5px; margin-bottom:
 section#main > form button[type="submit"] { font-size: 1.154em; color: #f4f4f7; text-transform: uppercase; font-weight: 600; margin: 0 auto; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #fe8468; cursor: pointer; }
 section#main > form button[type="submit"] i.checked { margin-right: 10px; margin-bottom: -1px; }
 
-section#main > form section.advanced-search { margin-top: 50px; }
+section#main > form section.advanced-search { margin-top: 50px; display: none; }
 section#main > form section.advanced-search div.one-third { width: 320px; overflow: hidden; float: left; }
 section#main > form section.advanced-search div.two-thirds { width: 600px; float: left; margin-left: 40px; }
 
@@ -302,11 +302,33 @@ section#main.error a { display: inline-block; color: #fff; padding: 15px 20px; b
 /****************/
 /* @group Popin */
 /****************/
-section#popin { position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: #f3f2f4; text-align: center;  }
+section#popin { overflow-y: scroll; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: #f3f2f4; text-align: center;  }
+section#popin i.close { position: absolute; right: 20px; top: 20px; }
 section#popin.img h2 { margin: 80px 0 60px; font-weight: 900; color: #635c78; text-align: center; font-size: 2.154em; }
 section#popin.img a.instagram { margin: 10px auto; width: 280px; color: #fff; text-transform: uppercase; font-weight: 700; font-size: 1.154em; display: block; background: #3f729b; border-radius: 3px; padding: 15px 20px; }
-section#popin.img label { width: 280px; font-size: 1.154em; font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; color: #fff; text-transform: uppercase; font-weight: 700; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
-section#popin.img input[type="file"] { display: none;}
+section#popin.img > label { width: 280px; font-size: 1.154em; font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; color: #fff; text-transform: uppercase; font-weight: 700; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#popin.img input[type="file"] { display: none; }
+section#popin.img section.crop,
+section#popin.img section.select { display: none; position: relative; width: 640px; margin: 0 auto; border-bottom: 1px solid #eae9ee; margin-bottom: 30px; }
+section#popin.img section.crop img { width: 640px; height: auto; box-shadow: 0 0 20px -3px #bebed4; margin-bottom: 15px; }
+section#popin.img section.crop div.crop { position: absolute; width: 292px; height: 292px; border: 4px solid #fe8468; background: rgba(254, 132, 104, 0.5); top: 0; left: 0; }
+section#popin.img section.crop  p { color: #a09dac; }
+section#popin.img section.select button,
+section#popin.img section.crop button { position: relative; width: 320px; font-size: 1.154em; font-family: "Source Sans Pro", sans-serif;  margin: 30px auto; color: #fff; text-transform: uppercase; font-weight: 700; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #fe8468; cursor: pointer; }
+section#popin.img section.select button i.checked,
+section#popin.img section.crop button i.checked { position: absolute; left: 20px; top: 15px; }
+section#popin.img section.select button:disabled,
+section#popin.img section.crop button:disabled { opacity: 0.5; }
+section#popin.img section.select { display: block; overflow: hidden; }
+section#popin.img section.select form { overflow: hidden; }
+section#popin.img section.select label.insta { float: left; margin: 20px; cursor: pointer; display: block; }
+section#popin.img section.select label.insta input { position: absolute; left: -999rem; }
+section#popin.img section.select label.insta div { position: relative; width: 120px; height: 120px; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
+section#popin.img section.select label.insta div img { width: 100%; height: auto; }
+section#popin.img section.select label.insta:hover div { box-shadow: 0 0 20px -3px #bebed4; }
+section#popin.img section.select label.insta div span.checked { box-sizing: border-box; width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0; border: 3px solid #fe8468; opacity: 0; transition: opacity ease-out 0.3s; }
+section#popin.img section.select label.insta input:checked + div span.checked { opacity: 1; }
+
 /* @end of Popin */
 
 /****************/
@@ -358,5 +380,8 @@ i.chat {
 i.close.xl{
   background: url(../images/icons/close-xl.png) no-repeat;
   width: 14px; height: 15px;}
+i.close.purple{
+  background: url(../images/icons/close-purple.png) no-repeat;
+  width: 20px; height: 21px;}
 /* @end of Icons */
 /* @end of Master */
