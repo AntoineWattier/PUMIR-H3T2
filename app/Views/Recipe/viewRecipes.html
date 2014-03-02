@@ -142,17 +142,10 @@
 			} else {
 				data.result = true;
 			}
-			if($error) {
-				$('#main').prepend('<div class="error">'+$error+'<i class="close xl">Close</i></div>');
-				$('.error').slideDown();
-			}
+			if($error) 
+				showError($error);
 		});
 
-			$( "#main" ).on( "click", ".error", function(e) {
-				$(this).slideUp('normal', function() {
-					$(this).remove();
-				});
-			});
 			<?php if ($allparams['id_ingredient1']) : ?>
 				$(document).ready(function() {
 					$.ajax({

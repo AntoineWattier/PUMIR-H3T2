@@ -1,43 +1,64 @@
-$('button[name="login"]').on('click',function(e){
+$('form[name="login"]').submit(function(e){
 	e.preventDefault();
-
-	var $form = $(this).parent('form');
-	$.ajax({
-		dataType: "json",
-		url:$form.attr('action'),
-		method:$form.attr('method'),
-		data:$form.serialize()
-	})
-	.success(function(data){
-		if(data.status){
-			// $('#form span').html("success");
-			window.location = "/";
-		} else {
-			// $('#form span').html("error");
-		}
-	})
+	var $form = $(this),
+		$error = '';
+	if(!$form.find('input[type="email"]').val())
+		$error += "L'email est vide. ";
+	if(!$form.find('input[name="password_user"]').val())
+		$error += "Le mot de passe est vide.";
+	if(!$error) {
+		$.ajax({
+			dataType: "json",
+			url:$form.attr('action'),
+			method:$form.attr('method'),
+			data:$form.serialize()
+		})
+		.success(function(data){
+			if(data.status){
+				// $('#form span').html("success");
+				window.location = "/";
+			} else {
+				showError('Une erreur est survenue.');
+			}
+		});
+	} else {
+		showError($error);
+		return false;
+	}
+	return false;
 });
 
-function checkMail(input) {
-	$.ajax({
-			url:'user/checkMail',
-			method:'POST',
-			data:{ 'mail_user' : input.value }
-	})
-	.success(function(data){
-			if(data.status) {
-				input.setCustomValidity('This mail already exists');
-			} else {
-				input.setCustomValidity('');
-			}
-	})	
-}
+
+$('form[name="register"]').submit( function(e) {
+	e.preventDefault();
+	var $form = $(this),
+		$error = '';
+	if(!$form.find('input[name="firstname_user"]').val())
+		$error += "Le prénom est oligatoire. ";
+	if(!$form.find('input[name="lastname_user"]').val())
+		$error += "Le nom est oligatoire. ";
+	if(!$form.find('input[type="email"]').val())
+		$error += "L'email est obligatoire. ";
+	if($form.find('input[type="email"]').val() && validMail($form.find('input[type="email"]').val()))
+		$error += "L'email est invalide. ";
+	if(!$form.find('input[name="password_user"]').val())
+		$error += "Le mot de passe est oligatoire.";
+	if(!$error) {
+		return true;
+	} else {
+		showError($error);
+		return false;
+	}
+	return false;
+});
+
 
 $('a.advanced-search').on('click', function(e){
 	e.preventDefault();
 	console.log('click');
 	$('section.advanced-search').css('display') == 'none' ? $('section.advanced-search').css('display', 'block') : $('section.advanced-search').css('display', 'none');
 });
+
 
 $('input[name="id_preparationTime"],input[name="id_difficulty"],input[name="id_type"]').on('click',getRecipes);
 $('select[name="id_ambiance"]').on('change',getRecipes);
@@ -188,6 +209,39 @@ $('.steps').on('click','ul.comments li:last',function(e) {
 	var $this=$(this);
 	$this.parent().remove();
 });
+
+
+
+
+function validMail(email) {
+	var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return reg.test($('input[type="email"]'));
+}
+
+function checkMail(input) {
+	$.ajax({
+			url:'user/checkMail',
+			method:'POST',
+			data:{ 'mail_user' : input.value }
+	})
+	.success(function(data){
+			if(data.status) {
+				input.setCustomValidity('This mail already exists');
+			} else {
+				input.setCustomValidity('');
+			}
+	})	
+}
+
+function showError($message) {
+	$('.wrapper').prepend('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
+	$('.error').slideDown();
+	$( "body" ).on( "click", ".error i", function(e) {
+	$(this).parent().slideUp('normal', function() {
+		$(this).remove();
+	});
+});
+}
 
 
 
