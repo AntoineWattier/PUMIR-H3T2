@@ -83,7 +83,7 @@ form div.ingredients.suggest input[type="text"] { border-bottom-right-radius: 0;
 form div.ingredients input[type="text"] { height: 60px; width: 100%; box-sizing: border-box; border: 0; padding-left: 50px; color: #635c78; font-size: 1.385em; font-weight: 600; border-radius: 4px; }
 form div.ingredients input[type="text"]::-webkit-input-placeholder { color: #bdb8cc; font-style: italic; }
 form div.ingredients i.zoom { position: absolute; top: 22px; left: 20px; }
-form div.ingredients ul.suggestions { position: absolute; left: 0; top: 60px; width: 100%; display: none; border-top: 1px solid #ebeaf0; }
+form div.ingredients ul.suggestions { position: absolute; left: 0; top: 60px; width: 100%; display: none; border-top: 1px solid #ebeaf0; height: 96px; overflow: hidden; border-radius: 0 0 4px 4px;}
 form div.ingredients ul.suggestions li { display: block; background: #fff; font-size: 1.231em; color: #a09dac; padding: 8px 0; transition: background ease-out 0.3s, color ease-out 0.3s; }
 form div.ingredients ul.suggestions li:last-child { border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; }
 form div.ingredients ul.suggestions li:hover,form div.ingredients ul.suggestions li.text-selected {background: #fe8468; color: #fff; }
@@ -145,7 +145,7 @@ section#main.recipes aside#filters form select { font-family: "Source Sans Pro",
 section#main.recipes aside#filters form div.group label span { padding: 10px 15px;}
 section#main.recipes aside#filters form div.ingredients input[type="text"]{ height: 35px; font-size: 1.1em; padding-left: 30px; }
 section#main.recipes aside#filters form div.ingredients i.zoom.sm { top: 12px; left: 10px; }
-section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 30px; }
+section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 35px; }
 section#main.recipes aside#filters form div.ingredients ul.choosen-ingredients li { padding: 10px 10px;}
 section#main.recipes { padding-left: 320px; overflow: hidden; width: 1020px; margin: 0 auto; box-sizing: border-box; }
 
