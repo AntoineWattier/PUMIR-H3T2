@@ -973,15 +973,13 @@
 			width     = self.originalWidth + 'px',
 			height
 			;
-
 		self.trigger(EVENT_PRE_INVALIDATE);
 
 		height = input.outerHeight() + 'px';
 
 		// using css() method instead of width() and height() here because they don't seem to do the right thing in jQuery 1.8.x
 		// https://github.com/alexgorbatchev/jquery-textext/issues/74
-		input.css({ 'width' : width });
-		wrap.css({ 'width' : width, 'height' : height });
+		wrap.css({ 'width' : 'auto', 'height' : height });
 		container.css({ 'height' : height }); 
 
 		self.trigger(EVENT_POST_INVALIDATE);

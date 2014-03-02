@@ -136,7 +136,9 @@
 	});
 
     $( "#main" ).on( "click", ".error", function(e) {
-    	$(this).slideUp();
+    	$(this).slideUp('normal', function() {
+    		$(this).remove();
+    	});
     });
 
 	$('button[name="find"]').bind('click',function(e){
