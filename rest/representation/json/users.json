@@ -1,0 +1,27 @@
+{
+	"header":[
+	<?php if(isset($ERROR)): ?>
+		"code":"<?= $ERROR['code']; ?>",
+		"status":"<?= $ERROR['status']; ?>",
+		"text":"<?= $ERROR['text']; ?>"
+	<?php endif; ?>
+	],
+	"body":[
+	<?php foreach($users as $user): ?>
+	{
+		"id":"<?= $user->id_user ?>",
+		"firstname":"<?= $user->firstname_user ?>",
+		"lastname":"<?=$user->lastname_user ?>",
+		"bio": "<?= $user->bio_user ?>",
+		"profilPic":"<?php if(!empty($user->urlImage_user)) echo 'http://'. $_SERVER['HTTP_HOST'].'/'.$user->urlImage_user ?>",
+		"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$user->id_user?>",
+		"facebookId_user":"<?= $user->facebookId_user ?>",
+		"subscribeDate_user":"<?= $user->subscribeDate_user ?>",
+		"lastLogin_user":"<?= $user->lastLogin_user ?>"
+	}
+		<?php if($user !== end($users)): ?>
+			,
+		<?php endif; ?>
+	<?php endforeach; ?>
+	]
+}

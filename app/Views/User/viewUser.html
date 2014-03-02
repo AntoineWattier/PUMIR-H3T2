@@ -3,8 +3,8 @@
 		  	<div class="wrapper">
 				<section id="main" class="user recipes">
 					<?php include('./app/Views/partials/headerUser.html') ?>
-					<section>
-					<h3>Recettes postées <a href=""><i class="switch on"></i> <span class="disabled">Recettes favorites</span></a></h3>
+					<section class="posted">
+					<h3>Recettes postées <a href="#"><i class="switch on"></i> <span class="disabled">Recettes favorites</span></a></h3>
 					<?php if($recipes):?> 
 					<?php foreach ($recipes as $recipe):?>
 						<article>
@@ -34,8 +34,8 @@
 					<?php endif; ?>
 					</section>
 				</section>
-<?php /*				<section>
-					<h3>Recettes postées <a href=""><i class="switch off"></i> <span class="disabled">Recettes favorites</span></a></h3>
+				<section class="favorite" style='display:none'>
+					<h3> <a href="#"><span class="disabled">Recettes postées </span></a><i class="switch off"></i> Recettes favorites</h3>
 					<?php if($favorites):?> 
 					<?php foreach ($favorites as $recipe):?>
 						<article>
@@ -59,14 +59,13 @@
 						</article>
 					<?php endforeach; ?>
 					<?php else: ?>
-						Aucune recette trouvée
+						<section class="no-result">
+							<p>Aucune recette trouvée ici :(</p>
+						</section>
 					<?php endif; ?>
 					</section>
-				</section> */ ?>
+				</section>
 			</div>	
-		<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $user->id_user): ?>
-			<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete My Account</a>
-		<?php endif; ?>
 	<?php else: ?>
 		<section class="no-result">
 			<p>Aucun utilisateur trouvé ici :(</p>
@@ -74,4 +73,10 @@
 	<?php endif; ?>
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
+	<script type="text/javascript">
+	$('.favorite a:first','.posted a:first').on('click',function(e){
+		e.preventDefault();
+		console.log('test')
+	});
+	</script>
 <?php include('./app/Views/partials/footer.html') ?>
