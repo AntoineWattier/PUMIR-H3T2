@@ -85,60 +85,60 @@
 	<script type="text/javascript">
 	var $ingredients;
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
-    		plugins :'autocomplete filter tags ajax',
-    		ajax : {
-                url : '/recipe/getAllIngredientsJSON',
-                dataType : 'json',
-                cacheResults : true
-            },
-            ext: {
-		        itemManager: {
-		            stringToItem: function(str)
-		            {
-		                var val;
-		                $.each(this.list, function(idx, item) {
-		                    if(item.label == str){
-		                        val = item.value;
-		                    }
-		                });
-		                return { label: str, value: val };
-		            },
-		            itemToString: function(item)
-		            {
-		                return item.label;
-		            },
-		            compareItems: function(item1, item2)
-		            {
-		                return item1.value == item2.value;
-		            },
-		            filter: function(list, query){
-		                this.list = list;
+				plugins :'autocomplete filter tags ajax',
+				ajax : {
+								url : '/recipe/getAllIngredientsJSON',
+								dataType : 'json',
+								cacheResults : true
+						},
+						ext: {
+						itemManager: {
+								stringToItem: function(str)
+								{
+										var val;
+										$.each(this.list, function(idx, item) {
+												if(item.label == str){
+														val = item.value;
+												}
+										});
+										return { label: str, value: val };
+								},
+								itemToString: function(item)
+								{
+										return item.label;
+								},
+								compareItems: function(item1, item2)
+								{
+										return item1.value == item2.value;
+								},
+								filter: function(list, query){
+										this.list = list;
 
-		                var result = [],
-		                    i, item
-		                    ;
-		                for(i = 0; i < list.length; i++)
-		                {
-		                    item = list[i];
-		                    if(this.itemContains(item, query))
-		                        result.push(item);
-		                }
-		                return result;
-		            }
-		        }
-		    }
-    	}).bind('isTagAllowed', function(e, data){
+										var result = [],
+												i, item
+												;
+										for(i = 0; i < list.length; i++)
+										{
+												item = list[i];
+												if(this.itemContains(item, query))
+														result.push(item);
+										}
+										return result;
+								}
+						}
+				}
+			}).bind('isTagAllowed', function(e, data){
 			var formData = $(e.target).textext()[0].tags()._formData,
-			    list = JSON.stringify(formData),
-			    $error = '';
+					list = JSON.stringify(formData),
+					$error = '';
 			if (formData.length >= 3 || list.indexOf(data.tag.label) >= 0) {
-		        data.result = false;
-		        if (formData.length >= 3) 
-		       		$error = 'Oops, vous ne pouvez ajouter que 3 éléments.';
-		       	if (formData.length >= 3 && list.indexOf(data.tag.label) >= 0)
-		       		$error += '<br />';
-		        if (list.indexOf(data.tag.label) >= 0) 
-		       		$error += 'Oops, vous ne pouvez ajouter que 3 éléments.';
+						data.result = false;
+						if (formData.length >= 3) 
+							$error = 'Oops, vous ne pouvez ajouter que 3 éléments.';
+						if (formData.length >= 3 && list.indexOf(data.tag.label) >= 0)
+							$error += '<br />';
+						if (list.indexOf(data.tag.label) >= 0) 
+							$error += 'Oops, vous ne pouvez ajouter que 3 éléments.';
 			} else {
 				data.result = true;
 			}
@@ -148,33 +148,31 @@
 			}
 		});
 
-	    $( "#main" ).on( "click", ".error", function(e) {
-	    	$(this).slideUp('normal', function() {
-	    		$(this).remove();
-	    	});
-	    });
-	    <?php if ($allparams['id_ingredient1']) : ?>
-		    $(document).ready(function() {
-				$.ajax({
-	                url : '/recipe/getAllIngredientsJSON',
-	                dataType : 'json',
-	                success : function(data) {
-	                	var result = $.parseJSON(JSON.stringify(data));
-	                	$.each(result, function(k, v) {
-					        if(
-					        	v.value == <?php echo $allparams['id_ingredient1']; ?> 
-				        	 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
-				        	 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
-					        	 ) {
-					        	$ingredients = result[k];
-					    		TextExtTags.textext()[0].tags().addTags([$ingredients]);
-					        }
-
-					    });
-	                }
-	            });
-		    });
-	    <? endif; ?>
+			$( "#main" ).on( "click", ".error", function(e) {
+				$(this).slideUp('normal', function() {
+					$(this).remove();
+				});
+			});
+			<?php if ($allparams['id_ingredient1']) : ?>
+				$(document).ready(function() {
+					$.ajax({
+						url : '/recipe/getAllIngredientsJSON',
+						dataType : 'json',
+						success : function(data) {
+							var result = $.parseJSON(JSON.stringify(data));
+							$.each(result, function(k, v) {
+								if(v.value == <?php echo $allparams['id_ingredient1']; ?> 
+								 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
+								 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
+								 ) {
+									$ingredients = result[k];
+									TextExtTags.textext()[0].tags().addTags([$ingredients]);
+								}
+							});
+						}
+					});
+			});
+			<?php endif; ?>
 
 		</script>
 <?php include('./app/Views/partials/footer.html') ?>
