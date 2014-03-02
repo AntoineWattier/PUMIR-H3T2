@@ -1,0 +1,34 @@
+{
+	"header":[
+	<?php if(isset($ERROR)): ?>
+		"code":"<?= $ERROR['code']; ?>",
+		"status":"<?= $ERROR['status']; ?>",
+		"text":"<?= $ERROR['text']; ?>"
+	<?php endif; ?>
+	],
+	<?php if($user) :?>
+	"body":[{
+		"id":"<?= $user->id_user ?>",
+		"firstname":"<?= $user->firstname_user ?>",
+		"lastname":"<?=$user->lastname_user ?>",
+		"bio": "<?= $user->bio_user ?>",
+		"profilPic":"<?php if(!empty($user->urlImage_user)) echo 'http://'. $_SERVER['HTTP_HOST'].'/'.$user->urlImage_user ?>",
+		"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$user->id_user?>",
+		"facebookId_user":"<?= $user->facebookId_user ?>",
+		"subscribeDate_user":"<?= $user->subscribeDate_user ?>",
+		"lastLogin_user":"<?= $user->lastLogin_user ?>",
+		"comments": [
+		<?php foreach($comments as $comment): ?>
+	{
+				"id":"<?= $comment->id_comment ?>",
+				"id_step":"<?= $comment->id_step ?>",
+				"content":"<?= $comment->content_comment ?>",
+				"dateAdd":"<?= $comment->dateAdd_comment ?>"
+			}
+
+			<?php if($comment !== end($comments)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>]
+	}]<?php endif; ?>
+}
