@@ -135,6 +135,10 @@ section#main ul.meta { overflow: hidden; }
 section#main ul.meta li { float: left; font-size: 0.846em; text-transform: uppercase; color: #a09dac; font-weight: 600;  margin-right: 20px; transition: opacity ease-out 0.3s; }
 section#main ul.meta li i { margin-right: 5px; margin-bottom: -1px; }
 
+section#main div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+section#main div.error i.close { float: right; cursor:pointer;}
+
+
 
 /*****************/
 /* @group Recipes */

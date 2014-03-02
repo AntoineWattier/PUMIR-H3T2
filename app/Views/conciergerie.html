@@ -76,7 +76,7 @@
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
     		plugins :'autocomplete filter tags ajax',
     		ajax : {
-                url : '/recipe/getAllIngredientsJSON',
+                url : '/wtfdiet/recipe/getAllIngredientsJSON',
                 dataType : 'json',
                 cacheResults : true
             },
@@ -118,10 +118,26 @@
 		    }
     	}).bind('isTagAllowed', function(e, data){
 			var formData = $(e.target).textext()[0].tags()._formData,
-			    list = JSON.stringify(formData);
-			if (formData.length && list.indexOf(data.tag.label) >= 0)
-			       data.result = false;
+			    list = JSON.stringify(formData),
+			    $error = '';
+			if (formData.length >= 3 || list.indexOf(data.tag.label) >= 0) {
+		        data.result = false;
+		        if (formData.length >= 3) 
+		       		$error = 'Oops, vous ne pouvez ajouter que 3 éléments.';
+		       	if (formData.length >= 3 && list.indexOf(data.tag.label) >= 0)
+		       		$error += '<br />';
+		        if (list.indexOf(data.tag.label) >= 0) 
+		       		$error += 'Oops, vous ne pouvez ajouter que 3 éléments.';
+			}
+			if($error) {
+				$('#main').prepend('<div class="error">'+$error+'<i class="close xl">Close</i></div>');
+				$('.error').slideDown();
+			}
 	});
+
+    $( "#main" ).on( "click", ".error", function(e) {
+    	$(this).slideUp();
+    });
 
 	$('button[name="find"]').bind('click',function(e){
 		var $this=$(this),
