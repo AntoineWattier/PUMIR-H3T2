@@ -145,7 +145,7 @@ section#main.recipes aside#filters form select { font-family: "Source Sans Pro",
 section#main.recipes aside#filters form div.group label span { padding: 10px 15px;}
 section#main.recipes aside#filters form div.ingredients input[type="text"]{ height: 35px; font-size: 1.1em; padding-left: 30px; }
 section#main.recipes aside#filters form div.ingredients i.zoom.sm { top: 12px; left: 10px; }
-section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 30px; }
+section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 35px; }
 section#main.recipes aside#filters form div.ingredients ul.choosen-ingredients li { padding: 10px 10px;}
 section#main.recipes { padding-left: 320px; overflow: hidden; width: 1020px; margin: 0 auto; box-sizing: border-box; }
 
