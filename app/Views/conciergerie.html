@@ -130,16 +130,9 @@
 		       		$error += 'Oops, vous ne pouvez ajouter que 3 éléments.';
 			}
 			if($error) {
-				$('#main').prepend('<div class="error">'+$error+'<i class="close xl">Close</i></div>');
-				$('.error').slideDown();
+				showError($error);
 			}
 	});
-
-    $( "#main" ).on( "click", ".error", function(e) {
-    	$(this).slideUp('normal', function() {
-    		$(this).remove();
-    	});
-    });
 
 	$('button[name="find"]').bind('click',function(e){
 		var $this=$(this),
