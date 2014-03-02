@@ -55,8 +55,8 @@
 						<div class="two-thirds">
 							<h3>Ingrédients désirés</h3>
 							<div class="ingredients suggest">
-							<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
-							<i class="zoom"></i>
+								<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+								<i class="zoom"></i>
 							</div>
 						</div>
 					</section>
@@ -76,7 +76,7 @@
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
     		plugins :'autocomplete filter tags ajax',
     		ajax : {
-                url : '/wtfdiet/recipe/getAllIngredientsJSON',
+                url : 'recipe/getAllIngredientsJSON',
                 dataType : 'json',
                 cacheResults : true
             },
@@ -165,5 +165,4 @@
 		}
 	});
 	</script>
-</body>
-</html>
+<?php include('./app/Views/partials/footer.html') ?>
