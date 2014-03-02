@@ -35,15 +35,15 @@ $('form[name="register"]').submit( function(e) {
 		$error = '';
 		console.log($form.find('input[name="firstname_user"]').val());
 	if(!$form.find('input[name="firstname_user"]').val())
-		$error += "Le prénom est oligatoire. ";
+		$error += "Le prénom est obligatoire. ";
 	if(!$form.find('input[name="lastname_user"]').val())
-		$error += "Le nom est oligatoire. ";
+		$error += "Le nom est obligatoire. ";
 	if(!$form.find('input[type="email"]').val())
 		$error += "L'email est obligatoire. ";
 	if($form.find('input[type="email"]').val() && validMail($form.find('input[type="email"]').val()))
 		$error += "L'email est invalide. ";
 	if(!$form.find('input[name="password_user"]').val())
-		$error += "Le mot de passe est oligatoire.";
+		$error += "Le mot de passe est obligatoire.";
 	if(!$error) {
 		return true;
 	} else {
