@@ -162,7 +162,7 @@ section#main.recipes article div a.like { float: left; background: url(../images
 section#main.recipes article div a.like:hover { opacity: 0.5; }
 section#main.recipes article div a.liked { background: url(../images/icons/heart-full.png) no-repeat 2px 3px; color: #fe8468; }
 
-section#main.recipes section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
+section#main section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
 
 section#main.recipes article a { overflow: hidden; display: block;  }
 section#main.recipes article div a:hover h1,
