@@ -33,6 +33,7 @@ $('form[name="register"]').submit( function(e) {
 	e.preventDefault();
 	var $form = $(this),
 		$error = '';
+		console.log($form.find('input[name="firstname_user"]').val());
 	if(!$form.find('input[name="firstname_user"]').val())
 		$error += "Le prénom est oligatoire. ";
 	if(!$form.find('input[name="lastname_user"]').val())
@@ -234,6 +235,8 @@ function checkMail(input) {
 }
 
 function showError($message) {
+	if($(".error"))
+		$(".error").remove();
 	$('.wrapper').prepend('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
 	$('.error').slideDown();
 	$( "body" ).on( "click", ".error i", function(e) {
