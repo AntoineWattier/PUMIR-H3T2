@@ -7,11 +7,16 @@
 /******************/
 /* @group General */
 /******************/
+html, body {
+	min-height:100%;
+}
 body { 
   background: #f4f4f7;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 0.813em;
-  font-weight: 400; }
+  font-weight: 400;
+  position: relative;
+}
 a, a:link, a:visited, a:active { text-decoration: none; }
 hr { border: 0; margin: 5px auto; }
 .no-txt, i { text-align: left; text-indent: -9999px; overflow: hidden; }
@@ -51,7 +56,7 @@ header#header nav#signed-in ul li a { font-weight: 700; color: #635c78; }
 /*****************/
 /* @group Footer */
 /*****************/
-footer#footer { background: #fff; padding: 40px 0; }
+footer#footer { width: 100%;background: #fff; padding: 40px 0; position: absolute; bottom: 0; }
 footer#footer p { color: #bdb8cc; font-size: 1em;  }
 /* @end of Footer */
 
