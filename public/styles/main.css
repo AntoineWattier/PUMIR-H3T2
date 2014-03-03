@@ -105,7 +105,7 @@ form div.ingredients ul.choosen-ingredients li i { margin-right: 5px; }
 form div.ingredients ul.choosen-ingredients li:hover i { background: url(../images/icons/delete.png) no-repeat; width: 15px; height: 10px; }
 
 form label.vibes { float: left; text-align: center; margin-right: 15px; cursor: pointer; }
-form label.vibes:nth-child(5) { margin-right: 0; }
+form label.vibes:last-of-type { margin-right: 0; }
 form label.vibes input[name="id_ambiance"] { position: absolute; left: -999rem; }
 form label.vibes div { background: #fff; border-radius: 3px; width: 180px; min-height: 360px; position: relative; overflow: hidden; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
 form label.vibes div:hover { box-shadow: 0 0 20px -3px #bebed4; }

@@ -205,16 +205,22 @@ $('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
 
 $('.next, ul.steps li').on('click',function(e){
 	var current = $('ul.steps li.current').index(),
+		next = current+1;
 		$step = $('section.step').eq(current),
 		error = '';
+
+	if($(this).is('li')) {
+		if($(this).index()<current) 
+			next = $(this).index();
+	}
 
 	if(verifStep(current)) {
 
 		$step.fadeOut('normal', function() {
-			$('section.step').eq(current+1).fadeIn();
+			$('section.step').eq(next).fadeIn();
 		});
 		$('ul.steps li').removeClass('current');
-		$('ul.steps li').eq(current+1).addClass('current');
+		$('ul.steps li').eq(next).addClass('current');
 		return false;
 
 	}
@@ -243,8 +249,8 @@ function verifStep(step) {
 				$error += 'Veuillez rentrer le nombre de personnes. ';
 		break;
 		case 1 :
-			if(!$form_step.find('input[name="numberOfPeople_recipe"]').val())
-				$error += 'Veuillez rentrer le nombre de personnes.';
+			if(!$form_step.find('input').first().val())
+				$error += 'Veuillez rentrer une étape. ';
 		break;
 		case 2 :
 			
