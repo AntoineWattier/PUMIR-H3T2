@@ -7,7 +7,7 @@
 	<?php endif; ?>
 	],
 	"body":[
-	<?php foreach($recipes as $recipe): ?>
+	<?if($recipe): ?>
 	{
 		"id":"<?= $recipe->id_recipe ?>",
 		"id_author":"<?= $recipe->id_user ?>",
@@ -28,9 +28,6 @@
 		"id_type":"<?= $recipe->id_type ?>",
 		"name_type":"<?= $recipe->name_type ?>"
 	}
-		<?php if($recipe !== end($recipes)): ?>
-			,
-		<?php endif; ?>
-	<?php endforeach; ?>
+	<?php endif; ?>
 	]
 }
