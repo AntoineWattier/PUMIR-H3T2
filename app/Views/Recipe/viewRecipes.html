@@ -146,7 +146,7 @@
 				showError($error);
 		});
 
-			<?php if ($allparams['id_ingredient1']) : ?>
+			<?php if (isset($allparams['id_ingredient1'])) : ?>
 				$(document).ready(function() {
 					$.ajax({
 						url : '/recipe/getAllIngredientsJSON',
