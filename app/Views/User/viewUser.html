@@ -3,8 +3,9 @@
 		  	<div class="wrapper">
 				<section id="main" class="user recipes">
 					<?php include('./app/Views/partials/headerUser.html') ?>
+					
+					<h3><span class="posted">Recettes postées</span> <i class="switch on"></i> <span class="disabled favorited">Recettes favorites</span></h3>
 					<section class="posted">
-					<h3>Recettes postées <a href="#"><i class="switch on"></i> <span class="disabled">Recettes favorites</span></a></h3>
 					<?php if($recipes):?> 
 					<?php foreach ($recipes as $recipe):?>
 						<article>
@@ -33,36 +34,34 @@
 						</section>
 					<?php endif; ?>
 					</section>
-				</section>
-				<section class="favorite" style='display:none'>
-					<h3> <a href="#"><span class="disabled">Recettes postées </span></a><i class="switch off"></i> Recettes favorites</h3>
-					<?php if($favorites):?> 
-					<?php foreach ($favorites as $recipe):?>
-						<article>
-							<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
-							<div>
-								<?php if(isset($SESSION['id_user'])): ?>
-								<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
-								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
-								<?php else: ?>
-								<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
-								<?php endif; ?>
-								<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
-									<h1><?= $recipe->name_recipe ?></h1>
-									<ul>
-										<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
-										<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
-										<li><i class="bell"></i><?= $recipe->name_type ?></li>
-									</ul>
-								</a>
-							</div>
-						</article>
-					<?php endforeach; ?>
-					<?php else: ?>
-						<section class="no-result">
-							<p>Aucune recette trouvée ici :(</p>
-						</section>
-					<?php endif; ?>
+					<section class="favorited hidden">
+						<?php if($favorites):?> 
+						<?php foreach ($favorites as $recipe):?>
+							<article>
+								<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+								<div>
+									<?php if(isset($SESSION['id_user'])): ?>
+									<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+									<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+									<?php else: ?>
+									<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+									<?php endif; ?>
+									<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+										<h1><?= $recipe->name_recipe ?></h1>
+										<ul class="meta">
+											<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+											<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+											<li><i class="bell"></i><?= $recipe->name_type ?></li>
+										</ul>
+									</a>
+								</div>
+							</article>
+						<?php endforeach; ?>
+						<?php else: ?>
+							<section class="no-result">
+								<p>Aucune recette trouvée ici :(</p>
+							</section>
+						<?php endif; ?>
 					</section>
 				</section>
 			</div>	
@@ -74,9 +73,23 @@
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="public/js/main.js"></script>
 	<script type="text/javascript">
-	$('.favorite a:first','.posted a:first').on('click',function(e){
+	$('h3 span').on('click',function(e){
 		e.preventDefault();
-		console.log('test')
+		var $this = $(this);
+
+		 if($this.hasClass('posted')){
+		 	$('section.favorited').addClass('hidden');
+			$('section.posted').removeClass('hidden');
+			$('span.posted').removeClass('disabled');
+			$('span.favorited').addClass('disabled');
+			$('i.switch').addClass('on').removeClass('off');
+		} else {
+			$('section.favorited').removeClass('hidden');
+			$('section.posted').addClass('hidden');
+			$('span.posted').addClass('disabled');
+			$('span.favorited').removeClass('disabled');
+			$('i.switch').removeClass('on').addClass('off');
+		}
 	});
 	</script>
 <?php include('./app/Views/partials/footer.html') ?>
