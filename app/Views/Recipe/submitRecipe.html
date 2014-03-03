@@ -29,12 +29,12 @@
 				<p class="intro">Ajoutez les ingrédients nécessaires à la préparation de votre recette, et précisez la quantité à utiliser.</p>
 				<div class="two-thirds">
 					<div class="ingredients suggest">
-						<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+						<input type="text" name="ingredients" placeholder="Que faut-il dans votre recette?" />
 						<i class="zoom"></i>
 					</div>
 				</div>
 				<div class="one-third">
-					<ul class="ingredients">
+					<!--<ul class="ingredients">
 						<li>Prout
 							<input type="text" placeholder="Précisions et quantités">
 							<span class="delete"><i class="close purple">Delete</i>
@@ -43,7 +43,7 @@
 							<input type="text" placeholder="Précisions et quantités">
 							<span class="delete"><i class="close purple">Delete</i>
 						</li>
-					</ul>
+					</ul>-->
 					<div class="nb-personnes">
 						Nombre de personnes
 						<input type="text" name="numberOfPeople_recipe"  placeholder="4" />
@@ -136,12 +136,72 @@
 		</form>
 	</div>
 </section>
-<script type="text/javascript">
+	<script type="text/javascript" src="public/js/textext/textext.min.submitRecipe.js"></script>
+	<script type="text/javascript">
+	var $ingredients;
+	var TextExtTags = $('.ingredients>input[type="text"]').textext({
+				plugins :'autocomplete filter tags ajax',
+				ajax : {
+					url : '/wtfdiet/recipe/getAllIngredientsJSON',
+					dataType : 'json',
+					cacheResults : true
+				},
+				ext: {
+					itemManager: {
+						stringToItem: function(str) {
+							var val;
+							$.each(this.list, function(idx, item) {
+								if(item.label == str){
+									val = item.value;
+								}
+							});
+							return { label: str, value: val };
+						},
+						itemToString: function(item) {
+							return item.label;
+						},
+						compareItems: function(item1, item2) {
+							return item1.value == item2.value;
+						},
+						filter: function(list, query){
+							this.list = list;
+
+							var result = [],
+									i, item
+									;
+							for(i = 0; i < list.length; i++)
+							{
+									item = list[i];
+									if(this.itemContains(item, query))
+											result.push(item);
+							}
+							return result;
+						}
+					}
+				}
+			}).bind('isTagAllowed', function(e, data){
+				var formData = $(e.target).textext()[0].tags()._formData,
+						list = JSON.stringify(formData),
+						$error = '';
+				if (list.indexOf(data.tag.label) >= 0) {
+					data.result = false;
+					if (list.indexOf(data.tag.label) >= 0) 
+						$error += 'Oops, vous ne pouvez pas ajouter deux fois le même élément.';
+				} else {
+					data.result = true;
+				}
+				if($error) 
+					showError($error);
+			});
+
+
+
 $('form').on('keydown',function(e){
 	if(e.keyCode == 13){
 		e.preventDefault();
 	}
 });
+
 $('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
 	$('input[name="step_recipe[]"]').on('keydown',function(e){
 		$this = $(this);
