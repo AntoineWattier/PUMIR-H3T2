@@ -25,24 +25,50 @@
 			</nav>
 		</header>
 	
-		<section id="main" class="create-recipe">
+		<section id="main" class="recipe-creation">
 			<div class="wrapper">
 				<a href="" class="cancel">« Annuler</a>
 				<h1>Création de la recette</h1>
 				<form>
 					<div class="title">
 						<input type="text" name="" placeholder="Titre de la recette" />
-						<i class="edit"></i>
 					</div>
+					<ul class="steps"> 
+						<li class="complete"><h2>Etape 1<span>Les ingrédients</span></h2></li>
+						<li class="current"><h2>Etape 2<span>La préparation</span></h2></li>
+						<li><h2>Etape 3<span>La préparation</span></h2></li>
+					</ul>
 					<section class="step step1">
-						<h2>Les ingrédients</h2>
-						<p>Ajoutez les ingrédients nécessaires à la préparation de votre recette, et précisez la quantité nécessaire.</p>
-						<div class="ingredients suggest">
-							<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
-							<i class="zoom"></i>
-							<ul class="suggestions">
-								<li><i class="checked sm"></i>Pommes</li>
-								<li><i class="checked sm"></i>Pommes de terre</li>
+						<p class="intro">Ajoutez les ingrédients nécessaires à la préparation de votre recette, et précisez la quantité nécessaire.</p>
+						<div class="two-thirds">
+							<div class="ingredients suggest">
+								<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+								<i class="zoom"></i>
+								<ul class="suggestions">
+									<li><i class="checked sm"></i>Pommes</li>
+									<li><i class="checked sm"></i>Pommes de terre</li>
+								</ul>
+							</div>
+						</div>
+						<div class="one-third">
+							<ul class="ingredients">
+								<li>Prout
+									<input type="text" placeholder="Précisions et quantités">
+									<span class="delete"><i class="close xl">Delete</i>
+								</li>
+								<li>Prout
+									<input type="text" placeholder="Précisions et quantités">
+									<span class="delete"><i class="close xl">Delete</i>
+								</li>
+								<li>Prout
+									<input type="text" placeholder="Précisions et quantités">
+									<span class="delete"><i class="close xl">Delete</i>
+								</li>
+								<li>Prout
+									<input type="text" placeholder="Précisions et quantités">
+									<span class="delete"><i class="close xl">Delete</i>
+								</li>
+								
 							</ul>
 						</div>
 					</section>

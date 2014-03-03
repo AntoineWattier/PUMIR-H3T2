@@ -143,7 +143,7 @@ section#main ul.meta li i { margin-right: 5px; margin-bottom: -1px; }
 section#main div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
 section#main div.error i.close { float: right; cursor:pointer;}
 
-section#main section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
+section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
 
 
 /*****************/
@@ -290,13 +290,33 @@ section.favorited.hidden, section.posted.hidden { display: none; }
 /************************/
 /* @group Create-recipe */
 /************************/
-section#main.create-recipe { background: #635c78; }
-section#main.create-recipe a.cancel { text-transform: uppercase; color: #a09dac; font-weight: 600; font-size: 0.923em; }
-section#main.create-recipe h1 { font-size: 1.385em; color: #fff; text-transform: uppercase; font-weight: 700; margin-top: 10px; }
-section#main.create-recipe div.title { position: relative; }
-section#main.create-recipe div.title input { border-bottom: 1px solid #a09dac; border-radius: 0; margin: 30px 0; width: 720px; background: transparent; padding: 5px 0 5px 40px; text-transform: uppercase; font-weight: 700; font-size: 2.308em; color: #fff; }
-section#main.create-recipe div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
-section#main.create-recipe form div.ingredients { width: 480px; float: left; }
+section#main.recipe-creation a.cancel { text-transform: uppercase; color: #a09dac; font-weight: 600; font-size: 0.923em; }
+section#main.recipe-creation h1 { font-size: 1.385em; color: #635c78; text-transform: uppercase; font-weight: 700; margin-top: 10px; }
+section#main.recipe-creation div.title { position: relative; border-bottom: 1px solid #a09dac; margin: 20px 0 10px; padding: 0;  }
+section#main.recipe-creation div.title input { height: 60px; border-radius: 0; margin: 0; width: 100%; background: transparent; font-weight: 700; font-size: 3.692em; color: #635c78; transition: background ease-out 0.3s; }
+section#main.recipe-creation div.title input:hover,
+section#main.recipe-creation div.title input:focus { background: #fff; border-radius: 4px; }
+section#main.recipe-creation div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
+section#main.recipe-creation ul.steps { margin: 20px 0 30px; }
+section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; }
+section#main.recipe-creation ul.steps li h2 { color: #cccbd3; text-transform: uppercase; font-weight: 600; font-size: 1.077em; line-height: 1.214em; }
+section#main.recipe-creation ul.steps li h2 span { display: block; text-transform: none; color: #cccbd3; font-size: 1.286em; line-height: 0.944em; }
+section#main.recipe-creation ul.steps li.complete { border: 2px solid #cccbd3; }
+section#main.recipe-creation ul.steps li.current { background: #fff; border: 2px solid #fff; }
+section#main.recipe-creation ul.steps li.current h2 { color: #fe8468; }
+section#main.recipe-creation ul.steps li.current h2 span { color: #635c78; }
+section#main.recipe-creation form div.ingredients { width: 480px; float: left;  }
+section#main.recipe-creation section.step p.intro { color: #635c78; font-size: 1.077em; padding-bottom: 15px; }
+section#main.recipe-creation section.step ul.ingredients li { position: relative; border-bottom: 1px solid #dcdcde; padding: 15px 10px; font-size: 1.077em; text-transform: uppercase; font-weight: 600; }
+section#main.recipe-creation section.step ul.ingredients li:first-child { border-top: 1px solid #dcdcde; }
+section#main.recipe-creation section.step ul.ingredients li input { margin: 5px 0 0; font-size: 1.077em; height: 30px; }
+section#main.recipe-creation section.step ul.ingredients li span.delete { background: #f4f4f7; position: absolute; right: -50px; top: 0; height: 100%; width: 50px; opacity: 0; border-left: 1px solid #dcdcde; transition: opacity ease-out 0.3s, right ease-out 0.3s; }
+section#main.recipe-creation section.step ul.ingredients li span.delete i { left: 0; right: 0; top: 0; bottom: 0; margin: auto; position: absolute; }
+section#main.recipe-creation section.step ul.ingredients li:hover span.delete { cursor: pointer; opacity: 1; right: 0; } 
+
+section#main.recipe-creation div.two-thirds { width: 620px; margin-right: 20px; float: left; }
+section#main.recipe-creation div.two-thirds div.ingredients { width: 100%; }
+section#main.recipe-creation div.one-third { width: 320px; float: left; }
 
 /* @end of Create-recipe */
 
