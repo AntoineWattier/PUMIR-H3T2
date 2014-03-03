@@ -123,7 +123,7 @@ form label.vibes.last { margin-right: 0; }
 /***************/
 /* @group Main */
 /***************/
-section#main { padding: 40px 0 80px; overflow: hidden; }
+section#main { padding: 40px 0 140px; overflow: hidden; }
 
 section#main > h1 { color: #635c78; font-weight: 700; font-size: 3.077em;   letter-spacing: -0.02em; text-align: center; text-transform: uppercase;  margin-bottom: 15px; }
 section#main > h1 + p { text-align: center; color: #a09dac; font-size: 1.154em; line-height: 1.200em; }
@@ -302,7 +302,7 @@ section#main.recipe-creation div.title input:hover,
 section#main.recipe-creation div.title input:focus { background: #fff; border-radius: 4px; }
 section#main.recipe-creation div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
 section#main.recipe-creation ul.steps { margin: 20px 0 30px; }
-section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; }
+section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; cursor:pointer; }
 section#main.recipe-creation ul.steps li h2 { color: #cccbd3; text-transform: uppercase; font-weight: 600; font-size: 1.077em; line-height: 1.214em; }
 section#main.recipe-creation ul.steps li h2 span { display: block; text-transform: none; color: #cccbd3; font-size: 1.286em; line-height: 0.944em; }
 section#main.recipe-creation ul.steps li.complete { border: 2px solid #cccbd3; }

@@ -235,7 +235,7 @@ function checkMail(input) {
 function showError($message) {
 	if($(".error"))
 		$(".error").remove();
-	$('.wrapper').prepend('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
+	$('.wrapper').first().prepend('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
 	$('.error').slideDown();
 	$( "body" ).on( "click", ".error i", function(e) {
 	$(this).parent().slideUp('normal', function() {

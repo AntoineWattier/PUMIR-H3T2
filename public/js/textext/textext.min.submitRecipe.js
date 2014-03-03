@@ -3949,7 +3949,7 @@
 			core = self.core(),
 			element
 			;
-
+			
 		if(tag instanceof $)
 		{
 			element = tag;

@@ -133,7 +133,7 @@
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
 				plugins :'autocomplete filter tags ajax',
 				ajax : {
-					url : '/recipe/getAllIngredientsJSON',
+					url : '/wtfdiet/recipe/getAllIngredientsJSON',
 					dataType : 'json',
 					cacheResults : true
 				},
@@ -203,53 +203,60 @@ $('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
 	});
 });
 
-$('.next').on('click',function(e){
-	var $this = $(this);
-	switch($this.parent().attr('class')){
-		case 'step step1': 	
-			$('section.step1').css('display','none');
-			$('section.step2').css('display','block');
-			$('ul.steps li:nth-child(1)').removeClass('current').addClass('complete');
-			$('ul.steps li:nth-child(2)').addClass('current');
-		break;
-		case 'step step2': 	
-			$('section.step2').css('display','none');
-			$('section.step3').css('display','block');
-			$('ul.steps li:nth-child(2)').removeClass('current').addClass('complete');
-			$('ul.steps li:nth-child(3)').addClass('current');
-		break;
+$('.next, ul.steps li').on('click',function(e){
+	var current = $('ul.steps li.current').index(),
+		$step = $('section.step').eq(current),
+		error = '';
+
+	if(verifStep(current)) {
+
+		$step.fadeOut('normal', function() {
+			$('section.step').eq(current+1).fadeIn();
+		});
+		$('ul.steps li').removeClass('current');
+		$('ul.steps li').eq(current+1).addClass('current');
+		return false;
+
 	}
+	return false;
 });
 
-$('ul.steps li').on('click',function(e){
+function verifStep(step) {
 
-	e.preventDefault();
-	var $this = $(this);
-	if($this.hasClass('step 1')){
-			$('section.step1').css('display','block');
-			$('section.step2').css('display','none');
-			$('section.step3').css('display','none');
-			$('ul.steps li:nth-child(1)').addClass('current');
-			$('ul.steps li:nth-child(2)').removeClass('current');
-			$('ul.steps li:nth-child(3)').removeClass('current');
+	var $form_step = $('section.step').eq(step),
+		$error = '';
+
+	switch(step) {
+		case 0 :
+			if($form_step.find('.one-third ul.ingredients li').length==0)
+				$error += 'Veuillez rentrer un ingredient. ';
+			else {
+				$form_step.find('.one-third ul.ingredients li').each(function(e) {
+					var c = 0;
+					if(!$(this).children('input').val())
+						c++;
+					if(c)
+						$error += 'Veullez renseignez les quantités des vos ingrédients. ';
+				});
+			}
+			if(!$form_step.find('input[name="numberOfPeople_recipe"]').val())
+				$error += 'Veuillez rentrer le nombre de personnes. ';
+		break;
+		case 1 :
+			if(!$form_step.find('input[name="numberOfPeople_recipe"]').val())
+				$error += 'Veuillez rentrer le nombre de personnes.';
+		break;
+		case 2 :
+			
+		break;
 	}
-	else if($this.hasClass('step 2')){
-			$('section.step1').css('display','none');
-			$('section.step2').css('display','block');
-			$('section.step3').css('display','none');
-			$('ul.steps li:nth-child(1)').removeClass('current');
-			$('ul.steps li:nth-child(2)').addClass('current');
-			$('ul.steps li:nth-child(3)').removeClass('current');
+	if($error) {
+		showError($error);
+		return false;
 	}
-	else if($this.hasClass('step 3')){
-			$('section.step1').css('display','none');
-			$('section.step2').css('display','none');
-			$('section.step3').css('display','block');
-			$('ul.steps li:nth-child(1)').removeClass('current');
-			$('ul.steps li:nth-child(2)').removeClass('current');
-			$('ul.steps li:nth-child(3)').addClass('current');
-	}
-});
+	return true;
+}
+
 
 // $('fieldset').on('change','select:last',function(e){
 // 	$this=$(this);
