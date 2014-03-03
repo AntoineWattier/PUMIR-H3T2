@@ -43,6 +43,14 @@
 			<a href="" class="delete">Supprimer mon compte définitivement.</a>
 		</section>
 	</section>
+	<section id="popin" class="delete" style="display:none">
+		<i class="close purple">Close</i>
+		<h2>Vous allez nous manquer</h2>
+		<p>Il arrive de faire des erreurs dans la vie, et vous pouvez toujours faire machine arrière... êtes-vous vraiment sûr de vouloir supprimer définitvement votre compte ? </p>
+
+		<a href="/user/deleteUser/<?= $SESSION['id_user'] ?>">Supprimer mon compte définitivement</a>
+
+	</section>
  </div>  
 
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
