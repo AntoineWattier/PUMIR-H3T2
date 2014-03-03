@@ -26,7 +26,8 @@
 		"id_difficulty":"<?= $recipe->id_difficulty ?>",
 		"name_difficulty":"<?= $recipe->name_difficulty ?>",
 		"id_type":"<?= $recipe->id_type ?>",
-		"name_type":"<?= $recipe->name_type ?>"
+		"name_type":"<?= $recipe->name_type ?>",
+		"steps":[]
 	}
 	<?php endif; ?>
 	]

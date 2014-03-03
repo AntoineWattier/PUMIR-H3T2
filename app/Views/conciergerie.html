@@ -45,10 +45,10 @@
 							<h3>Type de recette</h3>
 							<div class="group">
 								<?php foreach($types as $i => $type): ?>
-								<label>
-									<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?> />
-									<span><?= $type->name_type?></span>
-								</label>
+									<label>
+										<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?> />
+										<span><?= $type->name_type?></span>
+									</label>
 								<?php endforeach ?>
 							</div>
 						</div>

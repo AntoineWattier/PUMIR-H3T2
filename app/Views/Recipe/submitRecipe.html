@@ -1,77 +1,213 @@
 <?php include('./app/Views/partials/header.html') ?>
-<div id="recipe">
-	<section>
-		<h2>Create your recipe</h2>              
+
+
+
+<section id="main" class="recipe-creation">
+	<div class="wrapper">
+		<a href="/" class="cancel">« Annuler</a>
+		<h1>Création de la recette</h1>
 		<form action="recipe/submitRecipe" method="POST">
-			<fieldset>
-				<legend>Nom de la recette:</legend>
-				<input name="name_recipe" type="text" placeholder="Name" required/><br><br>
-				<legend>Ingredients de votre recette:</legend>
-			<?php if(isset($allIngredients)):?>
-				<select name="ingredient_recipe[]">
-					<option value="-1" selected>-----</option>
-					<?php foreach($allIngredients as $ingredient): ?>
-						<option value="<?= $ingredient->id_ingredient ?>" ><?= $ingredient->name_ingredient ?></option>
-					<?php endforeach ?>
-				</select>
-			<?php endif; ?>		
-				<legend>Étapes de la recette:</legend>
-				+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape" required /><br>	
-
-
-				<legend>Difficulté:</legend>
-				<?php if(isset($difficulties)):?>
-					<?php foreach($difficulties as $difficulty): ?>
-						<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" > <?= $difficulty->name_difficulty ?><br>
-					<?php endforeach ?>
-				<?php endif; ?>
-				<legend>Temps de préparation:</legend>
-				<?php if(isset($preparationTimes)):?>
-					<?php foreach($preparationTimes as $preparationTime): ?>
-						<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" > <?= $preparationTime->name_preparationTime ?><br>
-					<?php endforeach ?>
-				<?php endif; ?>
-				<legend>Type de plat:</legend>
-				<?php if(isset($types)):?>
-					<?php foreach($types as $type): ?>
-						<input type="radio" name="id_type" value="<?= $type->id_type ?>" > <?= $type->name_type ?><br>
-					<?php endforeach ?>
-				<?php endif; ?>
-				<legend>Nombre de personnes:</legend>
-				<input name="numberOfPeople_recipe" type="number" placeholder="Nombre de personnes" min="1" max="15" required/><br>
-				<legend>Ambiance de votre recette:</legend>
-				<?php if(isset($ambiances)):?>
-					<?php foreach($ambiances as $ambiance): ?>
-						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" > <?= $ambiance->name_ambiance ?><br>
-					<?php endforeach ?>
-				<?php endif; ?>
+<!-- DEV  -->
+<?php if(isset($allIngredients)):?>
+	<select name="ingredient_recipe[]">
+		<option value="-1" selected>-----</option>
+		<?php foreach($allIngredients as $ingredient): ?>
+			<option value="<?= $ingredient->id_ingredient ?>" ><?= $ingredient->name_ingredient ?></option>
+		<?php endforeach ?>
+	</select>
+<?php endif; ?>	
+<!-- /DEV -->
+			<div class="title">
+				<input type="text" name="name_recipe" placeholder="Titre de la recette" />
+			</div>
+			<ul class="steps"> 
+				<li class="step 1 current"><h2>Etape 1<span>Les ingrédients</span></h2></li>
+				<li class="step 2"><h2>Etape 2<span>La préparation</span></h2></li>
+				<li class="step 3"><h2>Etape 3<span>Finalisation</span></h2></li>
+			</ul>
+			<section class="step step1">
+				<p class="intro">Ajoutez les ingrédients nécessaires à la préparation de votre recette, et précisez la quantité à utiliser.</p>
+				<div class="two-thirds">
+					<div class="ingredients suggest">
+						<input type="text" name="ingredients" placeholder="Qu'y a-t-il dans votre frigo ?" />
+						<i class="zoom"></i>
+					</div>
+				</div>
+				<div class="one-third">
+					<ul class="ingredients">
+						<li>Prout
+							<input type="text" placeholder="Précisions et quantités">
+							<span class="delete"><i class="close purple">Delete</i>
+						</li>
+						<li>Prout
+							<input type="text" placeholder="Précisions et quantités">
+							<span class="delete"><i class="close purple">Delete</i>
+						</li>
+					</ul>
+					<div class="nb-personnes">
+						Nombre de personnes
+						<input type="text" name="numberOfPeople_recipe"  placeholder="4" />
+					</div>
+				</div>
+				<div class="clear"></div>
+				<hr />
+				<button class="next">Suivant »</button>
+			</section>
+			<section class="step step2" style="display:none">
+				<div class="clear"></div>
+				<p class="intro">Saisissez les différentes étapes de préparation de votre recette. Prenez compte du fait que des cuisiniers moins expérimentés que vous devront comprendre chacunes de ces étapes..</p>
 				
-				<br><br><input type="submit" value="Create recipe"/>
-			</fieldset>
+				<ul class="recipe-steps" >
+					<li>
+						<input type="text" name="step_recipe[]" placeholder="Ajouter une étape">
+						<div class="nb">
+							<span>1</span>
+						</div>
+					</li>
+				</ul>
+				<div class="clear"></div>
+				<button class="next">Suivant »</button>
+			</section>
+			<section class="step step3" style="display:none">
+				<div class="clear"></div>
+				<p class="intro">Pour aider les utilisateurs de WTFDIET à retrouver votre recette, nous avons besoin de quelques informations complémentaires.</p>
+				
+				<div class="one-third">
+				<?php if(isset($preparationTimes)):?>
+					<h3>Temps total</h3>
+					<div class="group">
+					<?php foreach($preparationTimes as $i => $preparationTime): ?>
+						<label>
+							<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($i == 0)echo "checked"; ?>/>
+							<span><?= $preparationTime->name_preparationTime?></span>
+						</label>
+					<?php endforeach ?>
+				<?php endif; ?>
+					</div>
+				</div>
+				<div class="one-third">
+				<?php if(isset($difficulties)):?>
+					<h3>Difficulté</h3>
+					<div class="group">
+					<?php foreach($difficulties as $i => $difficulty): ?>
+						<label>
+							<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($i == 0)echo "checked"; ?> />
+							<span><?= $difficulty->name_difficulty?></span>
+						</label>
+					<?php endforeach ?>
+				<?php endif; ?>
+					</div>
+				</div>
+				<div class="one-third last">
+				<?php if(isset($types)):?>
+					<h3>Type de recette</h3>
+					<div class="group">
+					<?php foreach($types as $i => $type): ?>
+						<label>
+							<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($i == 0)echo "checked"; ?> />
+							<span><?= $type->name_type?></span>
+						</label>
+					<?php endforeach ?>
+				<?php endif; ?>
+					</div>
+				</div>
+				<h3>Une recette pour une envie de...</h3>
+				<?php foreach($ambiances as $i => $ambiance): ?>
+					<label class="vibes">
+						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" <?php if($i == 0)echo "checked"; ?>/>
+						<div>
+							<img src="<?= $ambiance->urlImage_ambiance?>" width="180px" height="140px" alt="<?= $ambiance->name_ambiance?>">
+							<h2><?= explode(' ',$ambiance->name_ambiance)[0] ?><span><?= explode(' ',$ambiance->name_ambiance)[1] ?></span></h2>
+							<p><?= $ambiance->description_ambiance?></p>
+							<span class="checked"></span>
+						</div>
+					</label>
+				<?php endforeach ?>
+				<div class="clear"></div>
+				<hr />
+				<h3 class="photo">Un petit sourire ?</h3>
+				<p class="intro">Une jolie photo et tout le monde  vous enviera votre plat !</p>
+				<button class="camera"><i class="camera"></i>Choisir une photo</button>
+				<hr />
+				<button type="submit" class="next">Proposer ma recette »</button>
+				<!-- <input type="submit" value="Create recipe"/> -->
+				<div class="clear"></div>
+			</section>
 		</form>
-	</section>
-</div>
+	</div>
+</section>
 <script type="text/javascript">
 $('form').on('keydown',function(e){
 	if(e.keyCode == 13){
 		e.preventDefault();
 	}
 });
-$('fieldset').on('focus','input[name="step_recipe[]"]',function(e){
+$('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
 	$('input[name="step_recipe[]"]').on('keydown',function(e){
 		$this = $(this);
 		if(e.keyCode == 13 && $('input[name="step_recipe[]"]:last').val() != ''){
 			e.preventDefault();
-			$('<br>+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape"/>').insertAfter('input[name="step_recipe[]"]:last');
+			$currentVal = parseInt($('.recipe-steps li:last span').html());
+			$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
+			$('input[name="step_recipe[]"]:last').focus();
 		}
 	});
 });
-$('fieldset').on('change','select:last',function(e){
-	$this=$(this);
-	if($('select option:selected').val() != -1 ){
-		var tmp = '<br><select  name="ingredient_recipe[]">'+$this.html()+ '</select>';
-		$( tmp ).insertAfter('select:last');
+
+$('.next').on('click',function(e){
+	var $this = $(this);
+	switch($this.parent().attr('class')){
+		case 'step step1': 	
+			$('section.step1').css('display','none');
+			$('section.step2').css('display','block');
+			$('ul.steps li:nth-child(1)').removeClass('current').addClass('complete');
+			$('ul.steps li:nth-child(2)').addClass('current');
+		break;
+		case 'step step2': 	
+			$('section.step2').css('display','none');
+			$('section.step3').css('display','block');
+			$('ul.steps li:nth-child(2)').removeClass('current').addClass('complete');
+			$('ul.steps li:nth-child(3)').addClass('current');
+		break;
 	}
-})
+});
+
+$('ul.steps li').on('click',function(e){
+
+	e.preventDefault();
+	var $this = $(this);
+	if($this.hasClass('step 1')){
+			$('section.step1').css('display','block');
+			$('section.step2').css('display','none');
+			$('section.step3').css('display','none');
+			$('ul.steps li:nth-child(1)').addClass('current');
+			$('ul.steps li:nth-child(2)').removeClass('current');
+			$('ul.steps li:nth-child(3)').removeClass('current');
+	}
+	else if($this.hasClass('step 2')){
+			$('section.step1').css('display','none');
+			$('section.step2').css('display','block');
+			$('section.step3').css('display','none');
+			$('ul.steps li:nth-child(1)').removeClass('current');
+			$('ul.steps li:nth-child(2)').addClass('current');
+			$('ul.steps li:nth-child(3)').removeClass('current');
+	}
+	else if($this.hasClass('step 3')){
+			$('section.step1').css('display','none');
+			$('section.step2').css('display','none');
+			$('section.step3').css('display','block');
+			$('ul.steps li:nth-child(1)').removeClass('current');
+			$('ul.steps li:nth-child(2)').removeClass('current');
+			$('ul.steps li:nth-child(3)').addClass('current');
+	}
+});
+
+// $('fieldset').on('change','select:last',function(e){
+// 	$this=$(this);
+// 	if($('select option:selected').val() != -1 ){
+// 		var tmp = '<br><select  name="ingredient_recipe[]">'+$this.html()+ '</select>';
+// 		$( tmp ).insertAfter('select:last');
+// 	}
+// })
 </script>
 <?php include('./app/Views/partials/footer.html') ?>
