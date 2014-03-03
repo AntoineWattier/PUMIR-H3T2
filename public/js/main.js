@@ -33,7 +33,6 @@ $('form[name="register"]').submit( function(e) {
 	e.preventDefault();
 	var $form = $(this),
 		$error = '';
-		console.log($form.find('input[name="firstname_user"]').val());
 	if(!$form.find('input[name="firstname_user"]').val())
 		$error += "Le prénom est obligatoire. ";
 	if(!$form.find('input[name="lastname_user"]').val())
@@ -56,8 +55,7 @@ $('form[name="register"]').submit( function(e) {
 
 $('a.advanced-search').on('click', function(e){
 	e.preventDefault();
-	console.log('click');
-	$('section.advanced-search').css('display') == 'none' ? $('section.advanced-search').css('display', 'block') : $('section.advanced-search').css('display', 'none');
+	$('section.advanced-search').slideToggle();
 });
 
 
