@@ -1,0 +1,82 @@
+{
+	"header":[
+	<?php if(isset($ERROR)): ?>
+		"code":"<?= $ERROR['code']; ?>",
+		"status":"<?= $ERROR['status']; ?>",
+		"text":"<?= $ERROR['text']; ?>"
+	<?php endif; ?>
+	],
+	<?php if($user) :?>
+	"body":[{
+		"id":"<?= $user->id_user ?>",
+		"firstname":"<?= $user->firstname_user ?>",
+		"lastname":"<?=$user->lastname_user ?>",
+		"bio": "<?= $user->bio_user ?>",
+		"profilPic":"<?php if(!empty($user->urlImage_user)) echo 'http://'. $_SERVER['HTTP_HOST'].'/'.$user->urlImage_user ?>",
+		"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$user->id_user?>",
+		"facebookId_user":"<?= $user->facebookId_user ?>",
+		"subscribeDate_user":"<?= $user->subscribeDate_user ?>",
+		"lastLogin_user":"<?= $user->lastLogin_user ?>",
+		"comments": [
+		<?php foreach($comments as $comment): ?>
+			{
+				"id":"<?= $comment->id_comment ?>",
+				"id_step":"<?= $comment->id_step ?>",
+				"content":"<?= $comment->content_comment ?>",
+				"dateAdd":"<?= $comment->dateAdd_comment ?>"
+			}
+
+			<?php if($comment !== end($comments)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"posted_recipes": [
+		<?php foreach($posted_recipes as $posted_recipe): ?>
+			{
+				"id":"<?= $posted_recipe->id_recipe ?>",
+				"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/recipe/getRecipe/'.$posted_recipe->id_recipe?>"
+			}
+
+			<?php if($posted_recipe !== end($posted_recipes)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"favorite_recipe": [
+		<?php foreach($favorite_recipes as $favorite_recipe): ?>
+			{	
+				"id":"<?= $favorite_recipe->id_recipe ?>",
+				"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/recipe/getRecipe/'.$favorite_recipe->id_recipe?>"
+			}
+
+			<?php if($favorite_recipe !== end($favorite_recipes)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"followings": [
+		<?php foreach($followings as $following): ?>
+			{	
+				"id":"<?= $following->id_following ?>",
+				"firstname":"<?= $following->firstname_following ?>",
+				"lastname":"<?= $following->lastname_following ?>",
+				"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$following->id_following?>"
+			}
+
+			<?php if($following !== end($followings)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"followers": [
+		<?php foreach($followers as $follower): ?>
+			{	
+				"id":"<?= $follower->id_follower ?>",
+				"firstname":"<?= $follower->firstname_follower ?>",
+				"lastname":"<?= $follower->lastname_follower ?>",
+				"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$follower->id_follower?>"
+			}
+
+			<?php if($follower !== end($followers)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>]
+	}]<?php endif; ?>
+}

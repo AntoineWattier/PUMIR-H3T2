@@ -1,0 +1,446 @@
+/*****************/
+/* @group Master */
+/*****************/
+@import url(reset.css);
+@import url(fonts.css);
+
+/******************/
+/* @group General */
+/******************/
+body { 
+  background: #f4f4f7;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.813em;
+  font-weight: 400; }
+a, a:link, a:visited, a:active { text-decoration: none; }
+hr { border: 0; margin: 5px auto; }
+.no-txt, i { text-align: left; text-indent: -9999px; overflow: hidden; }
+i { display: inline-block; }
+em { font-style: italic; }
+.clear { clear: both; }
+input, input:focus, textarea, textarea:focus, button, button:focus, select, select:focus { outline: 0;}
+h3 { text-transform: uppercase; font-style: italic; font-weight: 600; color: #6c6680; margin-bottom: 8px; }
+/* @end of General */
+
+/*****************/
+/* @group Header */
+/*****************/
+header#header { position: relative; background: #fff; padding: 45px 0; }
+header#header h1 { display: inline-block; margin: 0 30px; font-family: "Damion", cursive; font-size: 2.308em; color: #635c78; border-bottom: 2px solid #635c78; line-height: 0.8em; }
+
+header#header nav#nav { display: inline-block; }
+header#header nav#nav ul li { float: left; }
+
+header#header nav#nav ul li a { text-transform: uppercase; font-weight: 700; color: #bdb8cc; padding: 15px 20px;  border-right: 1px solid #f4f4f7; }
+header#header nav#nav ul li:last-child a { border-right: 0; }
+header#header nav#nav ul li.active a { color: #635c78; }
+
+header#header nav#sign-in,
+header#header nav#signed-in { position: absolute; top: 40px; right: 30px;  display: block; }
+header#header nav#sign-in ul li,
+header#header nav#signed-in ul li { float: left; }
+header#header nav#sign-in ul li a { display: block; padding: 12px 15px; color: #fe8468; }
+header#header nav#signed-in ul li a { display: block; padding: 12px 5px; color: #fe8468; }
+header#header nav#sign-in a.btn,
+header#header nav#signed-in a.btn {  padding: 10px 15px; color: #fe8468; border-radius: 3px; border: 2px solid #fe8468;  font-weight: 600; }
+header#header nav#signed-in ul li a div.user-img { overflow: hidden; position: relative; width: 40px; height: 40px; border-radius: 100%; float: left; margin: -12px 10px 0 15px; }
+header#header nav#signed-in ul li a div.user-img img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
+header#header nav#signed-in ul li a { font-weight: 700; color: #635c78; }
+/* @end of Header */
+
+/*****************/
+/* @group Footer */
+/*****************/
+footer#footer { background: #fff; padding: 40px 0; }
+footer#footer p { color: #bdb8cc; font-size: 1em;  }
+/* @end of Footer */
+
+/******************/
+/* @group Wrapper */
+/******************/
+div.wrapper {
+  width: 960px;
+  margin: 0 auto; }
+/* @end of Wrapper */
+
+/****************/
+/* @group Forms */
+/****************/
+form div.group { width: 100%; overflow: hidden; margin-bottom: 25px; }
+form div.group label { width: 33.3%; float: left; cursor: pointer; }
+form div.group label input[type="radio"] { position: absolute; left: -999rem; }
+form div.group label span { display: block; background: #7f778f; color: #c4becf; text-transform: uppercase; font-weight: 600; padding: 15px; text-align: center; box-sizing: border-box; width: 100%; transition: background ease-out 0.2s, color ease-out 0.2s; }
+form div.group label:first-child span { border-top-left-radius: 3px; border-bottom-left-radius: 3px; } 
+form div.group label:last-child span { border-top-right-radius: 3px; border-bottom-right-radius: 3px; } 
+form div.group label:hover span { color: #fff; }
+form div.group label input[type="radio"]:checked + span { color: #fff; background: #635c78; }
+
+form input { font-family: "Source Sans Pro", sans-serif;  background: #fff; border: 0; border-radius: 4px; width: 100%; height: 40px; color: #635c78; font-size: 1.385em; font-weight: normal;  padding: 0 10px;  margin-bottom: 10px; box-sizing: border-box; }
+form input::-webkit-input-placeholder { color: #bdb8cc; font-style: italic; }
+form textarea { font-family: "Source Sans Pro", sans-serif;  height: 85px;  background: #fff; border: 0; border-radius: 4px; width: 100%; color: #635c78; font-size: 1.231em; font-weight: normal;  padding: 10px;  margin-bottom: 5px; box-sizing: border-box; }
+
+form button[type="submit"] { font-family: "Source Sans Pro", sans-serif;  font-size: 1.154em; color: #f4f4f7; text-transform: uppercase; font-weight: 600; margin: 5px 0; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #fe8468; cursor: pointer; }
+form button[type="submit"] i.checked { margin-right: 10px; margin-bottom: -1px; }
+
+form div.ingredients { position: relative; }
+form div.ingredients.suggest ul.suggestions { display: block; }
+form div.ingredients.suggest input[type="text"] { border-bottom-right-radius: 0; border-bottom-left-radius: 0; }
+form div.ingredients input[type="text"] { height: 60px; width: 100%; box-sizing: border-box; border: 0; padding-left: 50px; color: #635c78; font-size: 1.385em; font-weight: 600; border-radius: 4px; }
+form div.ingredients input[type="text"]::-webkit-input-placeholder { color: #bdb8cc; font-style: italic; }
+form div.ingredients i.zoom { position: absolute; top: 22px; left: 20px; }
+form div.ingredients ul.suggestions { position: absolute; left: 0; top: 60px; width: 100%; display: none; border-top: 1px solid #ebeaf0; height: 160px; overflow: hidden; border-radius: 0 0 4px 4px;}
+form div.ingredients ul.suggestions li { display: block; background: #fff; font-size: 1.231em; color: #a09dac; padding: 8px 0; transition: background ease-out 0.3s, color ease-out 0.3s; }
+form div.ingredients ul.suggestions li:last-child { border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; }
+form div.ingredients ul.suggestions li:hover,form div.ingredients ul.suggestions li.text-selected {background: #fe8468; color: #fff; }
+form div.ingredients ul.suggestions li i { margin: 0 16px; }
+form div.ingredients ul.choosen-ingredients { margin-top: 20px; }
+form div.ingredients ul.choosen-ingredients li {  padding: 15px 10px; text-transform: uppercase; color: #fff; background: #fe8468; display: inline-block; border-radius: 3px; margin: 0 4px 5px 0; font-weight: 600; cursor: pointer; }
+
+form div.ingredients ul.choosen-ingredients li i { margin-right: 5px; }
+form div.ingredients ul.choosen-ingredients li:hover i { background: url(../images/icons/delete.png) no-repeat; width: 15px; height: 10px; }
+
+form label.vibes { float: left; text-align: center; margin-right: 15px; cursor: pointer; }
+form label.vibes:nth-child(5) { margin-right: 0; }
+form label.vibes input[name="id_ambiance"] { position: absolute; left: -999rem; }
+form label.vibes div { background: #fff; border-radius: 3px; width: 180px; min-height: 360px; position: relative; overflow: hidden; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
+form label.vibes div:hover { box-shadow: 0 0 20px -3px #bebed4; }
+form label.vibes div span.checked { box-sizing: border-box; width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0; border: 2px solid #fe8468; border-radius: 5px; opacity: 0; transition: opacity ease-out 0.3s; }
+form label.vibes div h2 { color: #635c78; font-family: "Damion", cursive; font-size: 1.692em; line-height: 0.909em; padding: 30px 0; }
+form label.vibes div h2 span { display: block; text-transform: uppercase; font-family: "Source Sans Pro", sans-serif; font-weight: 700; }
+form label.vibes div p { color: #a09dac; line-height: 1.385em; padding: 0 25px 30px; }
+form label.vibes input[name="id_ambiance"]:checked + div span.checked { opacity: 1; }
+form label.vibes input[name="id_ambiance"]:checked + div h2,
+form label.vibes input[name="id_ambiance"]:checked + div p { color: #fe8468; }
+form label.vibes.last { margin-right: 0; } 
+/* @end of Forms */
+
+
+/***************/
+/* @group Main */
+/***************/
+section#main { padding: 40px 0; }
+
+section#main > h1 { color: #635c78; font-weight: 700; font-size: 3.077em;   letter-spacing: -0.02em; text-align: center; text-transform: uppercase;  margin-bottom: 15px; }
+section#main > h1 + p { text-align: center; color: #a09dac; font-size: 1.154em; line-height: 1.200em; }
+section#main hr { height: 1px; width: 100%; background: #eae9ee; margin: 30px 0 40px; }
+
+section#main > form { width: 100%; }
+
+section#main > form a.advanced-search { color: #a09dac; font-size: 1.077em; font-weight: 600; font-style: italic; display: block; text-align: center; margin-top: 35px; }
+section#main > form a.advanced-search i.plus { margin-right: 5px; margin-bottom: 1px; }
+section#main > form button[type="submit"] { font-size: 1.154em; color: #f4f4f7; text-transform: uppercase; font-weight: 600; margin: 0 auto; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #fe8468; cursor: pointer; }
+section#main > form button[type="submit"] i.checked { margin-right: 10px; margin-bottom: -1px; }
+
+section#main > form section.advanced-search { margin-top: 50px; display: none; }
+section#main > form section.advanced-search div.one-third { width: 320px; overflow: hidden; float: left; }
+section#main > form section.advanced-search div.two-thirds { width: 600px; float: left; margin-left: 40px; }
+
+section#main ul.meta { overflow: hidden; }
+section#main ul.meta li { float: left; font-size: 0.846em; text-transform: uppercase; color: #a09dac; font-weight: 600;  margin-right: 20px; transition: opacity ease-out 0.3s; }
+section#main ul.meta li i { margin-right: 5px; margin-bottom: -1px; }
+
+section#main div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+section#main div.error i.close { float: right; cursor:pointer;}
+
+section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
+
+
+/*****************/
+/* @group Recipes */
+/*****************/
+section#main.recipes aside#filters { width: 250px; left: 40px; position: fixed; }
+section#main.recipes aside#filters hr { margin: 20px 0 15px; }
+section#main.recipes aside#filters form select { font-family: "Source Sans Pro", sans-serif; -webkit-appearance: none; border: 0; padding: 12px 20px; background: #7f778f url(../images/icons/arrow.png) no-repeat 220px; width: 100%; text-transform: uppercase; color: #fff; font-weight: 600; font-size: 1em; }
+section#main.recipes aside#filters form div.group label span { padding: 10px 15px;}
+section#main.recipes aside#filters form div.ingredients input[type="text"]{ height: 35px; font-size: 1.1em; padding-left: 30px; }
+section#main.recipes aside#filters form div.ingredients i.zoom.sm { top: 12px; left: 10px; }
+section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 35px; }
+section#main.recipes aside#filters form div.ingredients ul.choosen-ingredients li { padding: 10px 10px;}
+section#main.recipes { padding-left: 320px; overflow: hidden; width: 1020px; margin: 0 auto; box-sizing: border-box; }
+
+section#main.recipes article { max-height: 200px; min-height: 100px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; margin-right: 30px; float: left; }
+section#main.recipes article img { width: 100%; height: auto; border-radius: 4px; }
+section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
+section#main.recipes article div h1 { font-size: 1.385em; line-height: 1.111em; font-weight: 600; color: #635c78; margin-bottom: 10px; transition: opacity ease-out 0.3s; }
+section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 50px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
+section#main.recipes article div a.like:hover { opacity: 0.5; }
+section#main.recipes article div a.liked { background: url(../images/icons/heart-full.png) no-repeat 2px 3px; color: #fe8468; }
+
+
+section#main.recipes article a { overflow: hidden; display: block;  }
+section#main.recipes article div a:hover h1,
+section#main.recipes article div a:hover ul li { opacity: 0.5; }
+/* @end of Recipes */
+
+/*****************/
+/* @group Recipe */
+/*****************/
+section#main.recipe article header { background: #fff; position: relative; border-radius: 4px;  padding: 25px 25px 25px 345px; box-sizing: border-box; margin-top: 20px;}
+section#main.recipe article header.no-image { padding: 25px; }
+section#main.recipe article header img { width: 320px; height: 320px; position: absolute; border-radius: 4px; left: 0; top: -10px; }
+section#main.recipe article header h1 { margin-bottom: 10px; color: #635c78; text-transform: uppercase; font-weight: 700; font-size: 1.846em; }
+section#main.recipe article header h1 span { display: block; font-size: 0.500em; color: #a19ead; font-weight: 600; margin-bottom: 10px; }
+section#main.recipe article header h1 span a { display: inline-block; border-bottom: 2px solid #a18ead; color: #a19ead; }
+section#main.recipe article header hr { margin: 15px 0; }
+
+section#main.recipe article header a.like { box-sizing: border-box; padding: 25px 10px 5px 11px; display: block; float: left; border-radius: 4px; background: url(../images/icons/heart.png) no-repeat 11px 10px; width: 40px; margin-right: 10px; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 1px solid #635c78; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
+section#main.recipe article header a.like:hover { opacity: 0.5; }
+section#main.recipe article header a.liked { border: 1px solid #fe8468; background: url(../images/icons/heart-full.png) no-repeat 11px 10px; color: #fe8468; }
+
+
+section#main.recipe article section.steps { box-sizing: border-box; padding: 25px; width: 615px; margin: 25px 0 0 25px; background: #fff; border-radius: 4px; float: left; }
+section#main.recipe article section.steps > ul > li { min-height: 60px; position: relative; overflow: hidden; border-bottom: 1px solid #f4f4f7; padding: 15px 10px 15px 60px; }
+section#main.recipe article section.steps > ul > li:first-child { border-top: 1px solid #f4f4f7; }
+section#main.recipe article section.steps > ul > li > p { margin-top: 5px; font-size: 1.385em; line-height: 1em; color: #635c78; }
+
+section#main.recipe article section.steps div.step { position: absolute; left: 10px; top: 15px; text-align: center; width: 32px; }
+section#main.recipe article section.steps div.step span:nth-child(1) { display: block; padding: 10px 0; width: 100%; font-family: "Damion", cursive; font-size: 2.308em; line-height: 0.600em; color: #fff; background: #fe8468; border-top-left-radius: 3px; border-top-right-radius: 3px; }
+section#main.recipe article section.steps div.step a { font-size: 1.077em; border: 1px solid #fe8468; display: block; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-top: 0; color: #fe8468; padding: 3px 0; }
+section#main.recipe article section.steps div.step a i.chat { background: url(../images/icons/chat-orange.png) no-repeat; }
+section#main.recipe article section.steps div.step a.no-comment { border: 1px solid #dedee4; color: #dedee4; }
+section#main.recipe article section.steps div.step a.no-comment i.chat { background: url(../images/icons/chat.png) no-repeat; }
+section#main.recipe article section.steps ul.comments { margin-top: 15px; box-sizing: border-box; width: 100%;}
+section#main.recipe article section.steps ul.comments li { line-height: 1.286em; font-size: 1.077em; color: #a09dac; padding: 10px 10px 10px 40px; position: relative; min-height: 10px; background: #fcfcfc; border-bottom: 1px solid #fff; }
+section#main.recipe article section.steps ul.comments li img { position: absolute; top: 0; left: 0; width: 30px; height: 30px; }
+section#main.recipe article section.steps ul.comments li span.user { font-weight: 600; color: #635c78; }
+section#main.recipe article section.steps ul.comments li input { font-family: "Source Sans Pro", sans-serif; color: #a09dac; font-size: 1.077em; border: 0; background: transparent; width: 100%; }
+section#main.recipe article section.steps ul.comments li:last-child { background-color: transparent; text-align: right; text-decoration: underline; padding: 0; cursor: pointer; }
+
+section#main.recipe article aside { margin-top: 130px; width: 320px; float: left; overflow: hidden;}
+section#main.recipe article aside ul.ingredients { margin-bottom: 30px;}
+section#main.recipe article aside ul.ingredients li:first-child { border-top: 1px solid #635c78; }
+section#main.recipe article aside ul.ingredients li { border-bottom: 1px solid #dedee4; color: #635c78; padding: 15px 10px; text-transform: uppercase; font-weight: 600; }
+section#main.recipe article aside ul.ingredients li span { text-transform: none; display: block; font-weight: normal; margin-top: 10px; }
+/* @end of Recipe */
+
+
+
+/****************/
+/* @group Login */
+/****************/
+section#login { background: #635c78; width: 100%; height: 100%; position: absolute; top: 0; left: 0; overflow: scroll; }
+section#login div.wrapper { width: 320px; margin: 80px auto 0; }
+section#login h1 { color: #fff; font-size: 5.308em; text-align: center; font-family: "Damion", cursive; transition: opacity ease-out 0.3s; }
+section#login a:hover h1 { opacity: 0.8; }
+section#login a + p { color: #a09dac; text-align: center; margin: 10px 0 50px; line-height: 1.200em; font-size: 1.154em; }
+section#login a.fb { border: 2px solid #a09dac; border-radius: 4px; display: block; color: #fff; font-size: 1.154em; text-align: center; text-transform: uppercase; position: relative; padding: 15px; font-weight: 600; transition: border ease-out 0.3s; }
+section#login a.fb:hover { border: 2px solid #fff; }
+section#login a.fb i.fb { position: absolute; top: 10px; left: 20px; }
+section#login hr { border-top: 2px dashed #7e798f; margin: 30px 0; }
+section#login form input { font-size: 1.385em; }
+section#login div.error { box-sizing: border-box; position: fixed; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+section#login div.error i.close { float: right; }
+section#login p.legals { margin-top: 60px; font-size: 0.923em; color: #a09dac; }
+section#login a:last-child { display: block; margin-top: 20px; color: #a09dac; }
+/* @end of Login */
+
+/***************/
+/* @group User */
+/***************/
+section#main.user header { width: 240px; float: left; }
+section#main.user header div.user-img { overflow: hidden; position: relative; width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
+section#main.user header img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
+
+section#main.user h1,
+section#main.user.following header + section ul li a h2 { font-size: 2.154em; font-weight: 700; color: #635c78; margin-bottom: 10px; transition: color ease-out 0.3s; }
+
+section#main.user header + section > h1{ margin-bottom: 35px; }
+section#main.user header h1 + p { color: #a09dac; font-size: 1.077em; margin-bottom: 30px; }
+section#main.user header button { cursor: pointer; font-family: "Source Sans Pro", sans-serif;  border: 0; border-radius: 4px; background: #fe8468; text-transform: uppercase; color: #fff; width: 100%; padding: 15px 0; font-weight: 600; font-size: 1.154em; }
+section#main.user header button:disabled { cursor: default; background: #f7d2cc; }
+section#main.user header ul { margin: 20px 0;}
+section#main.user header ul li a { width: 120px; text-align: center; text-transform: uppercase; color: #a09dac; font-size: 0.923em; float: left; display: block; text-align: center; padding: 5px; box-sizing: border-box; }
+section#main.user header ul li a span { font-weight: 600; color: #635c78; display: block; font-size: 1.833em; }
+section#main.user header ul li a:hover span { color: #fe8468; }
+section#main.user header ul li:first-child a { border-right: 1px solid #eae9ee; }
+section#main.user header + section { float: left; width: 670px; margin-left: 50px; }
+
+section#main.user header + section form > div:first-child { float: left; width: 355px; }
+section#main.user header + section form > div:nth-child(2) { float: left; width: 315px; text-align: center; }
+section#main.user header + section form div div.user-img { position: relative; overflow: hidden; height: 96px; width: 96px; border-radius: 100%; margin: 25px auto;}
+section#main.user header + section form div div.user-img img { position: absolute; width: 100%; height: auto; left: 0; right: 0; bottom: 0; top: 0; margin: auto; }
+section#main.user header + section form div label { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: inline-block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#main.user header + section form div input[type="file"] { display: none;}
+section#main.user header + section form input { margin-bottom: 20px; font-size: 1.231em; }
+section#main.user header + section form div input:last-child,
+section#main.user header + section form input.fix { margin-bottom: 5px; }
+section#main.user header + section form hr { margin: 5px auto 50px; }
+
+section#main.user header + section a.delete { display: block; color: #635c78; font-size: 1.077em; margin-top: 50px; }
+
+section#main.recipes.user { padding-left: 0; overflow: hidden; width: 960px; margin: 0 auto; box-sizing: border-box; }
+section#main.recipes.user article:nth-child(odd) { margin-right: 0; } /* before masonry */
+section#main.recipes.user h3 { text-align: center; margin-bottom: 40px; }
+section#main.recipes.user h3 span.disabled { color: #a09dac; }
+section#main.recipes.user h3 i { margin: 0 15px -2px; }
+
+section#main.user.following header + section ul li { border-bottom: 1px solid #eae9ee; }
+section#main.user.following header + section ul li a { display: block; padding: 30px 0; background: url(../images/icons/arrow-side.png) no-repeat right center; transition: background ease-out 0.3s;  }
+section#main.user.following header + section ul li a:hover { background: url(../images/icons/arrow-side-orange.png) no-repeat right center; }
+section#main.user.following header + section ul li a:hover h2 { color: #fe8468; }
+
+section#main.user.following header + section ul li a p { color: #a09dac; font-size: 1.077em; }
+
+section.favorited.hidden, section.posted.hidden { display: none; } 
+/* @end of User */
+
+/* @end of Main */
+
+/************************/
+/* @group Create-recipe */
+/************************/
+section#main.recipe-creation a.cancel { text-transform: uppercase; color: #a09dac; font-weight: 600; font-size: 0.923em; }
+section#main.recipe-creation h1 { font-size: 1.385em; color: #635c78; text-transform: uppercase; font-weight: 700; margin-top: 10px; }
+section#main.recipe-creation div.title { position: relative; border-bottom: 1px solid #a09dac; margin: 20px 0 10px; padding: 0;  }
+section#main.recipe-creation div.title input { height: 60px; border-radius: 0; margin: 0; width: 100%; background: transparent; font-weight: 700; font-size: 3.692em; color: #635c78; transition: background ease-out 0.3s; }
+section#main.recipe-creation div.title input:hover,
+section#main.recipe-creation div.title input:focus { background: #fff; border-radius: 4px; }
+section#main.recipe-creation div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
+section#main.recipe-creation ul.steps { margin: 20px 0 30px; }
+section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; }
+section#main.recipe-creation ul.steps li h2 { color: #cccbd3; text-transform: uppercase; font-weight: 600; font-size: 1.077em; line-height: 1.214em; }
+section#main.recipe-creation ul.steps li h2 span { display: block; text-transform: none; color: #cccbd3; font-size: 1.286em; line-height: 0.944em; }
+section#main.recipe-creation ul.steps li.complete { border: 2px solid #cccbd3; }
+section#main.recipe-creation ul.steps li.current { background: #fff; border: 2px solid #fff; }
+section#main.recipe-creation ul.steps li.current h2 { color: #fe8468; }
+section#main.recipe-creation ul.steps li.current h2 span { color: #635c78; }
+section#main.recipe-creation form div.ingredients { width: 480px; float: left;  }
+section#main.recipe-creation section.step p.intro { color: #635c78; font-size: 1.077em; padding-bottom: 15px; }
+section#main.recipe-creation section.step ul.ingredients li { position: relative; border-bottom: 1px solid #dcdcde; padding: 15px 10px; font-size: 1.077em; text-transform: uppercase; font-weight: 600; }
+section#main.recipe-creation section.step ul.ingredients li:first-child { border-top: 1px solid #dcdcde; }
+section#main.recipe-creation section.step ul.ingredients li:last-child { margin-bottom: 10px; }
+
+section#main.recipe-creation section.step ul.ingredients li input { margin: 5px 0 0; font-size: 1.077em; height: 30px; }
+section#main.recipe-creation section.step ul.ingredients li span.delete { background: #f4f4f7; position: absolute; right: -50px; top: 0; height: 100%; width: 50px; opacity: 0; border-left: 1px solid #dcdcde; transition: opacity ease-out 0.3s, right ease-out 0.3s; }
+section#main.recipe-creation section.step ul.ingredients li span.delete i { left: 0; right: 0; top: 0; bottom: 0; margin: auto; position: absolute; }
+section#main.recipe-creation section.step ul.ingredients li:hover span.delete { cursor: pointer; opacity: 1; right: 0; } 
+
+section#main.recipe-creation section.step div.nb-personnes { border-radius: 4px; background: #635c78; color: #fff; text-transform: uppercase; font-weight: 600; font-size: 1.077em; height: 10px; padding: 15px 10px; position: relative; }
+section#main.recipe-creation section.step div.nb-personnes input { width: 50px; position: absolute; right: 5px; top: 5px; height: 30px; }
+section#main.recipe-creation div.two-thirds { width: 620px; margin-right: 20px; float: left; }
+section#main.recipe-creation div.two-thirds div.ingredients { width: 100%; }
+section#main.recipe-creation div.one-third { width: 320px; float: left; }
+section#main.recipe-creation section.step hr { margin: 25px 0; }
+section#main.recipe-creation section.step button.next { font-family: "Source Sans Pro", sans-serif; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; margin: 5px 0; display: block; border-radius: 3px; border: 0; padding: 15px 40px; background: #fe8468; cursor: pointer; float: right; }
+
+section#main.recipe-creation ul.recipe-steps { margin-bottom: 25px;}
+section#main.recipe-creation ul.recipe-steps li { position: relative; border-bottom: 1px solid #dcdcde; padding: 20px 0 20px 40px;}
+section#main.recipe-creation ul.recipe-steps li:first-child { border-top: 1px solid #dcdcde; }
+section#main.recipe-creation ul.recipe-steps li div.nb { position: absolute; top: 20px; left: 0; width: 40px; height: 100%; }
+section#main.recipe-creation ul.recipe-steps li div.nb span { display: block; border: 2px solid #fe8468; background: #fe8468; color: #fff; border-radius: 4px; padding: 8px 0; height: 10px; width: 26px; font-family: "Damion", cursive; font-size: 1.846em; line-height: 0.3em; text-align: center;  }
+section#main.recipe-creation ul.recipe-steps li input { background: transparent; height: 30px; }
+section#main.recipe-creation ul.recipe-steps li input:focus,
+section#main.recipe-creation ul.recipe-steps li input:hover { background: #fff; }
+section#main.recipe-creation ul.recipe-steps li input:focus + div.nb span { border: 2px solid #a09dac; background: transparent; color: #a09dac; }
+section#main.recipe-creation section.step3 div.one-third { margin-top: 20px; width: 300px; margin-right: 30px; float: left; }
+section#main.recipe-creation section.step3 div.one-third.last { margin-right: 0; }
+section#main.recipe-creation section.step3 hr { margin: 30px 0 20px;}
+section#main.recipe-creation section.step3 h3.photo { margin-top: 40px; font-family: "Damion", cursive; text-transform: none; font-size: 1.846em; text-align: center; font-weight: normal; font-style: normal; }
+section#main.recipe-creation section.step3 p.intro { text-align: center; color: #a09dac;}
+section#main.recipe-creation section.step3 button.camera { display: block; border: 2px solid #fe8468; color: #fe8468; background: transparent; font-weight: 600; text-transform: uppercase; border-radius: 4px; margin: 20px auto; padding: 10px 15px; font-size: 1.077em; }
+section#main.recipe-creation section.step3 button.camera i { margin-right: 10px; }
+/* @end of Create-recipe */
+
+
+/****************/
+/* @group Error */
+/****************/
+section#main.error { background: #635c78; text-align: center; padding: 150px 0; }
+section#main.error h1 { letter-spacing: 0; text-align: center; color: #716a85; font-size: 17.000em; font-weight: 900; }
+section#main.error h1 span { letter-spacing: 0; display: block; font-size: 0.181em; text-transform: lowercase; font-weight: 600; line-height: 0.575em; }
+section#main.error a { display: inline-block; color: #fff; padding: 15px 20px; background: #fe8468; border-radius: 4px; text-transform: uppercase; font-weight: 700; margin-top: 50px; }
+/* @end of Error */
+
+
+/****************/
+/* @group Popin */
+/****************/
+section#popin { overflow-y: scroll; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: #f3f2f4; text-align: center;  }
+section#popin i.close { position: absolute; right: 20px; top: 20px; }
+section#popin h2 { margin: 80px 0 60px; font-weight: 900; color: #635c78; text-align: center; font-size: 2.154em; }
+section#popin.delete h2 { margin: 80px 0 30px;}
+section#popin.delete a { margin: 50px auto; color: #fff; text-transform: uppercase; font-weight: 700; font-size: 1.154em; display: inline-block; background: #fe8468; border-radius: 3px; padding: 15px 20px; }
+section#popin.delete p { width: 480px; margin: 0 auto; color: #635c78; text-align: center; font-size: 1.231em; }
+section#popin.img a.instagram { margin: 10px auto; width: 280px; color: #fff; text-transform: uppercase; font-weight: 700; font-size: 1.154em; display: block; background: #3f729b; border-radius: 3px; padding: 15px 20px; }
+section#popin.img > label { width: 280px; font-size: 1.154em; font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; color: #fff; text-transform: uppercase; font-weight: 700; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
+section#popin.img input[type="file"] { display: none; }
+section#popin.img section.crop,
+section#popin.img section.select { display: none; position: relative; width: 640px; margin: 0 auto; border-bottom: 1px solid #eae9ee; margin-bottom: 30px; }
+section#popin.img section.crop img { width: 640px; height: auto; box-shadow: 0 0 20px -3px #bebed4; margin-bottom: 15px; }
+section#popin.img section.crop div.crop { position: absolute; width: 292px; height: 292px; border: 4px solid #fe8468; background: rgba(254, 132, 104, 0.5); top: 0; left: 0; }
+section#popin.img section.crop  p { color: #a09dac; }
+section#popin.img section.select button,
+section#popin.img section.crop button { position: relative; width: 320px; font-size: 1.154em; font-family: "Source Sans Pro", sans-serif;  margin: 30px auto; color: #fff; text-transform: uppercase; font-weight: 700; display: block; border-radius: 3px; border: 0; padding: 15px 20px; background: #fe8468; cursor: pointer; }
+section#popin.img section.select button i.checked,
+section#popin.img section.crop button i.checked { position: absolute; left: 20px; top: 15px; }
+section#popin.img section.select button:disabled,
+section#popin.img section.crop button:disabled { opacity: 0.5; }
+section#popin.img section.select { display: block; overflow: hidden; }
+section#popin.img section.select form { overflow: hidden; }
+section#popin.img section.select label.insta { float: left; margin: 20px; cursor: pointer; display: block; }
+section#popin.img section.select label.insta input { position: absolute; left: -999rem; }
+section#popin.img section.select label.insta div { position: relative; width: 120px; height: 120px; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
+section#popin.img section.select label.insta div img { width: 100%; height: auto; }
+section#popin.img section.select label.insta:hover div { box-shadow: 0 0 20px -3px #bebed4; }
+section#popin.img section.select label.insta div span.checked { box-sizing: border-box; width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0; border: 3px solid #fe8468; opacity: 0; transition: opacity ease-out 0.3s; }
+section#popin.img section.select label.insta input:checked + div span.checked { opacity: 1; }
+
+/* @end of Popin */
+
+/****************/
+/* @group Icons */
+/****************/
+i.checked {
+  background: url(../images/icons/checked.png) no-repeat;
+  width: 23px; height: 16px; }
+i.checked.sm {
+  background: url(../images/icons/checked-sm.png) no-repeat;
+  width: 15px; height: 10px; }
+
+i.plus { 
+  background: url(../images/icons/plus.png) no-repeat;
+  width: 8px; height: 8px; }
+i.zoom { 
+  background: url(../images/icons/zoom.png) no-repeat;
+  width: 19px; height: 19px; }
+i.zoom.sm { 
+  background: url(../images/icons/zoom-sm.png) no-repeat;
+  width: 11px; height: 11px; }
+i.time { 
+  background: url(../images/icons/time.png) no-repeat;
+  width: 12px; height: 12px; }
+i.cup { 
+  background: url(../images/icons/cup.png) no-repeat;
+  width: 11px; height: 12px; }
+i.bell { 
+  background: url(../images/icons/bell.png) no-repeat;
+  width: 12px; height: 13px; }
+i.fb { 
+  background: url(../images/icons/facebook.png) no-repeat;
+  width: 11px; height: 23px; }
+i.switch { 
+  width: 24px; height: 12px; }
+i.switch.off { 
+  background: url(../images/icons/switch-off.png) no-repeat; }
+i.switch.on { 
+  background: url(../images/icons/switch-on.png) no-repeat; }
+i.settings { 
+  background: url(../images/icons/settings.png) no-repeat;
+  width: 17px; height: 17px; }
+i.sign-out { 
+  background: url(../images/icons/sign-out.png) no-repeat;
+  width: 15px; height: 15px; }
+i.chat { 
+  background: url(../images/icons/chat.png) no-repeat;
+  width: 10px; height: 9px; }
+i.close.xl {
+  background: url(../images/icons/close-xl.png) no-repeat;
+  width: 14px; height: 15px; }
+i.close.purple {
+  background: url(../images/icons/close-purple.png) no-repeat;
+  width: 20px; height: 21px; }
+i.camera {
+  background: url(../images/icons/camera.png) no-repeat;
+  width: 24px; height: 18px;}
+/* @end of Icons */
+/* @end of Master */

@@ -1,0 +1,27 @@
+<?php include('./app/Views/partials/header.html') ?>
+	<div class="wrapper">
+		<section id="main" class="user following">
+			<?php include('./app/Views/partials/headerUser.html') ?>
+			<section>
+			<?php if($followers): ?>
+				<ul>
+					<?php foreach ($followers as $follow): ?>
+					<li>
+						<a href="/user/getUser/<?= $follow->id_follower ?>">
+							<h2><?= $follow->firstname_follower." ".$follow->lastname_follower ?></h2>
+							<p><?= $follow->bio_follower ?></p>
+						</a>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+			<?php else: ?>
+				<section class="no-result">
+					<p>Aucun abonné trouvé ici :(</p>
+				</section>
+			<?php endif; ?>
+			</section>
+		</section>
+	</div>	
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
+<?php include('./app/Views/partials/footer.html') ?>

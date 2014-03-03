@@ -1,0 +1,110 @@
+<?php include('./app/Views/partials/header.html') ?>
+<div class="wrapper">
+	<section id="main" class="user">
+		<?php include('./app/Views/partials/headerUser.html') ?>
+		<section>
+			<h1>Paramètres du compte</h1>
+			<form action="user/editUser" method="POST" enctype="multipart/form-data" name="editUser">
+				<div>
+					<h3>Prénom</h3>
+					<input type="text" value="<?= $user->firstname_user ?>" name="firstname_user" />
+
+					<h3>Nom</h3>
+					<input type="text" value="<?= $user->lastname_user ?>" name="lastname_user"  />
+
+					<h3>Email</h3>
+					<input type="email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" name="mail_user"/>
+				</div>
+				<div>
+					<div class="user-img">
+					<?php if(!empty($user->urlImage_user)): ?>
+						<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+					<?php else: ?>
+						<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+					<?php endif; ?>
+					</div>
+					<label><input type="file" name="urlImage_user" onchange="readURL(this);"/>Changer la photo</label>
+				</div>
+				<div class="clear"></div>
+				<hr />
+				<h3>Courte description</h3>
+				<textarea name="bio_user"><?= $user->bio_user ?></textarea>
+			<?php if(empty($user->facebookId_user)): ?>
+				<hr />
+				<h3>Nouveau mot de passe</h3>
+				<input type="password"  value="<?= $user->password_user ?>" name="password_user" />
+				<h3>Répétez-le</h3>
+				<input type="password" class="fix" value="<?= $user->password_user ?>" name="password_user_bis" />
+			<?php endif; ?>
+				<hr />
+				<input name="id_user" type="hidden" value="<?= $user->id_user ?>"/>
+				<button type="submit"><i class="checked"></i> Enregistrer les modifications</button>
+			</form>
+			<a href="" class="delete">Supprimer mon compte définitivement.</a>
+		</section>
+	</section>
+	<section id="popin" class="delete" style="display:none">
+		<i class="close purple">Close</i>
+		<h2>Vous allez nous manquer</h2>
+		<p>Il arrive de faire des erreurs dans la vie, et vous pouvez toujours faire machine arrière... êtes-vous vraiment sûr de vouloir supprimer définitvement votre compte ? </p>
+
+		<a href="/user/deleteUser/<?= $SESSION['id_user'] ?>">Supprimer mon compte définitivement</a>
+
+	</section>
+ </div>  
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+	$('form[name="editUser"').submit(function() {
+		var $form = $(this),
+			$error = '';
+		if(!$form.find('input[name="firstname_user"]').val())
+			$error += "Le prénom est obligatoire. ";
+		if(!$form.find('input[name="lastname_user"]').val())
+			$error += "Le nom est obligatoire. ";
+		if(!$form.find('input[type="email"]').val())
+			$error += "L'email est obligatoire. ";
+		else if(validMail($form.find('input[type="email"]').val()))
+			$error += "L'email est invalide. ";
+		else if (checkMail($form.find('input[type="email"]').val()))
+			$error += "L'email existe déjà. ";
+		if(!$form.find('input[name="password_user"]').val())
+			$error += "Le mot de passe est obligatoire.";
+		if(!$form.find('input[name="password_user_bis"]').val())
+			$error += "Vous devez confirmez votre mot de passe.";
+		else if ($form.find('input[name="password_user"]').val() != $form.find('input[name="password_user_bis"]').val())
+			$error += "Les deux mot de passe ne se correspondent pas.";
+		if(!$error)
+			return true;
+		else
+			showError($error);
+		return false;
+	});
+
+	function checkMail(input) {
+		$.ajax({
+				url:'user/checkMail',
+				method:'POST',
+				data:{ 'mail_user' : input.value }
+		})
+		.success(function(data){
+				if (!data) {
+					return true;
+				}
+		});
+		return false;
+	}
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e){ 
+					$('form img').attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
+<?php include('./app/Views/partials/footer.html') ?>

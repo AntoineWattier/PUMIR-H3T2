@@ -1,0 +1,20 @@
+{
+	"header":[
+	<?php if(isset($ERROR)): ?>
+		"code":"<?= $ERROR['code']; ?>",
+		"status":"<?= $ERROR['status']; ?>",
+		"text":"<?= $ERROR['text']; ?>"
+	<?php endif; ?>
+	],
+	"body":[
+	<?php foreach($ingredients as $ingredient): ?>
+	{
+		"id":"<?= $ingredient->id_ingredient ?>",
+		"name":"<?= $ingredient->name_ingredient ?>"
+	}
+		<?php if($ingredient !== end($ingredients)): ?>
+			,
+		<?php endif; ?>
+	<?php endforeach; ?>
+	]
+}
