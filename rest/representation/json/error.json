@@ -1,3 +1,7 @@
 {
- "Ressource not found"
+ <?php if(isset($ERROR)): ?>
+	"code":"<?= $ERROR['code']; ?>",
+	"status":"<?= $ERROR['status']; ?>",
+	"text":"<?= $ERROR['text']; ?>"
+<?php endif; ?>
 }

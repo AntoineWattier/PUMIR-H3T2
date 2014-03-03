@@ -16,7 +16,7 @@ abstract class api{
 		$this->dB=new \DB\SQL('mysql:host='.$f3->get('db_host').';port=3306;dbname='.$f3->get('db_server'),$f3->get('db_login'),$f3->get('db_password'));
 
 		$f3->set('ONERROR',function($f3){
-			$this->tpl='json/users.json';
+			$this->tpl='json/error.json';
 			echo \View::instance()->render($this->tpl,'application/json');
 		});
 	}
