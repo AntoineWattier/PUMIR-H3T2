@@ -234,26 +234,27 @@ function verifStep(step) {
 
 	switch(step) {
 		case 0 :
-			if($form_step.find('.one-third ul.ingredients li').length==0)
-				$error += 'Veuillez rentrer un ingredient. ';
-			else {
-				$form_step.find('.one-third ul.ingredients li').each(function(e) {
-					var c = 0;
-					if(!$(this).children('input').val())
-						c++;
-					if(c)
-						$error += 'Veullez renseignez les quantités des vos ingrédients. ';
-				});
+			if($form_step.find('.one-third ul.ingredients li').length==0) {
+				$error += 'Une recette sans ingrédient? Rajoutez-en un !';
+				$form_step.find('.ingredients input').focus();
+			} else {
+				if(!$form_step.find('input[name="numberOfPeople_recipe"]').val()) {
+					$error += 'Veuillez rentrer le nombre de personnes. ';
+					$form_step.find('input[name="numberOfPeople_recipe"]').focus();
+				}
 			}
-			if(!$form_step.find('input[name="numberOfPeople_recipe"]').val())
-				$error += 'Veuillez rentrer le nombre de personnes. ';
 		break;
 		case 1 :
-			if(!$form_step.find('input').first().val())
-				$error += 'Veuillez rentrer une étape. ';
+			if(!$form_step.find('input').first().val()) {
+				$error += 'Il faut au moins rajouter une étape. ';
+				$form_step.find('input').first().focus();
+			}
 		break;
 		case 2 :
-			
+			if(!$form_step.find('input[name="name_recipe]"').val()) {
+				$error += 'Mais il est où le titre?';
+				$form_step.find('input[name="name_recipe]"').focus();
+			}
 		break;
 	}
 	if($error) {

@@ -16,7 +16,6 @@ $('form[name="login"]').submit(function(e){
 		})
 		.success(function(data){
 			if(data.status){
-				// $('#form span').html("success");
 				window.location = "/";
 			} else {
 				showError('Une erreur est survenue.');
@@ -28,6 +27,7 @@ $('form[name="login"]').submit(function(e){
 	}
 	return false;
 });
+
 
 
 $('form[name="register"]').submit( function(e) {
@@ -44,7 +44,6 @@ $('form[name="register"]').submit( function(e) {
 		$error += "L'email est invalide. ";
 	if(!$form.find('input[name="password_user"]').val())
 		$error += "Le mot de passe est obligatoire.";
-	console.log($error);
 	if(!$error) {
 		$.ajax({
 			dataType: "json",
@@ -54,7 +53,6 @@ $('form[name="register"]').submit( function(e) {
 		})
 		.success(function(data){
 			if(data.status){
-				// $('#form span').html("success");
 				window.location = "/";
 				return true;
 			} else {
@@ -67,6 +65,7 @@ $('form[name="register"]').submit( function(e) {
 		return false;
 	}
 });
+
 
 
 $('a.advanced-search').on('click', function(e){
