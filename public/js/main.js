@@ -231,7 +231,7 @@ $('.steps').on('submit','.comments form',function(e){
 	}
 });
 
-$('.steps').on('click','ul.comments li:last',function(e) {
+$('.steps').on('click','ul.comments li:last-child',function(e) {
 	e.preventDefault();
 	
 	var $this=$(this);
