@@ -194,7 +194,17 @@ $('form').on('keydown',function(e){
 $('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
 	$('input[name="step_recipe[]"]').on('keydown',function(e){
 		$this = $(this);
-		if(e.keyCode == 13 && $('input[name="step_recipe[]"]:last').val() != ''){
+		if( (e.keyCode == 13 || e.keyCode == 9) && $('input[name="step_recipe[]"]:last').val() != ''){
+			e.preventDefault();
+			$currentVal = parseInt($('.recipe-steps li:last span').html());
+			$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
+			$('input[name="step_recipe[]"]:last').focus();
+		}
+	});
+
+	$('input[name="step_recipe[]"]').on('blur',function(e){
+		$this = $(this);
+		if($('input[name="step_recipe[]"]:last').val() != ''){
 			e.preventDefault();
 			$currentVal = parseInt($('.recipe-steps li:last span').html());
 			$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
