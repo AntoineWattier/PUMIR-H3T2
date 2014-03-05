@@ -7,7 +7,7 @@
 #
 # Hôte: 127.0.0.1 (MySQL 5.6.16)
 # Base de données: WTFDIET
-# Temps de génération: 2014-03-02 11:07:42 +0000
+# Temps de génération: 2014-03-05 18:27:17 +0000
 # ************************************************************
 
 
@@ -101,7 +101,9 @@ LOCK TABLES `COMMENT` WRITE;
 INSERT INTO `COMMENT` (`id_step`, `id_user`, `id_comment`, `content_comment`, `dateAdd_comment`, `dateUpdate_comment`)
 VALUES
 	(5,35,10,'Trop bien','2014-03-01 22:04:26','0000-00-00 00:00:00'),
-	(5,35,11,'J\'aime pas l\'sel','2014-03-01 22:30:15','0000-00-00 00:00:00');
+	(5,35,11,'J\'aime pas l\'sel','2014-03-01 22:30:15','0000-00-00 00:00:00'),
+	(5,35,12,'mdrrrr','2014-03-04 12:40:33','0000-00-00 00:00:00'),
+	(73,6,13,'Oh bah nan le pauvre :(','2014-03-05 18:25:25','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `COMMENT` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -243,8 +245,9 @@ VALUES
 	(6,35,1,'2014-02-27 23:52:42'),
 	(7,35,2,'2014-02-27 23:52:50'),
 	(14,7,35,'2014-02-27 23:53:29'),
-	(15,1,35,'2014-02-28 01:08:37'),
-	(34,37,35,'2014-03-02 02:20:55');
+	(34,37,35,'2014-03-02 02:20:55'),
+	(42,1,35,'2014-03-05 02:45:23'),
+	(44,37,2,'2014-03-05 18:33:15');
 
 /*!40000 ALTER TABLE `FOLLOW` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1415,12 +1418,11 @@ CREATE TABLE `RECIPE` (
   KEY `id_ambiance` (`id_ambiance`),
   KEY `difficulty_recipe` (`id_difficulty`),
   KEY `type_recipe` (`id_type`),
-  KEY `preparationTime_recipe` (`id_preparationTime`),
+  KEY `id_preparationTime` (`id_preparationTime`),
   CONSTRAINT `recipe_ibfk_2` FOREIGN KEY (`id_ambiance`) REFERENCES `AMBIANCE` (`id_ambiance`),
   CONSTRAINT `recipe_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `USER` (`id_user`) ON DELETE CASCADE,
   CONSTRAINT `recipe_ibfk_4` FOREIGN KEY (`id_difficulty`) REFERENCES `DIFFICULTY` (`id_difficulty`),
-  CONSTRAINT `recipe_ibfk_5` FOREIGN KEY (`Id_type`) REFERENCES `TYPE` (`id_type`),
-  CONSTRAINT `recipe_ibfk_6` FOREIGN KEY (`id_preparationTime`) REFERENCES `PREPARATION_TIME` (`id_PREPARATION_TIME`)
+  CONSTRAINT `recipe_ibfk_5` FOREIGN KEY (`Id_type`) REFERENCES `TYPE` (`id_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `RECIPE` WRITE;
@@ -1430,10 +1432,12 @@ INSERT INTO `RECIPE` (`id_recipe`, `slug_recipe`, `name_recipe`, `urlImage_recip
 VALUES
 	(1,'tarte-aux-pommes','Tarte aux pommes','',8,3,1,3,'2014-02-19 17:27:46','2014-02-23 17:56:46',1,5,1),
 	(2,'tarte-aux-prunes','Tarte aux prunes','',2,1,1,3,'2014-02-19 17:27:46','0000-00-00 00:00:00',2,2,2),
-	(3,'agneau-a-l-abricot','Agneau à l\'abricot','',1,1,1,2,'2014-02-20 15:29:03','2014-02-22 19:59:00',1,3,2),
+	(3,'agneau-a-l-abricot','Agneau aux abricots','http://p6.storage.canalblog.com/67/78/944724/72104285.jpg',1,1,1,2,'2014-02-20 15:29:03','2014-02-22 19:59:00',1,3,3),
 	(5,'repoune-de-baleine','Repoune de baleine','http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg',6,3,1,2,'2014-02-21 09:41:43','0000-00-00 00:00:00',2,3,1),
 	(6,'salade-a-la-mingogo','Salade à la Mingogo','',2,1,1,1,'2014-02-21 10:13:21','0000-00-00 00:00:00',2,4,0),
-	(7,'salade-facon-mingoia','Salade façon Mingoia','',2,1,1,2,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,1,0);
+	(7,'salade-facon-mingoia','Salade façon Mingoia','',2,1,1,2,'2014-02-21 10:15:41','0000-00-00 00:00:00',6,1,0),
+	(15,'abricots','abricots',NULL,2,3,1,1,'2014-03-05 18:31:52','0000-00-00 00:00:00',6,4,0),
+	(16,'jambon-lol','Jambon lol',NULL,6,3,1,1,'2014-03-05 18:32:01','0000-00-00 00:00:00',2,4,0);
 
 /*!40000 ALTER TABLE `RECIPE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1449,7 +1453,7 @@ CREATE TABLE `STEP` (
   `order_step` int(5) NOT NULL,
   `content_step` text NOT NULL,
   `id_recipe` int(11) NOT NULL,
-  `countComment_step` int(11) NOT NULL,
+  `countComment_step` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_step`),
   UNIQUE KEY `order_step` (`order_step`,`id_recipe`),
   KEY `id_recipe` (`id_recipe`),
@@ -1462,7 +1466,7 @@ LOCK TABLES `STEP` WRITE;
 INSERT INTO `STEP` (`id_step`, `order_step`, `content_step`, `id_recipe`, `countComment_step`)
 VALUES
 	(3,1,'Faire cuire',2,0),
-	(5,1,'Sortir les casseroles',5,2),
+	(5,1,'Sortir les casseroles',5,3),
 	(6,2,'Mettre du sel',5,0),
 	(7,1,'Sortir la salade de la casserole',6,0),
 	(8,1,'Pour la sauce, mélanger une cuillère à café de moutarde de Dijon, 3 cuillères à soupe d\'huile d\'olive, 1 cuillère à soupe de vinaigre balsamique, et assaisonner à sa guise',7,0),
@@ -1471,10 +1475,15 @@ VALUES
 	(11,4,'Déposer deux tranches fines de jambon de Parme découenné par assiette',7,0),
 	(12,5,'Saupoudrer de copeaux de parmesan',7,0),
 	(13,6,'Servir rapidement',7,0),
-	(73,1,'Tuer l\'agneau',3,0),
+	(73,1,'Tuer l\'agneau',3,1),
 	(91,1,'Faire cuire',1,0),
 	(98,2,'TEST3',1,0),
-	(99,2,'Manger',3,0);
+	(99,2,'Manger',3,0),
+	(105,1,'egzyfunejzk',15,0),
+	(106,2,'gufhbezjkfnze',15,0),
+	(107,3,'ghejrfnzklez,fz',15,0),
+	(108,1,'ajoutez les oeufs loooool',16,0),
+	(109,3,'zelkjfemkjffeez',16,0);
 
 /*!40000 ALTER TABLE `STEP` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1565,13 +1574,14 @@ LOCK TABLES `USER` WRITE;
 
 INSERT INTO `USER` (`id_user`, `slug_user`, `adminLevel_user`, `firstname_user`, `lastname_user`, `mail_user`, `password_user`, `bio_user`, `urlImage_user`, `karmaPoints_user`, `facebookId_user`, `instagramId_user`, `subscribeDate_user`, `lastLogin_user`)
 VALUES
-	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test','Salut je suis le premier utilisateur du site, c\'est un grand honneur.','public/uploads/user/1/panda.jpg',NULL,NULL,NULL,'2014-02-19 16:36:22','2014-03-01 14:40:02'),
-	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test','','',NULL,NULL,NULL,'2014-02-19 18:35:23','2014-03-01 14:12:20'),
-	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon','',NULL,NULL,NULL,NULL,'2014-02-21 10:03:38','0000-00-00 00:00:00'),
+	(1,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','test','Salut je suis le premier utilisateur du site, c\'est un grand honneur.','public/uploads/user/1/panda.jpg',NULL,NULL,NULL,'2014-02-19 16:36:22','2014-03-05 02:40:13'),
+	(2,'laure-boutmy',0,'Laure','Boutmy','laureboutmy@gmail.com','test','','',NULL,NULL,NULL,'2014-02-19 18:35:23','2014-03-05 18:23:35'),
+	(6,'hugo-m',0,'Hugo','M','hugomingoia@gmail.com','untrucbidon','','public/uploads/user/6/DSC01202.jpg',NULL,NULL,NULL,'2014-02-21 10:03:38','2014-03-05 18:19:12'),
 	(7,'valentin-beunard',0,'Valentin','Beunard','beunard@gmail.c','test','',NULL,NULL,NULL,NULL,'2014-02-21 11:23:01','2014-02-21 11:31:42'),
 	(8,'antoine-wattier',0,'Antoine','WATTIER','wattier.antoine@gmail.com','azerty','',NULL,NULL,NULL,NULL,'2014-02-21 12:53:20','0000-00-00 00:00:00'),
-	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/user/35/PP.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-02 02:19:32'),
-	(37,'julien-perriere',0,'Julien','Perrière','julien@creativecretin.com','test','Photoshop master. Short trousers lover. Yoga addict','public/uploads/user/37/ju.jpg',NULL,NULL,NULL,'2014-03-02 02:15:09','0000-00-00 00:00:00');
+	(35,'antoine-wattier',0,'Antoine','Wattier','wattier.antoine@gmail.com','','Marre de la vie, heureusement qu\'il y a les cookies et les raviolis...','public/uploads/user/35/PP.jpg',NULL,'100001487385616',NULL,'2014-02-27 19:48:01','2014-03-05 13:08:36'),
+	(37,'julien-perriere',0,'Julien','Perrière','julien@creativecretin.com','test','Photoshop master. Short trousers lover. Yoga addict','public/uploads/user/37/ju.jpg',NULL,NULL,NULL,'2014-03-02 02:15:09','2014-03-04 16:03:58'),
+	(38,'samuel-renault',0,'Samuel','Renault','renaultsamuel@free.fr','password',NULL,NULL,NULL,NULL,NULL,'2014-03-05 18:25:52','0000-00-00 00:00:00');
 
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1603,7 +1613,8 @@ VALUES
 	(442,1,1,'2014-02-22 12:31:21'),
 	(445,1,2,'2014-02-22 17:09:12'),
 	(446,1,3,'2014-02-22 19:59:09'),
-	(469,35,3,'2014-03-02 00:09:17');
+	(496,35,3,'2014-03-05 02:45:43'),
+	(499,6,3,'2014-03-05 18:25:13');
 
 /*!40000 ALTER TABLE `VOTE` ENABLE KEYS */;
 UNLOCK TABLES;
