@@ -113,7 +113,7 @@ class RecipeController extends Controller{
 
 		switch ($f3->get('VERB')) {
 			case 'POST':
-				$this->tpl['async']='partial/recipes.html';
+				$this->tpl['async']='partials/recipes.html';
 			break;
 			case 'GET':
 				$this->tpl['sync']='Recipe/viewRecipes.html';

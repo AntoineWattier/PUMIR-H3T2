@@ -7,6 +7,7 @@ $('form[name="login"]').submit(function(e){
 	if(!$form.find('input[name="password_user"]').val())
 		$error += "Le mot de passe est vide.";
 	if(!$error) {
+
 		$.ajax({
 			dataType: "json",
 			url:$form.attr('action'),
@@ -44,12 +45,26 @@ $('form[name="register"]').submit( function(e) {
 	if(!$form.find('input[name="password_user"]').val())
 		$error += "Le mot de passe est obligatoire.";
 	if(!$error) {
-		return true;
+		$.ajax({
+			dataType: "json",
+			url:$form.attr('action'),
+			method:$form.attr('method'),
+			data:$form.serialize()
+		})
+		.success(function(data){
+			if(data.status){
+				// $('#form span').html("success");
+				window.location = "/";
+				return true;
+			} else {
+				showError('Une erreur est survenue.');
+				return false;
+			}
+		});
 	} else {
 		showError($error);
 		return false;
 	}
-	return false;
 });
 
 
