@@ -49,7 +49,6 @@ class UserController extends Controller{
 					$f3->set('SESSION.firstname_user', $user->firstname_user);
 					$f3->set('SESSION.lastname_user', $user->lastname_user);
 					$f3->set('SESSION.urlImage_user', $user->urlImage_user);		
-					// $f3->reroute('/');
 				} 
 				$status = ( $user ? true: false );
 				$f3->set('status',$status);
@@ -123,12 +122,22 @@ class UserController extends Controller{
 				$fileDir = $f3->get('UPLOADS').'user/'.$f3->get('SESSION.id_user').'/';
 				$fileName = $file ? $fileDir.$f3->camelcase($file['name']) : null;
 
-				if (!file_exists($fileDir) && !empty($fileName)){
-    						mkdir($fileDir, 0777, true);
+				$finfo = new finfo(FILEINFO_MIME_TYPE);
+				$fileContents = file_get_contents($_FILES['urlImage_user']['tmp_name']);
+				$mimeType = $finfo->buffer($fileContents);
+
+				if(!empty($fileName) && $mimeType == 'image/jpeg' ){
+					//Si le répertoire de l'utilisateur n'existe pas on le créait
+					if (!file_exists($fileDir))
+	    					mkdir($fileDir, 0777, true);
+
+	    				//Si le déplacement du fichier à réussi
+					if(move_uploaded_file($file['tmp_name'], $fileName))
+						$f3->set('POST.urlImage_user', $fileName);
+				} else {
+					//Aucun fichier ou type incorrect
 				}
-				if(move_uploaded_file($file['tmp_name'], $fileName) && !empty($fileName)){
-					$f3->set('POST.urlImage_user', $fileName);
-				}
+					
 
 				$user = $this->model->editUser($f3->get('POST'));
 				//Si l'edit a réussi on le redirige vers son profil
