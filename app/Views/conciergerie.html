@@ -127,7 +127,7 @@
 		       	if (formData.length >= 3 && list.indexOf(data.tag.label) >= 0)
 		       		$error += '<br />';
 		        if (list.indexOf(data.tag.label) >= 0) 
-		       		$error += 'Oops, vous ne pouvez ajouter que 3 éléments.';
+		       		$error += 'Oops, vous ne pouvez ajouter deux fois le même ingrédient.';
 			}
 			if($error) {
 				showError($error);

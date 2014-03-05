@@ -44,6 +44,7 @@ $('form[name="register"]').submit( function(e) {
 		$error += "L'email est invalide. ";
 	if(!$form.find('input[name="password_user"]').val())
 		$error += "Le mot de passe est obligatoire.";
+	console.log($error);
 	if(!$error) {
 		$.ajax({
 			dataType: "json",
@@ -250,8 +251,8 @@ function checkMail(input) {
 function showError($message) {
 	if($(".error"))
 		$(".error").remove();
-	$('.wrapper').first().prepend('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
-	$('.error').slideDown();
+	$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
+	$('.error').slideDown().delay('3000').slideUp();
 	$( "body" ).on( "click", ".error i", function(e) {
 	$(this).parent().slideUp('normal', function() {
 		$(this).remove();

@@ -144,9 +144,6 @@ section#main ul.meta { overflow: hidden; }
 section#main ul.meta li { float: left; font-size: 0.846em; text-transform: uppercase; color: #a09dac; font-weight: 600;  margin-right: 20px; transition: opacity ease-out 0.3s; }
 section#main ul.meta li i { margin-right: 5px; margin-bottom: -1px; }
 
-section#main div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
-section#main div.error i.close { float: right; cursor:pointer;}
-
 section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
 
 
@@ -354,6 +351,10 @@ section#main.error { background: #635c78; text-align: center; padding: 150px 0; 
 section#main.error h1 { letter-spacing: 0; text-align: center; color: #716a85; font-size: 17.000em; font-weight: 900; }
 section#main.error h1 span { letter-spacing: 0; display: block; font-size: 0.181em; text-transform: lowercase; font-weight: 600; line-height: 0.575em; }
 section#main.error a { display: inline-block; color: #fff; padding: 15px 20px; background: #fe8468; border-radius: 4px; text-transform: uppercase; font-weight: 700; margin-top: 50px; }
+
+div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+div.error i.close { float: right; cursor:pointer;}
+
 /* @end of Error */
 
 
