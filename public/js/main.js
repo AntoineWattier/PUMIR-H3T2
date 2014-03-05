@@ -2,10 +2,14 @@ $('form[name="login"]').submit(function(e){
 	e.preventDefault();
 	var $form = $(this),
 		$error = '';
-	if(!$form.find('input[type="email"]').val())
+	if(!$form.find('input[type="email"]').val()) {
+		$form.find('input[type="email"]').focus();
 		$error += "L'email est vide. ";
-	if(!$form.find('input[name="password_user"]').val())
+	}
+	if(!$form.find('input[name="password_user"]').val()) {
+		if(!$error) $form.find('input[name="password_user"]').focus();
 		$error += "Le mot de passe est vide.";
+	}
 	if(!$error) {
 
 		$.ajax({
@@ -34,16 +38,26 @@ $('form[name="register"]').submit( function(e) {
 	e.preventDefault();
 	var $form = $(this),
 		$error = '';
-	if(!$form.find('input[name="firstname_user"]').val())
+	if(!$form.find('input[name="firstname_user"]').val()) {
 		$error += "Le prénom est obligatoire. ";
-	if(!$form.find('input[name="lastname_user"]').val())
+		$form.find('input[name="firstname_user"]').focus();
+	}
+	if(!$form.find('input[name="lastname_user"]').val()) {
+		if(!$error) $form.find('input[name="lastname_user"]').focus();
 		$error += "Le nom est obligatoire. ";
-	if(!$form.find('input[type="email"]').val())
+	}
+	if(!$form.find('input[type="email"]').val()) {
+		if(!$error) $form.find('input[type="email"]').focus();
 		$error += "L'email est obligatoire. ";
-	if($form.find('input[type="email"]').val() && validMail($form.find('input[type="email"]').val()))
+	}
+	if($form.find('input[type="email"]').val() && validMail($form.find('input[type="email"]').val())) {
+		if(!$error) $form.find('input[type="email"]').focus();
 		$error += "L'email est invalide. ";
-	if(!$form.find('input[name="password_user"]').val())
+	}
+	if(!$form.find('input[name="password_user"]').val()) {
+		if(!$error) $form.find('input[name="password_user"]').focus();
 		$error += "Le mot de passe est obligatoire.";
+	}
 	if(!$error) {
 		$.ajax({
 			dataType: "json",
