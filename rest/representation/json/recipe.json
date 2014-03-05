@@ -7,7 +7,7 @@
 	<?php endif; ?>
 	],
 	"body":[
-	<?if($recipe): ?>
+	<?php if($recipe): ?>
 	{
 		"id":"<?= $recipe->id_recipe ?>",
 		"id_author":"<?= $recipe->id_user ?>",
@@ -27,7 +27,35 @@
 		"name_difficulty":"<?= $recipe->name_difficulty ?>",
 		"id_type":"<?= $recipe->id_type ?>",
 		"name_type":"<?= $recipe->name_type ?>",
-		"steps":[]
+		"steps":[
+		<?php foreach($steps as $step): ?>
+			{
+				"id":"<?= $step->id_step?>",
+				"order_step":"<?= $step->order_step?>",
+				"content":"<?= $step->content_step ?>"
+			}
+
+			<?php if($step !== end($steps)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"comments":[
+		<?php foreach($comments as $comment): ?>
+			{
+				"id":"<?= $comment->id_comment?>",
+				"id_step":"<?= $comment->id_step?>",
+				"id_author":"<?= $comment->id_user?>",
+				"firstname_author":"<?= $comment->firstname_user ?>",
+				"lastname_author":"<?= $comment->lastname_user ?>",
+				"link_author": "<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$comment->id_user?>",
+				"content":"<?= $comment->content_comment ?>",
+				"dateAdd":"<?= $comment->dateAdd_comment ?>"
+			}
+
+			<?php if($comment !== end($comments)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>]
 	}
 	<?php endif; ?>
 	]
