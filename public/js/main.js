@@ -266,11 +266,6 @@ function showError($message) {
 		$(".error").remove();
 	$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
 	$('.error').slideDown().delay('3000').slideUp();
-	$( "body" ).on( "click", ".error i", function(e) {
-	$(this).parent().slideUp('normal', function() {
-		$(this).remove();
-	});
-});
 }
 
 

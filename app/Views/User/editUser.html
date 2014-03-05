@@ -51,6 +51,8 @@
 	</section>
  </div>  
 
+
+
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script>
 	$('.delete, #popin i').click(function() {
@@ -60,22 +62,41 @@
 	$('form[name="editUser"').submit(function() {
 		var $form = $(this),
 			$error = '';
-		if(!$form.find('input[name="firstname_user"]').val())
+		if(!$form.find('input[name="firstname_user"]').val()) {
+			$form.find('input[name="firstname_user"]').focus();
 			$error += "Le prénom est obligatoire. ";
-		if(!$form.find('input[name="lastname_user"]').val())
+		}
+
+		if(!$form.find('input[name="lastname_user"]').val()) {
+			if(!$error) $form.find('input[name="lastname_user"]').focus();
 			$error += "Le nom est obligatoire. ";
-		if(!$form.find('input[type="email"]').val())
+		}
+		if(!$form.find('input[type="email"]').val()) {
+			if(!$error) $form.find('input[type="email"]').focus();
 			$error += "L'email est obligatoire. ";
-		else if(validMail($form.find('input[type="email"]').val()))
+		}
+		else if(validMail($form.find('input[type="email"]').val())) {
+			if(!$error) $form.find('input[type="email"]').focus();
 			$error += "L'email est invalide. ";
-		else if (checkMail($form.find('input[type="email"]').val()))
+		}
+		else if (checkMail($form.find('input[type="email"]').val())) {
+			if(!$error) $form.find('input[type="email"]').focus();
 			$error += "L'email existe déjà. ";
-		if(!$form.find('input[name="password_user"]').val())
-			$error += "Le mot de passe est obligatoire.";
-		if(!$form.find('input[name="password_user_bis"]').val())
-			$error += "Vous devez confirmez votre mot de passe.";
-		else if ($form.find('input[name="password_user"]').val() != $form.find('input[name="password_user_bis"]').val())
-			$error += "Les deux mot de passe ne se correspondent pas.";
+		}
+		if($form.find('input[name="password_user"]')) {
+			if(!$form.find('input[name="password_user"]').val()) {
+				$error += "Le mot de passe est obligatoire.";
+				if(!$error) $form.find('input[name="password_user"]').focus();
+			}
+			if(!$form.find('input[name="password_user_bis"]').val()) {
+				if(!$error) $form.find('input[name="password_user_bis"]').focus();
+				$error += "Vous devez confirmez votre mot de passe.";
+			} else if ($form.find('input[name="password_user"]').val() != $form.find('input[name="password_user_bis"]').val()) {
+				if(!$error) $form.find('input[name="password_user"]').focus();
+				$error += "Les deux mot de passe ne se correspondent pas.";
+			}
+		}
+		
 		if(!$error)
 			return true;
 		else
