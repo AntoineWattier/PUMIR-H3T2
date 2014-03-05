@@ -49,10 +49,12 @@ class UserController extends Controller{
 					$f3->set('SESSION.firstname_user', $user->firstname_user);
 					$f3->set('SESSION.lastname_user', $user->lastname_user);
 					$f3->set('SESSION.urlImage_user', $user->urlImage_user);		
-					$f3->reroute('/');
+					// $f3->reroute('/');
 				} 
-				
-				break;			
+				$status = ( $user ? true: false );
+				$f3->set('status',$status);
+				$this->tpl['async']='json/status.json';
+			break;			
 			case 'GET':
 				if($f3->get('SESSION.id_user'))
 					$f3->reroute('/');

@@ -68,16 +68,15 @@ $('form[name="register"]').submit( function(e) {
 		.success(function(data){
 			if(data.status){
 				window.location = "/";
-				return true;
 			} else {
 				showError('Une erreur est survenue.');
-				return false;
 			}
 		});
 	} else {
 		showError($error);
 		return false;
 	}
+	return false;
 });
 
 
