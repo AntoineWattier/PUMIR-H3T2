@@ -3681,12 +3681,7 @@
 	 */
 	p.onBackspaceKeyDown = function(e)
 	{
-		var self    = this,
-			lastTag = self.tagElements().last()
-			;
-
-		if(self.val().length == 0)
-			self.removeTag(lastTag);
+		return false;
 	};
 
 	/**
@@ -3924,7 +3919,7 @@
 
 		for(i = 0; i < list.length; i++) {
 			item = $(list[i]);
-			if(self.itemManager().compareItems(item.data(CSS_TAG).label, tag))
+			if(item.data(CSS_TAG).label == tag.replace('Delete', ''))
 				return item;
 		}
 		
