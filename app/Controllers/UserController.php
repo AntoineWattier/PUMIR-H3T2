@@ -18,10 +18,14 @@ class UserController extends Controller{
 					$f3->set('SESSION.lastname_user', $user->lastname_user);
 					$f3->set('SESSION.urlImage_user', $user->urlImage_user);
 				} 
-				echo json_encode(array('status'=>$user));
+				$status = ( $user ? true: false );
+				$f3->set('status',$status);
+				$this->tpl['async']='json/status.json';
 			break;			
 			case 'GET':
-				echo View::instance()->render('User/login.html');  
+				if($f3->get('SESSION.id_user'))
+					$f3->reroute('/');
+				$this->tpl['sync']='User/login.html';
 		} 
 	}
 
@@ -52,7 +56,7 @@ class UserController extends Controller{
 			case 'GET':
 				if($f3->get('SESSION.id_user'))
 					$f3->reroute('/');
-				echo View::instance()->render('User/register.html');
+				$this->tpl['sync']='User/register.html';
 		}
 		
 	}
@@ -71,7 +75,8 @@ class UserController extends Controller{
 			$f3->set('SESSION.firstname_user', $user->firstname_user);
 			$f3->set('SESSION.lastname_user', $user->lastname_user);
 			$f3->set('SESSION.urlImage_user', $user->urlImage_user);				
-			echo json_encode(array('status'=>true));			
+			$f3->set('status',true);
+			$this->tpl['async']='json/status.json';			
 		} 		
 	}
 
@@ -80,7 +85,9 @@ class UserController extends Controller{
 			$f3->error(405); 
 
 		$mail = $this->model->checkMail($f3->get('POST'));
-		echo json_encode(array('status'=>$mail));
+		$f3->set('status',$mail);
+		$this->tpl['async']='json/status.json';	
+
 	}
 
 	function getUser($f3){	
@@ -100,7 +107,8 @@ class UserController extends Controller{
 		$f3->set('followers',$this->model->getFollowers($f3->get('PARAMS')));
 		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 
-		echo View::instance()->render('User/viewUser.html');
+		$this->tpl['sync']='User/viewUser.html';
+
 	}
 
 	function editUser($f3){	
@@ -143,7 +151,7 @@ class UserController extends Controller{
 				$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 
 				$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
-				echo View::instance()->render('User/editUser.html');
+				$this->tpl['sync']='User/editUser.html';
 		}			
 	}
 
@@ -152,7 +160,8 @@ class UserController extends Controller{
 			$f3->error(405); 
 
 		$like = $this->model->like($f3->get('PARAMS'));
-		echo json_encode(array('status'=>$like));
+		$f3->set('status',$like);
+		$this->tpl['async']='json/status.json';		
 	}
 
 	function follow($f3){
@@ -160,7 +169,8 @@ class UserController extends Controller{
 			$f3->error(405); 
 
 		$follow = $this->model->follow($f3->get('PARAMS'));
-		echo json_encode(array('status'=>$follow));
+		$f3->set('status',$follow);
+		$this->tpl['async']='json/status.json';		
 	}
 
 	function getFollowing($f3){	
@@ -176,7 +186,7 @@ class UserController extends Controller{
 		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
-		echo View::instance()->render('User/viewFollowing.html');
+		$this->tpl['sync']='User/viewFollowing.html';
 	}
 
 	function getFollowers($f3){	
@@ -193,7 +203,8 @@ class UserController extends Controller{
 		$f3->set('following',$this->model->getFollowing($f3->get('PARAMS')));
 
 		$f3->set('user',$this->model->getUser($f3->get('PARAMS')));
-		echo View::instance()->render('User/viewFollowers.html');
+		$this->tpl['sync']='User/viewFollowers.html';
+
 	}
 
 	function comment($f3){
@@ -202,6 +213,7 @@ class UserController extends Controller{
 
 		$f3->set('PARAMS.content_comment',$f3->get('POST.content_comment'));
 		$comment = $this->model->comment($f3->get('PARAMS'));
-		echo json_encode(array('status'=>$comment));
+		$f3->set('status',$comment);
+		$this->tpl['async']='json/status.json';		
 	}
 }

@@ -64,8 +64,7 @@ class UserModel extends Model{
 	function checkMail($params){
 		$this->mapper->reset();
 		$this->mapper->load(array("mail_user = :mail", 'mail'=>$params['mail_user']));
-		//return $this->mapper->dry();
-		return false;
+		return !$this->mapper->dry();
 	}
 
 	function getUser($params)

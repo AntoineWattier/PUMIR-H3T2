@@ -12,7 +12,7 @@ class RecipeController extends Controller{
 			$s = "get".ucfirst($value);
 			$f3->set($value,$this->model->$s());
 		}
-		echo View::instance()->render('conciergerie.html');
+		$this->tpl['sync']='conciergerie.html';
 	}
 
 	function submitRecipe($f3){
@@ -36,7 +36,7 @@ class RecipeController extends Controller{
 					$s = "get".ucfirst($value);
 					$f3->set($value,$this->model->$s());
 				}
-				echo View::instance()->render('Recipe/submitRecipe.html');
+				$this->tpl['sync']='Recipe/submitRecipe.html';
 		}
 		
 	}
@@ -51,7 +51,7 @@ class RecipeController extends Controller{
 
 		$f3->set('PARAMS.id_user', $f3->get('SESSION.id_user'));
 		$f3->set('isFavorite',$this->model->getIsFavorite($f3->get('PARAMS')));
-		echo View::instance()->render('Recipe/viewRecipe.html');
+		$this->tpl['sync']='Recipe/viewRecipe.html';
 	}
 
 	function editRecipe($f3){
@@ -87,7 +87,7 @@ class RecipeController extends Controller{
 					$s = "get".ucfirst($value);
 					$f3->set($value,$this->model->$s());
 				}
-				echo View::instance()->render('Recipe/editRecipe.html');
+				$this->tpl['sync']='Recipe/editRecipe.html';
 		}
 	}
 
@@ -98,7 +98,7 @@ class RecipeController extends Controller{
 			$f3->set($value,$this->model->$s());
 		}
 		$f3->set('recipes',$this->model->getRecipes($f3->get('PARAMS')));
-		echo View::instance()->render('Recipe/viewRecipes.html');
+		$this->tpl['sync']='Recipe/viewRecipe.html';
 	}
 
 	function getRecipesByFilter($f3){
@@ -113,21 +113,21 @@ class RecipeController extends Controller{
 
 		switch ($f3->get('VERB')) {
 			case 'POST':
-				echo View::instance()->render('partials/recipes.html');
+				$this->tpl['async']='partial/recipes.html';
 			break;
 			case 'GET':
-				echo View::instance()->render('Recipe/viewRecipes.html');
+				$this->tpl['sync']='Recipe/viewRecipes.html';
 		}
 	}	
 
 	function getAllIngredientsJSON($f3){
 		$f3->set('allIngredients',$this->model->getAllIngredients());
-		echo View::instance()->render('Recipe/allIngredients.json');
+		$this->tpl['async']='Recipe/allIngredients.json';
 	}
 
 	function getComments($f3){
 		$f3->set('comments',$this->model->getComments($f3->get('PARAMS')));
 		$f3->set('step',$f3->get('PARAMS.id_step'));
-		echo View::instance()->render('partials/comments.html');
+		$this->tpl['async']='partials/comments.html';
 	}
 }
