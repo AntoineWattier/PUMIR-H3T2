@@ -83,7 +83,8 @@
 			if(!$error) $form.find('input[type="email"]').focus();
 			$error += "L'email existe déjà. ";
 		}
-		if($form.find('input[name="password_user"]')) {
+
+		if($form.find('input[name="password_user"]').length>0) {
 			if(!$form.find('input[name="password_user"]').val()) {
 				$error += "Le mot de passe est obligatoire.";
 				if(!$error) $form.find('input[name="password_user"]').focus();
