@@ -11,6 +11,7 @@
 	{
 		"id":"<?= $recipe->id_recipe ?>",
 		"id_author":"<?= $recipe->id_user ?>",
+		"name":"<?= $recipe->name_recipe ?>",
 		"firstname_author":"<?= $recipe->firstname_user ?>",
 		"lastname_author":"<?= $recipe->lastname_user ?>",
 		"link_author": "<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$recipe->id_user?>",

@@ -9,6 +9,7 @@ class recipe extends api{
 		$f3->set('recipe',$mapper->load(array('id_recipe ='.$f3->get('PARAMS.id'))));
 		$f3->set('steps',$this->getMapper('STEP')->find( array('id_recipe = '.$f3->get('PARAMS.id')), array('ORDER' => 'order_step')));
 		$f3->set('comments',$this->getMapper('POST')->find( array('id_recipe = '.$f3->get('PARAMS.id'))));
+		$f3->set('ingredients',$this->getMapper('ASSOCIATE')->find( array('id_recipe = '.$f3->get('PARAMS.id'))));
 		if($mapper->dry())
 			$f3->error(404);
 		else
