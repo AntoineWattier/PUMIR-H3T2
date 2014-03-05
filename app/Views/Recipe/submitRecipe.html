@@ -251,6 +251,9 @@ function verifStep(step) {
 				if(!$form_step.find('input[name="numberOfPeople_recipe"]').val()) {
 					$error += 'Veuillez rentrer le nombre de personnes. ';
 					$form_step.find('input[name="numberOfPeople_recipe"]').focus();
+				} else if (!$.isNumeric($form_step.find('input[name="numberOfPeople_recipe"]').val()) || $form_step.find('input[name="numberOfPeople_recipe"]').val()>0) {
+					$error += 'Le nombre de personne est incorrect. ';
+					$form_step.find('input[name="numberOfPeople_recipe"]').focus();
 				}
 			}
 		break;
