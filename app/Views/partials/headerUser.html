@@ -6,7 +6,7 @@
 		<a href="/user/getUser/<?= $user->id_user ?>"><img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" /></a>
 	<?php endif; ?>
 	</div>
-	<h1><?= $user->firstname_user." ".$user->lastname_user ?></h1>
+	<a href="/user/getUser/<?= $user->id_user ?>"><h1><?= $user->firstname_user." ".$user->lastname_user ?></h1></a>
 	<p><?= $user->bio_user ?></p>
 	<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $user->id_user): ?>
 	<button disabled>C'est vous</button>
