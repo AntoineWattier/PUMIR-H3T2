@@ -181,7 +181,7 @@ section#main.recipe a.cancel { text-transform: uppercase; color: #635c78; font-w
 
 section#main.recipe article header { background: #fff; position: relative; border-radius: 4px;  padding: 25px 25px 25px 345px; box-sizing: border-box; margin-top: 20px;}
 section#main.recipe article header.no-image { padding: 25px; }
-section#main.recipe article header img { width: 320px; height: 320px; position: absolute; border-radius: 4px; left: 0; top: -10px; }
+section#main.recipe article header > img { width: 320px; height: 320px; position: absolute; border-radius: 4px; left: 0; top: -10px; }
 section#main.recipe article header h1 { margin-bottom: 10px; color: #635c78; text-transform: uppercase; font-weight: 700; font-size: 1.846em; }
 section#main.recipe article header h1 span { display: block; font-size: 0.500em; color: #a19ead; font-weight: 600; margin-bottom: 10px; }
 section#main.recipe article header h1 span a { display: inline-block; border-bottom: 2px solid #a18ead; color: #a19ead; }
