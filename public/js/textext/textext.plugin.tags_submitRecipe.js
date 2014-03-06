@@ -412,6 +412,7 @@
 			self.removeTag(source.parent().parent().text());
 		else 
 			return false;
+
 		core.focusInput();
 	};
 
@@ -637,6 +638,7 @@
 		element.fadeOut('slow', function() {
 			element.remove();
 		});
+
 		self.updateFormCache();
 		core.getFormData();
 		core.invalidateBounds();

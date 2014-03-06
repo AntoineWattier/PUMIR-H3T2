@@ -72,6 +72,12 @@
 	</div>
 	<script type="text/javascript" src="public/js/textext/textext.min.js"></script>
 	<script type="text/javascript">
+	function showError($message) {
+		if($(".error"))
+			$(".error").remove();
+		$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
+		$('.error').slideDown().delay('3000').slideUp();
+	}
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
     		plugins :'autocomplete filter tags ajax',
     		ajax : {

@@ -460,6 +460,7 @@
 
 		self.tagElements().each(function()
 		{
+			console.log($(this).data(CSS_TAG));
 			result.push($(this).data(CSS_TAG));
 		});
 
@@ -626,13 +627,14 @@
 		else
 		{
 			element = self.getTagElement(tag);
+			console.log(element);
 			if (element === null) {
 				alert();
 				return;
 			}
 		}
 
-		element.remove();
+		//element.remove();
 		self.updateFormCache();
 		core.getFormData();
 		core.invalidateBounds();
