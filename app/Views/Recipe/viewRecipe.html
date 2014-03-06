@@ -44,7 +44,7 @@
 					<div class="clear"></div>
 				</header>
 
-				<aside class="no-img">
+				<aside <?php if(empty($recipe->urlImage_recipe)) 	echo 'class="no-img"' ; ?>>
 					<h3>Ingrédients</h3>
 					<ul class="ingredients">
 						<?php foreach ($ingredients as $ingredient): ?>
