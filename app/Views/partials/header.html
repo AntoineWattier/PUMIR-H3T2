@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" >
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -7,9 +7,12 @@
 	<title>What The Fu** Do I Eat Tonight?</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
+	<?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipe/') !== false):?>
+		<meta property="og:url" content="<?= 'http://'.$HOST.$URI; ?>" /> 
+		<meta property="og:title" content="<?= $recipe->name_recipe; ?>" /> 
+		<?php if(!empty($recipe->urlImage_recipe)) 	echo '<meta property="og:image" content="'.$recipe->urlImage_recipe.'"/>'; ?>
+	<?php endif; ?> 
 	<link href="public/styles/main.css" rel="stylesheet" type="text/css" />
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/minify/js?files=main.js"></script>
 </head>
 <body>
 	<header id="header">
