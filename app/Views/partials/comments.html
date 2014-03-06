@@ -2,9 +2,9 @@
 	<?php foreach ($comments as $comment): ?>
 			<li>
 			<?php if(!empty($comment->urlImage_user)): ?>
-				<img src="<?= $comment->urlImage_user ?>" alt="<?= $comment->firstname_user." ".$comment->lastname_user ?>" />
+				<div class="user-img"><img src="<?= $comment->urlImage_user ?>" alt="<?= $comment->firstname_user." ".$comment->lastname_user ?>" /></div>
 			<?php else: ?>
-				<img src="/public/images/assets/pp-default.png" alt="<?= $comment->firstname_user." ".$comment->lastname_user ?>" />
+				<div class="user-img"><img src="/public/images/assets/pp-default.png" alt="<?= $comment->firstname_user." ".$comment->lastname_user ?>" /></div>
 			<?php endif; ?>
 				<span class="user"><?= $comment->firstname_user." ".$comment->lastname_user ?></span> <?= $comment->content_comment ?>
 			</li>
@@ -12,9 +12,9 @@
 	<?php if(isset($SESSION['id_user'])): ?>
 	<li>
 		<?php if(!empty($SESSION['urlImage_user'])): ?>
-			<img src="<?= $SESSION['urlImage_user']?>" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user'] ?>" />
+			<div class="user-img"><img src="<?= $SESSION['urlImage_user']?>" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user'] ?>" /></div>
 		<?php else: ?>
-			<img src="/public/images/assets/pp-default.png" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user'] ?>" />
+			<div class="user-img"><img src="/public/images/assets/pp-default.png" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user'] ?>" /></div>
 		<?php endif; ?>
 		<form action="user/comment/<?= $SESSION['id_user'] ?>&<?= $step ?>">
 		<input type="text" name="content_comment" placeholder="Laisser un commentaire..." />
