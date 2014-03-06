@@ -192,7 +192,7 @@ section#main.recipe article header a.like { box-sizing: border-box; padding: 25p
 section#main.recipe article header a.like:hover { opacity: 0.5; }
 section#main.recipe article header a.liked { border: 1px solid #fe8468; background: url(../images/icons/heart-full.png) no-repeat 11px 10px; color: #fe8468; }
 section#main.recipe article header h3 { padding-top: 5px; }
-section#main.recipe article header ul.social li { display: inline-block; }
+section#main.recipe article header ul.social li { display: inline-block; margin-right: 10px; }
 
 section#main.recipe article section.steps { box-sizing: border-box; padding: 25px; width: 615px; margin: 25px 0 0 25px; background: #fff; border-radius: 4px; float: left; }
 section#main.recipe article section.steps > ul > li { min-height: 60px; position: relative; overflow: hidden; border-bottom: 1px solid #f4f4f7; padding: 15px 10px 15px 60px; }
