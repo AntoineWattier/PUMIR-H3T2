@@ -122,20 +122,24 @@ class UserController extends Controller{
 				$fileDir = $f3->get('UPLOADS').'user/'.$f3->get('SESSION.id_user').'/';
 				$fileName = $file ? $fileDir.$f3->camelcase($file['name']) : null;
 
-				$finfo = new finfo(FILEINFO_MIME_TYPE);
-				$fileContents = file_get_contents($_FILES['urlImage_user']['tmp_name']);
-				$mimeType = $finfo->buffer($fileContents);
+				if(!empty($_FILES['urlImage_user']['tmp_name'])){
+					$finfo = new finfo(FILEINFO_MIME_TYPE);
+					$fileContents = file_get_contents($_FILES['urlImage_user']['tmp_name']);
+					$mimeType = $finfo->buffer($fileContents);
 
-				if(!empty($fileName) && $mimeType == 'image/jpeg' ){
-					//Si le répertoire de l'utilisateur n'existe pas on le créait
-					if (!file_exists($fileDir))
-	    					mkdir($fileDir, 0777, true);
+					if($mimeType == 'image/jpeg' ){
+						//Si le répertoire de l'utilisateur n'existe pas on le créait
+						if (!file_exists($fileDir))
+		    					mkdir($fileDir, 0777, true);
 
-	    				//Si le déplacement du fichier à réussi
-					if(move_uploaded_file($file['tmp_name'], $fileName))
-						$f3->set('POST.urlImage_user', $fileName);
+		    				//Si le déplacement du fichier à réussi
+						if(move_uploaded_file($file['tmp_name'], $fileName))
+							$f3->set('POST.urlImage_user', $fileName);
+					} else {
+						//Type incorrect
+					}
 				} else {
-					//Aucun fichier ou type incorrect
+					//Aucun fichier
 				}
 					
 

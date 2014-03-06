@@ -126,9 +126,18 @@
 		</form>
 	</div>
 </section>
-
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="public/js/main.js"></script>
 	<script type="text/javascript" src="public/js/textext/textext.min.submitRecipe.js"></script>
+
 	<script type="text/javascript">
+	function showError($message) {
+	if($(".error"))
+		$(".error").remove();
+	$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
+	$('.error').slideDown().delay('3000').slideUp();
+}
+
 	var $ingredients;
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
 				plugins :'autocomplete filter tags ajax',
@@ -214,6 +223,7 @@ $('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
 });
 
 $('.next, ul.steps li').on('click',function(e){
+	console.log('next');
 	var current = $('ul.steps li.current').index(),
 		next = current+1;
 		$step = $('section.step').eq(current),
@@ -251,7 +261,8 @@ function verifStep(step) {
 				if(!$form_step.find('input[name="numberOfPeople_recipe"]').val()) {
 					$error += 'Veuillez rentrer le nombre de personnes. ';
 					$form_step.find('input[name="numberOfPeople_recipe"]').focus();
-				} else if (!$.isNumeric($form_step.find('input[name="numberOfPeople_recipe"]').val()) || $form_step.find('input[name="numberOfPeople_recipe"]').val()>0) {
+				}
+				else if (!$.isNumeric($form_step.find('input[name="numberOfPeople_recipe"]').val()) || $form_step.find('input[name="numberOfPeople_recipe"]').val()<0) {
 					$error += 'Le nombre de personne est incorrect. ';
 					$form_step.find('input[name="numberOfPeople_recipe"]').focus();
 				}
@@ -264,7 +275,7 @@ function verifStep(step) {
 			}
 		break;
 		case 2 :
-			if(!$form_step.find('input[name="name_recipe]"').val()) {
+			if(!$form_step.find('input[name="name_recipe"]').val()) {
 				$error += 'Mais il est où le titre?';
 				$form_step.find('input[name="name_recipe]"').focus();
 			}

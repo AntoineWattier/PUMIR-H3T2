@@ -1,3 +1,5 @@
+$( document ).ready(function(){
+	
 $('form[name="login"]').submit(function(e){
 	e.preventDefault();
 	var $form = $(this),
@@ -22,7 +24,8 @@ $('form[name="login"]').submit(function(e){
 			if(data.status){
 				window.location = "/";
 			} else {
-				showError('Une erreur est survenue.');
+				showError('L\'email ou le mot de passe est incorrect.');
+				$form.find('input[type="email"]').focus();
 			}
 		});
 	} else {
@@ -315,3 +318,5 @@ $('a.fb').on('click', function(e){
 	},{scope: 'email'});  
 });
 /* End Facebook Connect */
+
+});
