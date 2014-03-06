@@ -14,7 +14,7 @@
 						<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
 						<li><i class="cup"></i><?= $recipe->name_difficulty ?></li>
 						<li><i class="bell"></i><?= $recipe->name_type ?></li>
-						<li><i class="tag"></i>ANTOINE MET L'AMBIANCE DE LA RECETTE ICI</li>
+						<li><i class="tag"></i><?= $recipe->name_ambiance ?></li>
 					</ul>
 					<a href="" class="edit">Modifier la recette</a>
 					<hr />
@@ -25,7 +25,7 @@
 					<?php endif; ?>
 					<h3>Partager la recette</h3>
 					<ul class="social">
-						<li><div class="fb-share-button" data-href="http://wtfdiet.local" data-type="button_count"></div>
+						<li><div class="fb-share-button" data-href="<?= $URI ?>" data-type="button_count"></div>
 						<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -83,4 +83,5 @@
 			<p>Aucune recette trouvée ici :(</p>
 		</section>
 	<?php endif; ?>
+	<?php include('./app/Views/partials/scripts.html') ?>
 <?php include('./app/Views/partials/footer.html') ?>
