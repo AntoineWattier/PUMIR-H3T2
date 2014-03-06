@@ -275,7 +275,8 @@ section#main.user header + section a.delete { display: block; color: #635c78; fo
 section#main.recipes.user { padding-left: 0; overflow: hidden; width: 960px; margin: 0 auto; box-sizing: border-box; }
 section#main.recipes.user article:nth-child(odd) { margin-right: 0; } /* before masonry */
 section#main.recipes.user h3 { text-align: center; margin-bottom: 40px; }
-section#main.recipes.user h3 span.disabled { color: #a09dac; }
+section#main.recipes.user h3 span.disabled { cursor: pointer; color: #a09dac; transition: opacity ease-out 0.3s; }
+section#main.recipes.user h3:hover span.disabled { opacity: 0.8; color: #a09dac; }
 section#main.recipes.user h3 i { margin: 0 15px -2px; }
 
 section#main.user.following header + section ul li { border-bottom: 1px solid #eae9ee; }
