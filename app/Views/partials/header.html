@@ -1,16 +1,52 @@
-		<header id="header">
-			<h1>wtfdiet</h1>
-			<nav id="nav">
-				<ul>
-					<li class="active"><a href="">Conciergerie</a></li>
-					<li><a href="">Recettes populaires</a></li>
-					<li><a href="">Toutes les recettes</a></li>
-				</ul>
-			</nav>
-			<nav id="sign-in">
-				<ul>
-					<li><a href="">Se connecter</a></li>
-					<li><a class="button" href="">Créer un compte</a></li>
-				</ul>
-			</nav>
-		</header>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<base href="<?php echo $BASE; ?>/" >
+	<title>Where The Fu** Do I Eat Tonight?</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link href="public/styles/main.css" rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/minify/js?files=main.js"></script>
+</head>
+<body>
+	<header id="header">
+		<a href="/"><h1>wtfdiet</h1></a>
+		<nav id="nav">
+			<ul>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/conciergerie') !== false) echo 'class="active"' ?>><a href="/conciergerie">Conciergerie</a></li>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipesByFilter/votes') !== false) echo 'class="active"' ?>><a  href="/recipe/getRecipesByFilter/votes">Recettes populaires</a></li>
+				<li <?php if(strpos($_SERVER['REQUEST_URI'],'/recipe/getRecipesByFilter/date') !== false) echo 'class="active"' ?>><a href="/recipe/getRecipesByFilter/date">Toutes les recettes</a></li>
+			</ul>
+		</nav>
+		
+			
+		<?php if(isset($SESSION['id_user'])): ?>
+		<nav id="signed-in">
+			<ul>
+			<li><a class="btn" <?php if($_SERVER['REQUEST_URI']=='/recipe/submitRecipe') echo 'class="active"' ?> href="/recipe/submitRecipe">Ajouter une recette</a></li>
+			<li>
+				<a <?php if($_SERVER['REQUEST_URI'] == '/user/getUser/'.$SESSION['id_user']) echo 'class="active"' ?> href="/user/getUser/<?= $SESSION['id_user'] ?>">
+				<div class="user-img">
+				<?php if(!empty($SESSION['urlImage_user'])): ?>
+					<img src="<?= $SESSION['urlImage_user'] ?>" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>" />
+				<?php else: ?>
+					<img src="/public/images/assets/pp-default.png" alt="<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>" />
+				<?php endif; ?>
+				</div>
+				<?= $SESSION['firstname_user']." ".$SESSION['lastname_user']?>
+				</a>
+			</li>
+			<li><a href="/user/editUser/<?= $SESSION['id_user'] ?>"><i class="settings">Paramètres</i></a></li>
+			<li><a href="/user/logout/"><i class="sign-out">Déconnexion</i></a></li>
+		<?php else : ?> 
+		<nav id="sign-in">
+			<ul>
+				<li><a href="/user/login">Se connecter</a></li>
+				<li><a class="btn" href="/user/register">Créer un compte</a></li>
+		<?php endif; ?>
+			</ul>
+		</nav>
+	</header>

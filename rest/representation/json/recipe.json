@@ -1,0 +1,75 @@
+{
+	"header":[
+	<?php if(isset($ERROR)): ?>
+		"code":"<?= $ERROR['code']; ?>",
+		"status":"<?= $ERROR['status']; ?>",
+		"text":"<?= $ERROR['text']; ?>"
+	<?php endif; ?>
+	],
+	"body":[
+	<?php if($recipe): ?>
+	{
+		"id":"<?= $recipe->id_recipe ?>",
+		"id_author":"<?= $recipe->id_user ?>",
+		"name":"<?= $recipe->name_recipe ?>",
+		"firstname_author":"<?= $recipe->firstname_user ?>",
+		"lastname_author":"<?= $recipe->lastname_user ?>",
+		"link_author": "<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$recipe->id_user?>",
+		"recipePic":"<?php if(!empty($recipe->urlImage_recipe)) echo 'http://'. $_SERVER['HTTP_HOST'].'/'.$recipe->urlImage_recipe; ?>",
+		"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/recipe/getRecipe/'.$recipe->id_recipe?>",
+		"dateAdd":"<?= $recipe->dateAdd_recipe ?>",
+		"votes":"<?= $recipe->votes_recipe ?>",
+		"numberOfPeople":"<?= $recipe->numberOfPeople_recipe ?>",
+		"id_ambiance":"<?= $recipe->id_ambiance ?>",
+		"name_ambiance":"<?= $recipe->name_ambiance ?>",
+		"id_preparationTime":"<?= $recipe->id_preparationTime ?>",
+		"name_preparationTime":"<?= $recipe->name_preparationTime ?>",
+		"id_difficulty":"<?= $recipe->id_difficulty ?>",
+		"name_difficulty":"<?= $recipe->name_difficulty ?>",
+		"id_type":"<?= $recipe->id_type ?>",
+		"name_type":"<?= $recipe->name_type ?>",
+		"ingredients":[
+		<?php foreach($ingredients as $ingredient): ?>
+			{
+				"id":"<?= $ingredient->id_ingredient?>",
+				"name":"<?= $ingredient->name_ingredient ?>",
+				"quantity":"<?= $ingredient->quantity_ingredient ?>"
+			}
+
+			<?php if($ingredient !== end($ingredients)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"steps":[
+		<?php foreach($steps as $step): ?>
+			{
+				"id":"<?= $step->id_step?>",
+				"order_step":"<?= $step->order_step?>",
+				"content":"<?= $step->content_step ?>"
+			}
+
+			<?php if($step !== end($steps)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>],
+		"comments":[
+		<?php foreach($comments as $comment): ?>
+			{
+				"id":"<?= $comment->id_comment?>",
+				"id_step":"<?= $comment->id_step?>",
+				"id_author":"<?= $comment->id_user?>",
+				"firstname_author":"<?= $comment->firstname_user ?>",
+				"lastname_author":"<?= $comment->lastname_user ?>",
+				"link_author": "<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$comment->id_user?>",
+				"content":"<?= $comment->content_comment ?>",
+				"dateAdd":"<?= $comment->dateAdd_comment ?>"
+			}
+
+			<?php if($comment !== end($comments)): ?>
+				,
+			<?php endif; ?>
+		<?php endforeach ?>]
+	}
+	<?php endif; ?>
+	]
+}

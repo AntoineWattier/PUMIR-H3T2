@@ -1,4 +1,9 @@
-PUMPUM-H3T2
+WTFDIET
 ===========
 
-# Coucou on va trop s'amuser !
+# Website
+http://wtfdiet.local/
+
+# API
+- http://wtfdiet.local/api/
+- http://docs.antoinewattier.apiary.io/

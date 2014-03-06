@@ -1,0 +1,37 @@
+{
+	"header":[
+	<?php if(isset($ERROR)): ?>
+		"code":"<?= $ERROR['code']; ?>",
+		"status":"<?= $ERROR['status']; ?>",
+		"text":"<?= $ERROR['text']; ?>"
+	<?php endif; ?>
+	],
+	"body":[
+	<?php foreach($recipes as $recipe): ?>
+	{
+		"id":"<?= $recipe->id_recipe ?>",
+		"id_author":"<?= $recipe->id_user ?>",
+		"name":"<?= $recipe->name_recipe ?>",
+		"firstname_author":"<?= $recipe->firstname_user ?>",
+		"lastname_author":"<?= $recipe->lastname_user ?>",
+		"link_author": "<?= 'http://'. $_SERVER['HTTP_HOST'].'/user/getUser/'.$recipe->id_user?>",
+		"recipePic":"<?php if(!empty($recipe->urlImage_recipe)) echo 'http://'. $_SERVER['HTTP_HOST'].'/'.$recipe->urlImage_recipe; ?>",
+		"link":"<?= 'http://'. $_SERVER['HTTP_HOST'].'/recipe/getRecipe/'.$recipe->id_recipe?>",
+		"dateAdd":"<?= $recipe->dateAdd_recipe ?>",
+		"votes":"<?= $recipe->votes_recipe ?>",
+		"numberOfPeople":"<?= $recipe->numberOfPeople_recipe ?>",
+		"id_ambiance":"<?= $recipe->id_ambiance ?>",
+		"name_ambiance":"<?= $recipe->name_ambiance ?>",
+		"id_preparationTime":"<?= $recipe->id_preparationTime ?>",
+		"name_preparationTime":"<?= $recipe->name_preparationTime ?>",
+		"id_difficulty":"<?= $recipe->id_difficulty ?>",
+		"name_difficulty":"<?= $recipe->name_difficulty ?>",
+		"id_type":"<?= $recipe->id_type ?>",
+		"name_type":"<?= $recipe->name_type ?>"
+	}
+		<?php if($recipe !== end($recipes)): ?>
+			,
+		<?php endif; ?>
+	<?php endforeach; ?>
+	]
+}

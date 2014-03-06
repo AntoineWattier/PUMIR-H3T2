@@ -1,28 +1,19 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>What the f*** do i eat tonight?</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../../../public/styles/main.css">
-	</head>
-	<body>
-		<section id="login">
+<?php include('./app/Views/partials/header.html') ?>
+	<div id="fb-root"></div>
+	<section id="login">
 			<div class="wrapper">
 				<a href="/"><h1>wtfdiet</h1></a>
 				<p>Connectez-vous avec vos identifiants<br />
 					Facebook ou votre e-mail.<p>
-				<a href="" class="fb"><i class="fb">Fb</i>Connexion via Facebook</a>
+				<a href="" class="fb" name="fb"><i class="fb">Fb</i>Connexion via Facebook</a>
 				<hr />
-				<form>
-					<div class="error">Oops, il semble y avoir eu une erreur... On recommence ?<i class="close xl">Close</i></div>
-					<input type="email" placeholder="Email" />
-					<input type="password" placeholder="Mot de passe" />
+				<form action="user/login" method="post" name="login">
+					<input type="email" name="mail_user" placeholder="Email" />
+					<input type="password" name="password_user" placeholder="Mot de passe" />
 					<button type="submit"><i class="checked"></i> Connexion</button>
 				</form>
-				<a href="">Créer un compte</a>
+				<a href="/user/register">Créer un compte</a>
 			</div>
-		</section>
-	</body>
+	</section>
+</body>
 </html>

@@ -7,11 +7,16 @@
 /******************/
 /* @group General */
 /******************/
+html {
+  height:100%;
+}
 body { 
+  min-height:100%;
   background: #f4f4f7;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 0.813em;
-  font-weight: 400; }
+  font-weight: 400;
+  position: relative; }
 a, a:link, a:visited, a:active { text-decoration: none; }
 hr { border: 0; margin: 5px auto; }
 .no-txt, i { text-align: left; text-indent: -9999px; overflow: hidden; }
@@ -51,7 +56,7 @@ header#header nav#signed-in ul li a { font-weight: 700; color: #635c78; }
 /*****************/
 /* @group Footer */
 /*****************/
-footer#footer { background: #fff; padding: 40px 0; }
+footer#footer { width: 100%; background: #fff; padding: 40px 0; position: absolute; bottom: 0; left: 0;}
 footer#footer p { color: #bdb8cc; font-size: 1em;  }
 /* @end of Footer */
 
@@ -88,7 +93,7 @@ form div.ingredients.suggest input[type="text"] { border-bottom-right-radius: 0;
 form div.ingredients input[type="text"] { height: 60px; width: 100%; box-sizing: border-box; border: 0; padding-left: 50px; color: #635c78; font-size: 1.385em; font-weight: 600; border-radius: 4px; }
 form div.ingredients input[type="text"]::-webkit-input-placeholder { color: #bdb8cc; font-style: italic; }
 form div.ingredients i.zoom { position: absolute; top: 22px; left: 20px; }
-form div.ingredients ul.suggestions { position: absolute; left: 0; top: 60px; width: 100%; display: none; border-top: 1px solid #ebeaf0; height: 96px; overflow: hidden; border-radius: 0 0 4px 4px;}
+form div.ingredients ul.suggestions { position: absolute; left: 0; top: 60px; width: 100%; display: none; border-top: 1px solid #ebeaf0; height: 160px; overflow: hidden; border-radius: 0 0 4px 4px;}
 form div.ingredients ul.suggestions li { display: block; background: #fff; font-size: 1.231em; color: #a09dac; padding: 8px 0; transition: background ease-out 0.3s, color ease-out 0.3s; }
 form div.ingredients ul.suggestions li:last-child { border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; }
 form div.ingredients ul.suggestions li:hover,form div.ingredients ul.suggestions li.text-selected {background: #fe8468; color: #fff; }
@@ -100,7 +105,7 @@ form div.ingredients ul.choosen-ingredients li i { margin-right: 5px; }
 form div.ingredients ul.choosen-ingredients li:hover i { background: url(../images/icons/delete.png) no-repeat; width: 15px; height: 10px; }
 
 form label.vibes { float: left; text-align: center; margin-right: 15px; cursor: pointer; }
-form label.vibes:nth-child(5) { margin-right: 0; }
+form label.vibes:last-of-type { margin-right: 0; }
 form label.vibes input[name="id_ambiance"] { position: absolute; left: -999rem; }
 form label.vibes div { background: #fff; border-radius: 3px; width: 180px; min-height: 360px; position: relative; overflow: hidden; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
 form label.vibes div:hover { box-shadow: 0 0 20px -3px #bebed4; }
@@ -118,7 +123,7 @@ form label.vibes.last { margin-right: 0; }
 /***************/
 /* @group Main */
 /***************/
-section#main { padding: 40px 0; }
+section#main { padding: 40px 0 140px; overflow: hidden; }
 
 section#main > h1 { color: #635c78; font-weight: 700; font-size: 3.077em;   letter-spacing: -0.02em; text-align: center; text-transform: uppercase;  margin-bottom: 15px; }
 section#main > h1 + p { text-align: center; color: #a09dac; font-size: 1.154em; line-height: 1.200em; }
@@ -138,9 +143,6 @@ section#main > form section.advanced-search div.two-thirds { width: 600px; float
 section#main ul.meta { overflow: hidden; }
 section#main ul.meta li { float: left; font-size: 0.846em; text-transform: uppercase; color: #a09dac; font-weight: 600;  margin-right: 20px; transition: opacity ease-out 0.3s; }
 section#main ul.meta li i { margin-right: 5px; margin-bottom: -1px; }
-
-section#main div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
-section#main div.error i.close { float: right; cursor:pointer;}
 
 section.no-result { margin-top: 60px; text-align: center; color: #a09dac; font-weight: 900; font-size: 1.538em; }
 
@@ -297,7 +299,7 @@ section#main.recipe-creation div.title input:hover,
 section#main.recipe-creation div.title input:focus { background: #fff; border-radius: 4px; }
 section#main.recipe-creation div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
 section#main.recipe-creation ul.steps { margin: 20px 0 30px; }
-section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; }
+section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; cursor:pointer; }
 section#main.recipe-creation ul.steps li h2 { color: #cccbd3; text-transform: uppercase; font-weight: 600; font-size: 1.077em; line-height: 1.214em; }
 section#main.recipe-creation ul.steps li h2 span { display: block; text-transform: none; color: #cccbd3; font-size: 1.286em; line-height: 0.944em; }
 section#main.recipe-creation ul.steps li.complete { border: 2px solid #cccbd3; }
@@ -349,6 +351,10 @@ section#main.error { background: #635c78; text-align: center; padding: 150px 0; 
 section#main.error h1 { letter-spacing: 0; text-align: center; color: #716a85; font-size: 17.000em; font-weight: 900; }
 section#main.error h1 span { letter-spacing: 0; display: block; font-size: 0.181em; text-transform: lowercase; font-weight: 600; line-height: 0.575em; }
 section#main.error a { display: inline-block; color: #fff; padding: 15px 20px; background: #fe8468; border-radius: 4px; text-transform: uppercase; font-weight: 700; margin-top: 50px; }
+
+div.error { display: none; box-sizing: border-box; position: fixed; z-index: 1; padding: 25px 20px; width: 100%; top: 0; left: 0; background: #f29285; font-size: 1.231em; font-weight: 700; font-style: italic; color: #fff; text-align: center; } 
+div.error i.close { float: right; cursor:pointer;}
+
 /* @end of Error */
 
 

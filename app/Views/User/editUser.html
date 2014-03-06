@@ -1,86 +1,131 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>What the f*** do i eat tonight?</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../../../public/styles/main.css">
-	</head>
-	<body>
-		<header id="header">
-			<h1>wtfdiet</h1>
-			<nav id="nav">
-				<ul>
-					<li class="active"><a href="">Conciergerie</a></li>
-					<li><a href="">Recettes populaires</a></li>
-					<li><a href="">Toutes les recettes</a></li>
-				</ul>
-			</nav>
-			<nav id="signed-in">
-				<ul>
-					<li><a class="btn" href="">Ajouter une recette</a></li>
-					<li><a href="">
-						<div class="user-img">
-							<img src="http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg" alt="Noah Garcia" /> 
-						</div>
-							Noah Garcia
+<?php include('./app/Views/partials/header.html') ?>
+<div class="wrapper">
+	<section id="main" class="user">
+		<?php include('./app/Views/partials/headerUser.html') ?>
+		<section>
+			<h1>Paramètres du compte</h1>
+			<form action="user/editUser" method="POST" enctype="multipart/form-data" name="editUser">
+				<div>
+					<h3>Prénom</h3>
+					<input type="text" value="<?= $user->firstname_user ?>" name="firstname_user" />
 
-					</a></li>
-					<li><a href=""><i class="settings">Parametres</i></a></li>
-					<li><a href=""><i class="sign-out">Déconnexion</i></a></li>
-				</ul>
-			</nav>
-		</header>
-		<div class="wrapper">
-			<section id="main" class="user">
-				<header>
+					<h3>Nom</h3>
+					<input type="text" value="<?= $user->lastname_user ?>" name="lastname_user"  />
+
+					<h3>Email</h3>
+					<input type="email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" name="mail_user"/>
+				</div>
+				<div>
 					<div class="user-img">
-						<img src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-prn2/t1/1385928_595871953805712_546700963_n.jpg" alt="Noah Garcia" />
+					<?php if(!empty($user->urlImage_user)): ?>
+						<img src="<?= $user->urlImage_user ?>" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+					<?php else: ?>
+						<img src="/public/images/assets/pp-default.png" alt="<?= $user->firstname_user." ".$user->lastname_user ?>" />
+					<?php endif; ?>
 					</div>
-					<h1>Noah Garcia</h1>
-					<p>Incurable coffee. blbablalbl abb abaub rebreibure buoer.</p>
-					<button disabled>C'est vous</button>
-					<ul>
-						<li><a href=""><span>132</span> Abonnements</a></li>
-						<li><a href=""><span>114</span> Abonnés</a></li>
-					</ul>
-				</header>
-				<section>
-					<h1>Paramètres du compte</h1>
-					<form>
-						<div>
-							<h3>Prénom</h3>
-							<input type="text" value="Noah" />
+					<label><input type="file" name="urlImage_user" onchange="readURL(this);"/>Changer la photo</label>
+				</div>
+				<div class="clear"></div>
+				<hr />
+				<h3>Courte description</h3>
+				<textarea name="bio_user"><?= $user->bio_user ?></textarea>
+			<?php if(empty($user->facebookId_user)): ?>
+				<hr />
+				<h3>Nouveau mot de passe</h3>
+				<input type="password"  value="<?= $user->password_user ?>" name="password_user" />
+				<h3>Répétez-le</h3>
+				<input type="password" class="fix" value="<?= $user->password_user ?>" name="password_user_bis" />
+			<?php endif; ?>
+				<hr />
+				<input name="id_user" type="hidden" value="<?= $user->id_user ?>"/>
+				<button type="submit"><i class="checked"></i> Enregistrer les modifications</button>
+			</form>
+			<a href="" class="delete">Supprimer mon compte définitivement.</a>
+		</section>
+	</section>
+	<section id="popin" class="delete" style="display: none;">
+		<i class="close purple">Close</i>
+		<h2>Vous allez nous manquer</h2>
+		<p>Il arrive de faire des erreurs dans la vie, et vous pouvez toujours faire machine arrière... êtes-vous vraiment sûr de vouloir supprimer définitvement votre compte ? </p>
+		<a href="/user/deleteUser/<?= $SESSION['id_user'] ?>">Supprimer mon compte définitivement</a>
+	</section>
+ </div>  
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+	$('.delete, #popin i').click(function() {
+		$('#popin').fadeToggle();
+		return false;
+	});
+	$('form[name="editUser"').submit(function() {
+		var $form = $(this),
+			$error = '';
+		if(!$form.find('input[name="firstname_user"]').val()) {
+			$form.find('input[name="firstname_user"]').focus();
+			$error += "Le prénom est obligatoire. ";
+		}
 
-							<h3>Nom</h3>
-							<input type="text" value="Garcia" />
+		if(!$form.find('input[name="lastname_user"]').val()) {
+			if(!$error) $form.find('input[name="lastname_user"]').focus();
+			$error += "Le nom est obligatoire. ";
+		}
+		if(!$form.find('input[type="email"]').val()) {
+			if(!$error) $form.find('input[type="email"]').focus();
+			$error += "L'email est obligatoire. ";
+		}
+		else if(validMail($form.find('input[type="email"]').val())) {
+			if(!$error) $form.find('input[type="email"]').focus();
+			$error += "L'email est invalide. ";
+		}
+		else if (checkMail($form.find('input[type="email"]').val())) {
+			if(!$error) $form.find('input[type="email"]').focus();
+			$error += "L'email existe déjà. ";
+		}
 
-							<h3>Email</h3>
-							<input type="email" value="noahgarcia@mail.com" />
-						</div>
-						<div>
-							<div class="user-img">
-								<img src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-prn2/t1/1385928_595871953805712_546700963_n.jpg" alt="Noah Garcia" />
-							</div>
-							<label><input type="file" />Changer la photo</label>
-						</div>
-						<div class="clear"></div>
-						<hr />
-						<h3>Courte description</h3>
-						<textarea>Incurable coffee. blbablalbl abb abaub rebreibure buoer.</textarea>
-						<hr />
-						<h3>Nouveau mot de passe</h3>
-						<input type="password" value="ezr" />
-						<h3>Répétez-le</h3>
-						<input type="password" class="fix" value="ezrezrz" />
-						<hr />
-						<button type="submit"><i class="checked"></i> Enregistrer les modifications</button>
-					</form>
-					<a href="" class="delete">Supprimer mon compte définitivement.</a>
-				</section>
-				
-			</section>
-		</div>	
-	</body>
-</html>
+		if($form.find('input[name="password_user"]').length>0) {
+			if(!$form.find('input[name="password_user"]').val()) {
+				$error += "Le mot de passe est obligatoire.";
+				if(!$error) $form.find('input[name="password_user"]').focus();
+			}
+			if(!$form.find('input[name="password_user_bis"]').val()) {
+				if(!$error) $form.find('input[name="password_user_bis"]').focus();
+				$error += "Vous devez confirmez votre mot de passe.";
+			} else if ($form.find('input[name="password_user"]').val() != $form.find('input[name="password_user_bis"]').val()) {
+				if(!$error) $form.find('input[name="password_user"]').focus();
+				$error += "Les deux mot de passe ne se correspondent pas.";
+			}
+		}
+		
+		if(!$error)
+			return true;
+		else
+			showError($error);
+		return false;
+	});
+
+	function checkMail(input) {
+		$.ajax({
+				url:'user/checkMail',
+				method:'POST',
+				data:{ 'mail_user' : input.value }
+		})
+		.success(function(data){
+				if (!data) {
+					return true;
+				}
+		});
+		return false;
+	}
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e){ 
+					$('form img').attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
+<?php include('./app/Views/partials/footer.html') ?>

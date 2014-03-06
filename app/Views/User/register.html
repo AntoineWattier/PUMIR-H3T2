@@ -1,33 +1,27 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>What the f*** do i eat tonight?</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../../../public/styles/main.css">
-	</head>
-	<body>
-		<section id="login">
-			<div class="wrapper">
-				<a href="/"><h1>wtfdiet</h1></a>
-				<p>Inscrivez-vous avec vos identifiants<br />
-					Facebook ou votre e-mail.<p>
-				<a href="" class="fb"><i class="fb">Fb</i>Inscription via Facebook</a>
-				<hr />
-				<form>
-					<input type="text" placeholder="First name" />
-					<input type="text" placeholder="Last name" />
-					<input type="email" placeholder="Email" />
-					<input type="password" placeholder="Mot de passe" />
-					<button type="submit"><i class="checked"></i> Inscription</button>
-				</form>
+<?php include('./app/Views/partials/header.html'); ?>
 
-				<p class="legals">
-					En cliquant sur «Inscription» vous certifiez avoir lu et accepter les Conditions générales d’utilisation.
-				</p>
-				<a href="">J'ai déjà un compte</a>
-			</div>
-		</section>
-	</body>
+	<?php if(isset($_GET['e'])) echo "Veuillez créer un compte pour poster une recette" ?>
+	<div id="fb-root"></div>
+	<section id="login">
+		<div class="wrapper">
+			<a href="/"><h1>wtfdiet</h1></a>
+			<p>Inscrivez-vous avec vos identifiants<br />
+				Facebook ou votre e-mail.<p>
+			<a href="" class="fb"><i class="fb">Fb</i>Inscription via Facebook</a>
+			<hr />
+			<form action="user/register" method="POST" name="register">
+				<input type="text" placeholder="Prénom" name="firstname_user"/>
+				<input type="text" placeholder="Nom" name="lastname_user"/>
+				<input type="email" placeholder="Email" name="mail_user" oninput="checkMail(this)" />
+				<input type="password"  name="password_user" placeholder="Mot de passe" />
+				<button type="submit"><i class="checked"></i> Inscription</button>
+			</form>
+			<p class="legals">
+				En cliquant sur «Inscription» vous certifiez avoir lu et accepté les Conditions Générales d’Utilisation.
+			</p>
+
+			<a href="/user/login">J'ai déjà un compte</a>
+		</div>
+	</section>
+</body>
 </html>

@@ -1,0 +1,97 @@
+<?php include('./app/Views/partials/header.html') ?>
+<body class="clearfix">
+	<h1>Edit Recipe</h1>
+	<?php if($recipe && $steps && $ingredients && $author):?>
+	<section>
+		<h2>Edit your recipe</h2>              
+		<form action="recipe/editRecipe" method="POST">
+			<fieldset>
+				<legend>Nom de la recette:</legend>
+				<input name="name_recipe" type="text" placeholder="Name" value="<?= $recipe->name_recipe ?>"required/><br><br>
+				<input name="id_recipe" type="hidden" value="<?= $recipe->id_recipe ?>"/>
+				<input name="id_user" type="hidden" value="<?= $author->id_user ?>"/>
+				<legend>Ingredients de votre recette:</legend>
+			<?php foreach($ingredients as $i): ?>
+				<br><select name="ingredient_recipe[]">
+					<option value="-1">-----</option>					
+					<?php foreach($allIngredients as $ingredient): ?>
+						<option value="<?= $ingredient->id_ingredient ?>"<?php if($i->id_ingredient == $ingredient->id_ingredient) echo 'selected' ?> ><?= $ingredient->name_ingredient ?></option>
+					<?php endforeach ?>
+				</select>
+			<?php endforeach ?>
+			<?php if(isset($allIngredients)):?>
+				<br><select name="ingredient_recipe[]">
+					<option value="-1" selected>-----</option>
+					<?php foreach($allIngredients as $ingredient): ?>
+						<option value="<?= $ingredient->id_ingredient ?>" ><?= $ingredient->name_ingredient ?></option>
+					<?php endforeach ?>
+				</select>
+			<?php endif; ?>
+
+				<legend>Étapes de la recette:</legend>
+			<?php foreach($steps as $step): ?>
+				+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape" value="<?= $step->content_step ?>"  /><br>
+			<?php endforeach ?>
+				+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape"  /><br>	
+
+
+				<legend>Difficulté:</legend>
+				<?php if(isset($difficulties)):?>
+					<?php foreach($difficulties as $difficulty): ?>
+						<input type="radio" name="id_difficulty" value="<?= $difficulty->id_difficulty ?>" <?php if($recipe->id_difficulty == $difficulty->id_difficulty ) echo 'checked' ?>> <?= $difficulty->name_difficulty ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
+				<legend>Temps de préparation:</legend>
+				<?php if(isset($preparationTimes)):?>
+					<?php foreach($preparationTimes as $preparationTime): ?>
+						<input type="radio" name="id_preparationTime" value="<?= $preparationTime->id_preparationTime ?>" <?php if($recipe->id_preparationTime == $preparationTime->id_preparationTime ) echo 'checked' ?>> <?= $preparationTime->name_preparationTime ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
+				<legend>Type de plat:</legend>
+				<?php if(isset($types)):?>
+					<?php foreach($types as $type): ?>
+						<input type="radio" name="id_type" value="<?= $type->id_type ?>" <?php if($recipe->id_type == $type->id_type ) echo 'checked' ?>> <?= $type->name_type ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
+				<legend>Nombre de personnes:</legend>
+				<input name="numberOfPeople_recipe" type="number" placeholder="Nombre de personnes" min="1" max="15" value="<?= $recipe->numberOfPeople_recipe ?>" required/><br>
+				<legend>Ambiance de votre recette:</legend>
+				<?php if(isset($ambiances)):?>
+					<?php foreach($ambiances as $ambiance): ?>
+						<input type="radio" name="id_ambiance" value="<?= $ambiance->id_ambiance ?>" <?php if($recipe->id_ambiance == $ambiance->id_ambiance) echo 'checked' ?>> <?= $ambiance->name_ambiance ?><br>
+					<?php endforeach ?>
+				<?php endif; ?>
+				
+				<br><br><input type="submit" value="Edit recipe"/>
+			</fieldset>
+		</form>
+	</section>
+	<?php else: ?>
+		Recipe not found
+	<?php endif; ?>
+	<br>
+	<button onclick="window.history.back()">Retour</button>
+	<script type="text/javascript">
+	$('form').on('keydown',function(e){
+		if(e.keyCode == 13){
+			e.preventDefault();
+		}
+	});
+	$('fieldset').on('focus','input[name="step_recipe[]"]',function(e){
+		$('input[name="step_recipe[]"]').on('keydown',function(e){
+			$this = $(this);
+			if(e.keyCode == 13 && $('input[name="step_recipe[]"]:last').val() != ''){
+				e.preventDefault();
+				$('<br>+<input name="step_recipe[]" type="textarea" placeholder="Ajouter une étape"/>').insertAfter('input[name="step_recipe[]"]:last');
+			}
+		});
+	});
+	$('fieldset').on('change','select:last',function(e){
+		$this=$(this);
+		if($('select option:selected').val() != -1 ){
+			var tmp = '<br><select  name="ingredient_recipe[]">'+$this.html()+ '</select>';
+			$( tmp ).insertAfter('select:last');
+		}
+	})
+	</script>
+<?php include('./app/Views/partials/footer.html') ?>

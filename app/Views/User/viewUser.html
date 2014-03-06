@@ -1,132 +1,93 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>What the f*** do i eat tonight?</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../../../public/styles/main.css">
-	</head>
-	<body>
-		<header id="header">
-			<h1>wtfdiet</h1>
-			<nav id="nav">
-				<ul>
-					<li class="active"><a href="">Conciergerie</a></li>
-					<li><a href="">Recettes populaires</a></li>
-					<li><a href="">Toutes les recettes</a></li>
-				</ul>
-			</nav>
-			<nav id="sign-in">
-				<ul>
-					<li><a href="">Se connecter</a></li>
-					<li><a class="btn" href="">Créer un compte</a></li>
-				</ul>
-			</nav>
-		</header>
-		<div class="wrapper">
-			<section id="main" class="user recipes">
-				<header>
-					<img src="" alt="Noah Garcia" />
-					<h1>Noah Garcia</h1>
-					<p>Incurable coffee. blbablalbl abb abaub rebreibure buoer.</p>
-					<button disabled>C'est vous</button>
-					<ul>
-						<li><a href=""><span>132</span> Abonnements</a></li>
-						<li><a href=""><span>114</span> Abonnés</a></li>
-					</ul>
-				</header>
-				<section>
+<?php include('./app/Views/partials/header.html') ?>
+	<?php if($user):?>
+		  	<div class="wrapper">
+				<section id="main" class="user recipes">
+					<?php include('./app/Views/partials/headerUser.html') ?>
+					
 					<h3><span class="posted">Recettes postées</span> <i class="switch on"></i> <span class="disabled favorited">Recettes favorites</span></h3>
 					<section class="posted">
+					<?php if($recipes):?> 
+					<?php foreach ($recipes as $recipe):?>
 						<article>
-							<img src="http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg" alt="" />
+							<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
 							<div>
-								<a class="like" href=""><i class="heart"></i>32</a>
-								<a href="">
-									<h1>Filets de poisson impromptus, à la crème et aux échalotes</h1>
-									<ul>
-										<li><i class="time"></i>20 min</li>
-										<li><i class="cup"></i>Avancé</li>
-										<li><i class="bell"></i>Plat principal</li>
+								<?php if(isset($SESSION['id_user'])): ?>
+								<!-- NEED TO FIX HERE - TEMP SOLUTION -->
+								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
+								<?php else: ?>
+								<a class="like" href="/user/register"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
+								<?php endif; ?>
+								<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+									<h1><?= $recipe->name_recipe ?></h1>
+									<ul class="meta">
+										<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+										<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+										<li><i class="bell"></i><?= $recipe->name_type ?></li>
 									</ul>
 								</a>
 							</div>
 						</article>
-						<article>
-							<div>
-								<a class="like liked" href=""><i class="heart"></i>32</a>
-								<a href="">
-									<h1>Filets de poisson impromptus, à la crème et aux échalotes</h1>
-									<ul>
-										<li><i class="time"></i>20 min</li>
-										<li><i class="cup"></i>Avancé</li>
-										<li><i class="bell"></i>Plat principal</li>
-									</ul>
-								</a>
-							</div>
-						</article>
-						<article>
-							<img src="http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg" alt="" />
-							<div>
-								<a class="like" href=""><i class="heart"></i>32</a>
-								<a href="">
-									<h1>Filets de poisson impromptus, à la crème et aux échalotes</h1>
-									<ul>
-										<li><i class="time"></i>20 min</li>
-										<li><i class="cup"></i>Avancé</li>
-										<li><i class="bell"></i>Plat principal</li>
-									</ul>
-								</a>
-							</div>
-						</article>
+					<?php endforeach; ?>
+					<?php else: ?>
+						<section class="no-result">
+							<p>Aucune recette trouvée ici :(</p>
+						</section>
+					<?php endif; ?>
 					</section>
 					<section class="favorited hidden">
-						<article>
-							<img src="http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg" alt="" />
-							<div>
-								<a class="like" href=""><i class="heart"></i>32</a>
-								<a href="">
-									<h1>Filets de poisson impromptus, à la crème et aux échalotes</h1>
-									<ul>
-										<li><i class="time"></i>20 min</li>
-										<li><i class="cup"></i>Avancé</li>
-										<li><i class="bell"></i>Plat principal</li>
-									</ul>
-								</a>
-							</div>
-						</article>
-						<article>
-							<div>
-								<a class="like liked" href=""><i class="heart"></i>32</a>
-								<a href="">
-									<h1>Filets de poisson impromptus, à la crème et aux échalotes</h1>
-									<ul>
-										<li><i class="time"></i>20 min</li>
-										<li><i class="cup"></i>Avancé</li>
-										<li><i class="bell"></i>Plat principal</li>
-									</ul>
-								</a>
-							</div>
-						</article>
-						<article>
-							<img src="http://distilleryimage10.ak.instagram.com/2edcbb1a9fa411e3859712a851556c4a_8.jpg" alt="" />
-							<div>
-								<a class="like" href=""><i class="heart"></i>32</a>
-								<a href="">
-									<h1>Filets de poisson impromptus, à la crème et aux échalotes</h1>
-									<ul>
-										<li><i class="time"></i>20 min</li>
-										<li><i class="cup"></i>Avancé</li>
-										<li><i class="bell"></i>Plat principal</li>
-									</ul>
-								</a>
-							</div>
-						</article>
+						<?php if($favorites):?> 
+						<?php foreach ($favorites as $recipe):?>
+							<article>
+								<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+								<div>
+									<?php if(isset($SESSION['id_user'])): ?>
+									<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+									<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+									<?php else: ?>
+									<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+									<?php endif; ?>
+									<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+										<h1><?= $recipe->name_recipe ?></h1>
+										<ul class="meta">
+											<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+											<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+											<li><i class="bell"></i><?= $recipe->name_type ?></li>
+										</ul>
+									</a>
+								</div>
+							</article>
+						<?php endforeach; ?>
+						<?php else: ?>
+							<section class="no-result">
+								<p>Aucune recette trouvée ici :(</p>
+							</section>
+						<?php endif; ?>
 					</section>
 				</section>
-				
-			</section>
-		</div>	
-	</body>
-</html>
+			</div>	
+	<?php else: ?>
+		<section class="no-result">
+			<p>Aucun utilisateur trouvé ici :(</p>
+		</section>
+	<?php endif; ?>
+	<script type="text/javascript">
+	$('h3 span').on('click',function(e){
+		e.preventDefault();
+		var $this = $(this);
+
+		 if($this.hasClass('posted')){
+		 	$('section.favorited').addClass('hidden');
+			$('section.posted').removeClass('hidden');
+			$('span.posted').removeClass('disabled');
+			$('span.favorited').addClass('disabled');
+			$('i.switch').addClass('on').removeClass('off');
+		} else {
+			$('section.favorited').removeClass('hidden');
+			$('section.posted').addClass('hidden');
+			$('span.posted').addClass('disabled');
+			$('span.favorited').removeClass('disabled');
+			$('i.switch').removeClass('on').addClass('off');
+		}
+	});
+	</script>
+<?php include('./app/Views/partials/footer.html') ?>
