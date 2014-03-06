@@ -188,10 +188,11 @@ section#main.recipe article header h1 span a { display: inline-block; border-bot
 section#main.recipe article header hr { margin: 15px 0; }
 section#main.recipe article header a.edit { color: #fff; background: #fe8468; padding: 15px 20px 13px; display: inline-block; border-radius: 3px; margin: 15px 0 0; font-weight: 600; text-transform: uppercase; transition: opacity ease-out 0.3s; }
 section#main.recipe article header a.edit:hover { opacity: 0.8; }
-section#main.recipe article header a.like { box-sizing: border-box; padding: 25px 10px 5px 11px; display: block; float: left; border-radius: 4px; background: url(../images/icons/heart.png) no-repeat 11px 10px; width: 40px; margin-right: 10px; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 1px solid #635c78; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
+section#main.recipe article header a.like { box-sizing: border-box; padding: 25px 10px 5px 11px; display: block; float: left; border-radius: 4px; background: url(../images/icons/heart.png) no-repeat 11px 10px; width: 40px; margin-right: 35px; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 1px solid #635c78; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipe article header a.like:hover { opacity: 0.5; }
 section#main.recipe article header a.liked { border: 1px solid #fe8468; background: url(../images/icons/heart-full.png) no-repeat 11px 10px; color: #fe8468; }
-
+section#main.recipe article header h3 { padding-top: 5px; }
+section#main.recipe article header ul.social li { display: inline-block; }
 
 section#main.recipe article section.steps { box-sizing: border-box; padding: 25px; width: 615px; margin: 25px 0 0 25px; background: #fff; border-radius: 4px; float: left; }
 section#main.recipe article section.steps > ul > li { min-height: 60px; position: relative; overflow: hidden; border-bottom: 1px solid #f4f4f7; padding: 15px 10px 15px 60px; }
