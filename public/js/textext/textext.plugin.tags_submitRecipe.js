@@ -412,6 +412,7 @@
 			self.removeTag(source.parent().parent().text());
 		else 
 			return false;
+
 		core.focusInput();
 	};
 
@@ -630,13 +631,15 @@
 		else
 		{
 			element = self.getTagElement(tag);
+			console.log(element);
 			if (element === null) {
 				return;
 			}
 		}
-		element.fadeOut('slow', function() {
-			element.remove();
-		});
+		// element.fadeOut('slow', function() {
+		// 	element.remove();
+		// });
+
 		self.updateFormCache();
 		core.getFormData();
 		core.invalidateBounds();

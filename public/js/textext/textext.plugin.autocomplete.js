@@ -439,12 +439,12 @@
 	 */
 	p.onBackspaceKeyPress = function(e)
 	{
-		// var self    = this,
-		// 	isEmpty = self.val().length > 0
-		// 	;
+		var self    = this,
+			isEmpty = self.val().length > 0
+			;
 
-		// if(isEmpty || self.isDropdownVisible())
-		// 	self.getSuggestions();
+		if(isEmpty || self.isDropdownVisible())
+			self.getSuggestions();
 	};
 
 	/**
