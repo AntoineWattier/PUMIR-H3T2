@@ -164,8 +164,8 @@
 			},
 
 			html : {
-				tags : '<ul class="choosen-ingredients text-tags"/>',
-				tag : '<li class="text-label"/>'
+				tags : '<ul class="ingredients text-tags" />',
+				tag : '<li class="text-label" />'
 			}
 		}
 		;
@@ -192,7 +192,8 @@
 		if(self.opts(OPT_ENABLED))
 		{
 			container = $(self.opts(OPT_HTML_TAGS));
-			input.after(container);
+
+			$('.step1 .one-third').prepend(container);
 
 			$(self).data('container', container);
 
@@ -405,10 +406,13 @@
 			tag
 			;
 
-		if(source.is(CSS_DOT_TAGS))
-			self.removeTag(source.text());
-		else if(source.is('.checked'))
+		if(source.is('.delete'))
 			self.removeTag(source.parent().text());
+		else if(source.parent().is('.delete'))
+			self.removeTag(source.parent().parent().text());
+		else 
+			return false;
+
 		core.focusInput();
 	};
 
@@ -460,7 +464,6 @@
 
 		self.tagElements().each(function()
 		{
-			console.log($(this).data(CSS_TAG));
 			result.push($(this).data(CSS_TAG));
 		});
 
@@ -556,13 +559,16 @@
 			container = self.containerElement(),
 			i, tag
 			;
-
+			
 		for(i = 0; i < tags.length; i++)
 		{
 			tag = tags[i];
 
-			if(tag && self.isTagAllowed(tag))
+			if(tag && self.isTagAllowed(tag)) {
 				container.append(self.renderTag(tag));
+				container.find('li:last-child').fadeIn();
+			}
+
 		}
 
 		self.updateFormCache();
@@ -591,9 +597,8 @@
 
 		for(i = 0; i < list.length; i++) {
 			item = $(list[i]);
-			if(item.data(CSS_TAG).label == tag)
+			if(item.data(CSS_TAG).label == tag.replace('Delete', ''))
 				return item;
-
 		}
 		
 		return null;
@@ -617,8 +622,7 @@
 			core = self.core(),
 			element
 			;
-
-
+			
 		if(tag instanceof $)
 		{
 			element = tag;
@@ -627,14 +631,14 @@
 		else
 		{
 			element = self.getTagElement(tag);
-			console.log(element);
 			if (element === null) {
-				alert();
 				return;
 			}
 		}
+		element.fadeOut('slow', function() {
+			element.remove();
+		});
 
-		//element.remove();
 		self.updateFormCache();
 		core.getFormData();
 		core.invalidateBounds();
@@ -658,8 +662,8 @@
 			node = $(self.opts(OPT_HTML_TAG))
 			;
 
-		node.html('<i class="checked sm"></i>'+self.itemManager().itemToString(tag));
-		node.data(CSS_TAG, tag);
+		node.html(self.itemManager().itemToString(tag)+'<input type="text" placeholder="Précisions et quantités"><span class="delete"><i class="close purple">Delete</i>');
+		node.data(CSS_TAG, tag).css('display', 'none');
 		return node;
 	};
 })(jQuery);
