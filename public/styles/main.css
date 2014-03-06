@@ -341,8 +341,9 @@ section#main.recipe-creation section.step3 div.one-third.last { margin-right: 0;
 section#main.recipe-creation section.step3 hr { margin: 30px 0 20px;}
 section#main.recipe-creation section.step3 h3.photo { margin-top: 40px; font-family: "Damion", cursive; text-transform: none; font-size: 1.846em; text-align: center; font-weight: normal; font-style: normal; }
 section#main.recipe-creation section.step3 p.intro { text-align: center; color: #a09dac;}
-section#main.recipe-creation section.step3 button.camera { display: block; border: 2px solid #fe8468; color: #fe8468; background: transparent; font-weight: 600; text-transform: uppercase; border-radius: 4px; margin: 20px auto; padding: 10px 15px; font-size: 1.077em; }
-section#main.recipe-creation section.step3 button.camera i { margin-right: 10px; }
+section#main.recipe-creation section.step3 button.camera { cursor: pointer; display: block; border: 2px solid #fe8468; color: #fe8468; background: transparent; font-weight: 600; text-transform: uppercase; border-radius: 4px; margin: 20px auto; padding: 10px 15px; font-size: 1.077em; transition: opacity ease-out 0.3s; }
+section#main.recipe-creation section.step3 button.camera:hover { opacity: 0.8;}
+section#main.recipe-creation section.step3 button.camera i { margin-right: 10px; margin-top: 2px;}
 /* @end of Create-recipe */
 
 
