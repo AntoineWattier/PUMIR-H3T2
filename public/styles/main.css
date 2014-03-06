@@ -177,6 +177,8 @@ section#main.recipes article div a:hover ul li { opacity: 0.5; }
 /*****************/
 /* @group Recipe */
 /*****************/
+section#main.recipe a.cancel { text-transform: uppercase; color: #635c78; font-weight: 600; font-size: 0.923em; }
+
 section#main.recipe article header { background: #fff; position: relative; border-radius: 4px;  padding: 25px 25px 25px 345px; box-sizing: border-box; margin-top: 20px;}
 section#main.recipe article header.no-image { padding: 25px; }
 section#main.recipe article header img { width: 320px; height: 320px; position: absolute; border-radius: 4px; left: 0; top: -10px; }
@@ -184,7 +186,8 @@ section#main.recipe article header h1 { margin-bottom: 10px; color: #635c78; tex
 section#main.recipe article header h1 span { display: block; font-size: 0.500em; color: #a19ead; font-weight: 600; margin-bottom: 10px; }
 section#main.recipe article header h1 span a { display: inline-block; border-bottom: 2px solid #a18ead; color: #a19ead; }
 section#main.recipe article header hr { margin: 15px 0; }
-
+section#main.recipe article header a.edit { color: #fff; background: #fe8468; padding: 15px 20px 13px; display: inline-block; border-radius: 3px; margin: 15px 0 0; font-weight: 600; text-transform: uppercase; transition: opacity ease-out 0.3s; }
+section#main.recipe article header a.edit:hover { opacity: 0.8; }
 section#main.recipe article header a.like { box-sizing: border-box; padding: 25px 10px 5px 11px; display: block; float: left; border-radius: 4px; background: url(../images/icons/heart.png) no-repeat 11px 10px; width: 40px; margin-right: 10px; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 1px solid #635c78; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipe article header a.like:hover { opacity: 0.5; }
 section#main.recipe article header a.liked { border: 1px solid #fe8468; background: url(../images/icons/heart-full.png) no-repeat 11px 10px; color: #fe8468; }
@@ -210,6 +213,7 @@ section#main.recipe article section.steps ul.comments li input { font-family: "S
 section#main.recipe article section.steps ul.comments li:last-child { background-color: transparent; text-align: right; text-decoration: underline; padding: 0; cursor: pointer; }
 
 section#main.recipe article aside { margin-top: 130px; width: 320px; float: left; overflow: hidden;}
+section#main.recipe article aside.no-img { margin-top: 30px; }
 section#main.recipe article aside ul.ingredients { margin-bottom: 30px;}
 section#main.recipe article aside ul.ingredients li:first-child { border-top: 1px solid #635c78; }
 section#main.recipe article aside ul.ingredients li { border-bottom: 1px solid #dedee4; color: #635c78; padding: 15px 10px; text-transform: uppercase; font-weight: 600; }
@@ -300,7 +304,7 @@ section#main.recipe-creation div.title { position: relative; border-bottom: 1px 
 section#main.recipe-creation div.title input { height: 60px; border-radius: 0; margin: 0; width: 100%; background: transparent; font-weight: 700; font-size: 3.692em; color: #635c78; transition: background ease-out 0.3s; }
 section#main.recipe-creation div.title input:hover,
 section#main.recipe-creation div.title input:focus { background: #fff; border-radius: 4px; }
-section#main.recipe-creation div.title input::-webkit-input-placeholder { font-style: normal; color: #a09dac; }
+section#main.recipe-creation div.title input::-webkit-input-placeholder { font-style: normal; color: #cccbd3; }
 section#main.recipe-creation ul.steps { margin: 20px 0 30px; }
 section#main.recipe-creation ul.steps li { display: inline-block; margin-right: 20px; background: transparent; border: 2px dashed #cccbd3; border-radius: 4px; box-sizing: border-box; width: 155px; padding: 10px 15px; cursor:pointer; }
 section#main.recipe-creation ul.steps li h2 { color: #cccbd3; text-transform: uppercase; font-weight: 600; font-size: 1.077em; line-height: 1.214em; }
@@ -451,6 +455,9 @@ i.close.purple {
   width: 20px; height: 21px; }
 i.camera {
   background: url(../images/icons/camera.png) no-repeat;
-  width: 24px; height: 18px;}
+  width: 24px; height: 18px; }
+i.tag {
+  background: url(../images/icons/tag.png) no-repeat;
+  width: 13px; height: 13px; }
 /* @end of Icons */
 /* @end of Master */

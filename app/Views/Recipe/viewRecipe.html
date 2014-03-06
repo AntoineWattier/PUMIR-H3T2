@@ -2,7 +2,7 @@
 	<?php if($recipe && $steps && $ambiance && $ingredients && $author):?>
 	<section id="main" class="recipe">
 		<div class="wrapper">
-			<a href="" onclick="window.history.back()">« Retour aux résultats</a>
+			<a href="" class="cancel" onclick="window.history.back()">« Retour aux résultats</a>
 			<article>
 				<header <?php if(empty($recipe->urlImage_recipe)) 	echo 'class="no-image"'?>>
 					<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
@@ -14,7 +14,9 @@
 						<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
 						<li><i class="cup"></i><?= $recipe->name_difficulty ?></li>
 						<li><i class="bell"></i><?= $recipe->name_type ?></li>
+						<li><i class="tag"></i>ANTOINE MET L'AMBIANCE DE LA RECETTE ICI</li>
 					</ul>
+					<a href="" class="edit">Modifier la recette</a>
 					<hr />
 					<?php if(isset($SESSION['id_user'])): ?>
 					<a class="like <?php if(!$isFavorite) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
@@ -25,7 +27,7 @@
 					<div class="clear"></div>
 				</header>
 
-				<aside>
+				<aside class="no-img">
 					<h3>Ingrédients</h3>
 					<ul class="ingredients">
 						<?php foreach ($ingredients as $ingredient): ?>
