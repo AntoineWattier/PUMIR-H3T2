@@ -13,6 +13,9 @@
 <?php include('./app/Views/partials/header.html') ?>
 <?php /*include('./app/Views/partials/instagram.html') */?>
 
+<?php //foreach ($ingredients as $ingredient): var_dump($ingredient->id_ingredient / name_ingredient / quantity_ingredient); ?>
+
+<?php //endforeach; ?>
 
 <section id="main" class="recipe-creation">
 	<div class="wrapper">
@@ -219,6 +222,30 @@
 				if($error) 
 					showError($error);
 			});
+
+
+			<?php if (isset($ingredients)) : ?>
+				$.ajax({
+					url : '/recipe/getAllIngredientsJSON',
+					dataType : 'json',
+					success : function(data) {
+						var result = $.parseJSON(JSON.stringify(data));
+						$.each(result, function(k, v) {
+							<?php $count = count($ingredients); $i = 0; ?>
+							if( <?php foreach ($ingredients as $ingredient) : ?>
+									<?php $i++; ?>
+									v.value == <?php echo $ingredient->id_ingredient; ?> <?php if($i != $count) { echo '|| '; } ?>
+								 <?php endforeach; ?>
+							 ) {
+								$ingredients = result[k];
+								TextExtTags.textext()[0].tags().addTags([$ingredients]);
+							}
+						});
+					}
+				});
+			<?php endif; ?>
+
+
 
 	$('form').on('keydown',function(e){
 		if(e.keyCode == 13)
