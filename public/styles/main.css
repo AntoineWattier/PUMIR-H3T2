@@ -277,12 +277,12 @@ section#main.user header + section form hr { margin: 5px auto 50px; }
 
 section#main.user header + section a.delete { display: block; color: #635c78; font-size: 1.077em; margin-top: 50px; }
 
-section#main.recipes.user { padding-left: 0; overflow: hidden; width: 960px; margin: 0 auto; box-sizing: border-box; }
-section#main.recipes.user article:nth-child(odd) { margin-right: 0; } /* before masonry */
+section#main.recipes.user { padding-left: 0; overflow: hidden; width: 960px; margin: 0 auto; box-sizing: border-box; position: relative;}
 section#main.recipes.user h3 { text-align: center; margin-bottom: 40px; }
 section#main.recipes.user h3 span.disabled { cursor: pointer; color: #a09dac; transition: opacity ease-out 0.3s; }
 section#main.recipes.user h3:hover span.disabled { opacity: 0.8; color: #a09dac; }
 section#main.recipes.user h3 i { margin: 0 15px -2px; }
+section#main.recipes.user>div { width: 100%; position: absolute;}
 
 section#main.user.following header + section ul li { border-bottom: 1px solid #eae9ee; }
 section#main.user.following header + section ul li a { display: block; padding: 30px 0; background: url(../images/icons/arrow-side.png) no-repeat right center; transition: background ease-out 0.3s;  }
@@ -291,6 +291,7 @@ section#main.user.following header + section ul li a:hover h2 { color: #fe8468; 
 
 section#main.user.following header + section ul li a p { color: #a09dac; font-size: 1.077em; }
 
+section#main.user 
 
 section.favorited, section.posted { padding-left: 270px; box-sizing: border-box;}
 section.favorited.hidden, section.posted.hidden { visibility:hidden; } 
