@@ -245,7 +245,7 @@ section#login a:last-child { display: block; margin-top: 20px; color: #a09dac; }
 /***************/
 /* @group User */
 /***************/
-section#main.user header { width: 240px; float: left; }
+section#main.user header { width: 240px; float: left; position: relative; z-index: 3; }
 section#main.user header div.user-img { overflow: hidden; position: relative; width: 160px; height: 160px; border-radius: 100%; margin-bottom: 30px; }
 section#main.user header img { position: absolute; margin: auto; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: auto; }
 
@@ -271,7 +271,7 @@ section#main.user header + section form div div.user-img img { position: absolut
 section#main.user header + section form div label { font-family: "Source Sans Pro", sans-serif;  margin: 0 auto; font-size: 1.154em; color: #fff; text-transform: uppercase; font-weight: 600; display: inline-block; border-radius: 3px; border: 0; padding: 15px 20px; background: #635c78; cursor: pointer; }
 section#main.user header + section form div input[type="file"] { display: none;}
 section#main.user header + section form input { margin-bottom: 20px; font-size: 1.231em; }
-section#main.user header + section form div input:last-child,
+section#main.user header + section form div input:last-child, 
 section#main.user header + section form input.fix { margin-bottom: 5px; }
 section#main.user header + section form hr { margin: 5px auto 50px; }
 
@@ -282,7 +282,8 @@ section#main.recipes.user h3 { text-align: center; margin-bottom: 40px; }
 section#main.recipes.user h3 span.disabled { cursor: pointer; color: #a09dac; transition: opacity ease-out 0.3s; }
 section#main.recipes.user h3:hover span.disabled { opacity: 0.8; color: #a09dac; }
 section#main.recipes.user h3 i { margin: 0 15px -2px; }
-section#main.recipes.user>div { width: 100%; position: absolute;}
+section#main.recipes.user>div { width: 100%; position: absolute; z-index: 2;}
+section#main.recipes.user>div.hidden { visibility:hidden; z-index:1;} 
 
 section#main.user.following header + section ul li { border-bottom: 1px solid #eae9ee; }
 section#main.user.following header + section ul li a { display: block; padding: 30px 0; background: url(../images/icons/arrow-side.png) no-repeat right center; transition: background ease-out 0.3s;  }
@@ -291,10 +292,8 @@ section#main.user.following header + section ul li a:hover h2 { color: #fe8468; 
 
 section#main.user.following header + section ul li a p { color: #a09dac; font-size: 1.077em; }
 
-section#main.user 
-
 section.favorited, section.posted { padding-left: 270px; box-sizing: border-box;}
-section.favorited.hidden, section.posted.hidden { visibility:hidden; } 
+
 
 /* @end of User */
 

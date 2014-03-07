@@ -36,8 +36,8 @@
 						<?php endif; ?>
 						</section>
 					</div>
-					<div>
-						<section class="favorited hidden">
+					<div class="hidden">
+						<section class="favorited">
 							<?php if($favorites):?> 
 							<?php foreach ($favorites as $recipe):?>
 								<article>
@@ -92,7 +92,7 @@
 		e.preventDefault();
 		var $this = $(this);
 
-	 	$('section.favorited,section.posted').toggleClass('hidden');
+	 	$('section.favorited,section.posted').parent().toggleClass('hidden');
 		$('span.posted, span.favorited').toggleClass('disabled');
 		if($('i.switch').hasClass('on')) {
 			$('i.switch').removeClass('on').addClass('off');
