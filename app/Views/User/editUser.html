@@ -13,7 +13,7 @@
 					<input type="text" value="<?= $user->lastname_user ?>" name="lastname_user"  />
 
 					<h3>Email</h3>
-					<input type="email" oninput="checkMail(this)" value="<?= $user->mail_user ?>" name="mail_user"/>
+					<input type="email" value="<?= $user->mail_user ?>" name="mail_user"/>
 				</div>
 				<div>
 					<div class="user-img">
@@ -32,9 +32,9 @@
 			<?php if(empty($user->facebookId_user)): ?>
 				<hr />
 				<h3>Nouveau mot de passe</h3>
-				<input type="password"  value="<?= $user->password_user ?>" name="password_user" />
+				<input type="password"  value="" name="password_user" />
 				<h3>Répétez-le</h3>
-				<input type="password" class="fix" value="<?= $user->password_user ?>" name="password_user_bis" />
+				<input type="password" class="fix" value="" name="password_user_bis" />
 			<?php endif; ?>
 				<hr />
 				<input name="id_user" type="hidden" value="<?= $user->id_user ?>"/>
@@ -50,7 +50,7 @@
 		<a href="/user/deleteUser/<?= $SESSION['id_user'] ?>">Supprimer mon compte définitivement</a>
 	</section>
  </div>  
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<?php include('./app/Views/partials/scripts.html') ?>
 <script>
 	$('.delete, #popin i').click(function() {
 		$('#popin').fadeToggle();
@@ -76,20 +76,13 @@
 			if(!$error) $form.find('input[type="email"]').focus();
 			$error += "L'email est invalide. ";
 		}
-		else if (checkMail($form.find('input[type="email"]').val())) {
+		else if (checkMail($form.find('input[type="email"]'))) {
 			if(!$error) $form.find('input[type="email"]').focus();
 			$error += "L'email existe déjà. ";
 		}
 
 		if($form.find('input[name="password_user"]').length>0) {
-			if(!$form.find('input[name="password_user"]').val()) {
-				$error += "Le mot de passe est obligatoire.";
-				if(!$error) $form.find('input[name="password_user"]').focus();
-			}
-			if(!$form.find('input[name="password_user_bis"]').val()) {
-				if(!$error) $form.find('input[name="password_user_bis"]').focus();
-				$error += "Vous devez confirmez votre mot de passe.";
-			} else if ($form.find('input[name="password_user"]').val() != $form.find('input[name="password_user_bis"]').val()) {
+			if ($form.find('input[name="password_user"]').val() != $form.find('input[name="password_user_bis"]').val()) {
 				if(!$error) $form.find('input[name="password_user"]').focus();
 				$error += "Les deux mot de passe ne se correspondent pas.";
 			}
@@ -101,31 +94,5 @@
 			showError($error);
 		return false;
 	});
-
-	function checkMail(input) {
-		$.ajax({
-				url:'user/checkMail',
-				method:'POST',
-				data:{ 'mail_user' : input.value }
-		})
-		.success(function(data){
-				if (!data) {
-					return true;
-				}
-		});
-		return false;
-	}
-
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-
-			reader.onload = function (e){ 
-					$('form img').attr('src', e.target.result);
-			};
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
 </script>
 <?php include('./app/Views/partials/footer.html') ?>
