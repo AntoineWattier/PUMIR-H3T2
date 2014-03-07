@@ -50,7 +50,7 @@
 					<h3>Ingrédients</h3>
 					<ul class="ingredients">
 						<?php foreach ($ingredients as $ingredient): ?>
-							<li><?= $ingredient->name_ingredient ?><span><?= $ingredient->quantity_ingredient ?></span></li>
+							<li><?= $ingredient->name_ingredient ?><?php if($ingredient->quantity_ingredient != '') echo'<span>'.$ingredient->quantity_ingredient.'</span>'?></li>
 						<?php endforeach; ?>
 					</ul>
 				</aside>
@@ -73,10 +73,6 @@
 					</ul>
 
 				</section>
-				<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $recipe->id_user): ?>
-				<a href="recipe/editRecipe/<?= $recipe->id_recipe?>" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
-				<a href="#" class="btn btn-danger"><i class="icon-remove icon-white"></i>Delete</a>
-			<?php endif; ?>
 			</article>
 		</div>
 	</section>
