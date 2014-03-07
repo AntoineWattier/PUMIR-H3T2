@@ -96,12 +96,7 @@ $('a.advanced-search').on('click', function(e){
 
 $('input[name="id_preparationTime"],input[name="id_difficulty"],input[name="id_type"]').on('click',getRecipes);
 $('select[name="id_ambiance"]').on('change',getRecipes);
-$('body').on('change', 'input[name="ingredients"]', function() {
-	alert('vh');
-});
-$(document).ready(function() {
-	$('input[name="ingredients"]'));
-});
+
 
 
 function getRecipes(e){
@@ -130,6 +125,8 @@ function getRecipes(e){
 		$('.recipes').append(data);
 	});
 }
+
+
 
 
 

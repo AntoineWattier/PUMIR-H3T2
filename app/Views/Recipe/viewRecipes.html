@@ -97,6 +97,7 @@
 		$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
 		$('.error').slideDown().delay('3000').slideUp();
 	}
+	
 	var $ingredients;
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
 				plugins :'autocomplete filter tags ajax',
@@ -106,7 +107,24 @@
 								cacheResults : true
 						},
 						ext: {
-						itemManager: {
+							tags : {
+								addTags: function(tags) {
+									
+           							 $.fn.textext.TextExtTags.prototype.addTags.apply(this, arguments);
+           							 if(this._formData.length)
+           							 	getRecipesByTags(this._formData);
+           							 
+
+								},
+								removeTag: function(tags) {
+									
+           							 $.fn.textext.TextExtTags.prototype.removeTag.apply(this, arguments);
+           							 if(this._formData.length)
+           							 	getRecipesByTags(this._formData);
+
+								}
+							},
+							itemManager: {
 								stringToItem: function(str)
 								{
 										var val;
@@ -159,10 +177,31 @@
 			if($error) 
 				showError($error);
 		});
+			
+			function getRecipesByTags(tags) {
 
-			$('body').on('change', 'input[name="ingredients"]', function() {
-	alert('vh');
-});
+				var str = "/recipe/getRecipesByFilter/vote/"
+				+$('select[name="id_ambiance"] option:checked').val()
+				+'/'+$('input[name="id_preparationTime"]:checked').val()
+				+'/'+$('input[name="id_difficulty"]:checked').val()
+				+'/'+$('input[name="id_type"]:checked').val();
+
+				for (var i = 0; i < tags.length; i++) {
+					str = str+"/"+tags[i].value;
+				}
+
+				$.ajax({
+					dataType: "html",
+					url:str,
+					method:'POST'
+				})
+				.success(function(data){
+					console.log(data);
+					$('.recipes article, .no-result').remove();
+					$('.recipes').append(data);
+				});
+
+			}
 
 			<?php if (isset($allparams['id_ingredient1'])) : ?>
 				$.ajax({
