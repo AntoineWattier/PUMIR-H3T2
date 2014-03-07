@@ -13,9 +13,10 @@ class RecipeModel extends Model{
 		$this->mapper->reset();
 		$_POST['slug_recipe'] =  \Helpers\Tools::instance()->slugify(strtolower($params['name_recipe']));
 		$_POST['id_user'] = $params['id_user'];
+		$_POST['urlImage_recipe'] = $params['urlImage_recipe'];
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
-		    	array('name_recipe','slug_recipe','numberOfPeople_recipe','id_preparationTime','id_user','id_ambiance'))
+		    	array('name_recipe','slug_recipe','numberOfPeople_recipe','id_preparationTime','id_user','id_ambiance','urlImage_recipe'))
 		    );
 		});
 		$this->mapper->save();
@@ -44,12 +45,12 @@ class RecipeModel extends Model{
 	function editRecipe($params){
 		$this->mapper->load(array("id_recipe = :id", ':id' => $params['id_recipe']));
 		$params['slug_recipe'] =  \Helpers\Tools::instance()->slugify(strtolower($params['name_recipe']));
-		// $params['id_user'];
 		$this->mapper->name_recipe = $params['name_recipe'];
 		$this->mapper->slug_recipe = $params['slug_recipe'];
 		$this->mapper->numberOfPeople_recipe = $params['numberOfPeople_recipe'];
 		$this->mapper->id_preparationTime= $params['id_preparationTime'];
-		//$this->mapper->id_user= $params[''];
+		var_dump( $params['urlImage_recipe']);exit();
+		//$this->mapper->urlImage_recipe= $params['urlImage_recipe'];
 		$this->mapper->id_ambiance= $params['id_ambiance'];
 		$this->mapper->dateUpdate_recipe = date("Y-m-d H:i:s");
 		$this->mapper->save();
@@ -102,7 +103,7 @@ class RecipeModel extends Model{
 		*/
 		$compose_mapper = $this->getMapper('COMPOSE');
 		$compose_mapper->erase(array("id_recipe = :id", ':id' => $params['id_recipe']));
-		foreach ($params['ingredient_recipe'] as $order => $content) {
+		foreach (json_decode($params['ingredient_recipe']) as $order => $content) {
 			if(!empty($content) && $content != -1 ){	
 				$compose_mapper->reset();
 				$compose_mapper->id_ingredient= $content;
