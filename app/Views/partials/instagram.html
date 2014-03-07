@@ -1,0 +1,102 @@
+<?php
+
+include('./app/Helpers/Instagram.php');
+
+/**
+ * Configuration params, make sure to write exactly the ones
+ * instagram provide you at http://instagr.am/developer/
+ */
+$config = array(
+        'client_id' => 'f3d6c2c63c504f6185ddd60be864464a',
+        'client_secret' => 'fc210aa17c2a47f2b4e05fb7dd751fa0',
+        'grant_type' => 'authorization_code',
+        'redirect_uri' => 'http://wtfdiet.local/recipe/submitRecipe',
+     );
+
+// Instantiate the API handler object
+$instagram = new Instagram($config);
+if(isset($_GET['code'])){
+	$accessToken = $instagram->getAccessToken();
+
+	$instagram->setAccessToken($accessToken);
+	$userid = $instagram->getCurrentUser()->id;
+	$usermedia = $instagram->getUserFeed();
+
+	// After getting the response, let's iterate the payload
+	$usermedia = json_decode($usermedia, true);
+}
+?>
+		<section id="popin" class="img">
+			<i class="close purple">Close</i>
+			<h2>Ajouter une image...</h2>
+			<section class="crop">
+				<div id="croppic"></div>
+				<p>Définissez la région que vous voulez afficher dans votre recette</p>
+				<button disabled class="add1"><i class="checked"></i> Ajouter à ma recette</button>
+				<input type="hidden" id="input_return_file" name="image_recette" value="" />
+			</section>
+			<section class="select">
+				<form>
+				<?php if(isset($usermedia['data'])): ?>
+					<?php foreach ($usermedia['data'] as $key => $media): ?>
+					<label class="insta">
+						<input type="radio" name="insta" />
+						<div>
+							<img src="<?= $media['images']['standard_resolution']['url'] ?>" width="120px" height="120px" alt="Repas léger">
+							<span class="checked"></span>
+						</div>
+					</label>
+					<?php endforeach ?>
+				<?php else: ?>
+					Aucune image trouvée sur instagram
+				<?php endif; ?>
+				</form>
+				<div class="clear"></div>
+				<button disabled><i class="checked"></i> Ajouter à ma recette</button>
+			</section>
+			<a href="https://instagram.com/oauth/authorize/?client_id=f3d6c2c63c504f6185ddd60be864464a&redirect_uri=http://wtfdiet.local/recipe/submitRecipe&response_type=code" class="instagram">Depuis instagram</a>
+			<label id="cropContainerHeaderButton">Changer la photo</label>
+
+
+		</section>
+
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="public/js/crop/croppic.js"></script>
+		<link href="public/js/crop/croppic.css" rel="stylesheet">
+		   <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+		var croppicHeaderOptions = {
+				uploadUrl:'./app/Helpers/img_save_to_file.php',
+				cropData:{
+					"dummyData":1,
+					"dummyData2":"asdas"
+				},
+				cropUrl:'./app/Helpers/img_crop_to_file.php',
+				customUploadButtonId:'cropContainerHeaderButton',
+				outputUrlId: 'input_return_file',
+				onBeforeImgUpload: function(){ 
+ 					if($('.crop').css('display') == 'none'){
+						 	$('.crop').css('display', 'block');
+						 	$('.select').css('display', 'none');
+						}
+				 },
+				onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
+				onImgDrag: function(){ console.log('onImgDrag') },
+				onImgZoom: function(){ console.log('onImgZoom') },
+				onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
+				onAfterImgCrop:function(){ console.log('onAfterImgCrop');$('.add1').removeAttr('disabled'); }
+		}	
+		var croppic = new Croppic('croppic', croppicHeaderOptions);
+		
+		
+	</script>
+		<script type="text/javascript">
+
+			$('form').on('click', 'input[name=insta]', function(e){
+				var $this =$(this);
+				console.log('true');
+				$('.select button').removeAttr('disabled');
+			});
+		</script>

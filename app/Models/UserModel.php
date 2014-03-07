@@ -13,7 +13,7 @@ class UserModel extends Model{
 		$auth = new \Auth($this->mapper, array('id'=>'mail_user', 'pw'=>'password_user'));
 
 		//Si le mail et le password sont bons
-		if($auth->login($params['mail_user'],$params['password_user'])){
+		if($auth->login($params['mail_user'],md5($params['password_user']))){
 			$this->mapper->load(array("mail_user = :mail", 'mail'=>$params['mail_user']));
 			//On set le last login à now
 			$this->mapper->lastLogin_user = date("Y-m-d H:i:s");
@@ -29,6 +29,7 @@ class UserModel extends Model{
 		$this->mapper->reset();		
 		$_POST['adminLevel_user'] = 0;
 		$_POST['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
+		$_POST['password_user'] = md5($_POST['password_user']);
 		$this->mapper->copyfrom('POST',function($val) {
 		    return array_intersect_key($val, array_flip(
 		    	array('firstname_user','lastname_user','slug_user','mail_user','password_user'))
@@ -63,8 +64,10 @@ class UserModel extends Model{
 
 	function checkMail($params){
 		$this->mapper->reset();
+
 		$this->mapper->load(array("mail_user = :mail", 'mail'=>$params['mail_user']));
-		return !$this->mapper->dry();
+		return $this->mapper;
+		
 	}
 
 	function getUser($params)
@@ -76,17 +79,17 @@ class UserModel extends Model{
 		$this->mapper->load(array("id_user = :id", ':id' => $params['id_user']));
 		// $params['adminLevel_user'] = 0;
 		$params['slug_user'] = \Helpers\Tools::instance()->slugify(strtolower($params['firstname_user']).'_'.strtolower($params['lastname_user']));
-		if(isset($params['firstname_user']))
+		if(isset($params['firstname_user']) && !empty($params['firstname_user']))
 			$this->mapper->firstname_user = $params['firstname_user'];
-		if(isset($params['lastname_user']))
+		if(isset($params['lastname_user']) && !empty($params['lastname_user']))
 			$this->mapper->lastname_user = $params['lastname_user'];
-		if(isset($params['slug_user']))
+		if(isset($params['slug_user']) && !empty($params['slug_user']))
 			$this->mapper->slug_user = $params['slug_user'];
-		if(isset($params['mail_user']))
+		if(isset($params['mail_user']) && !empty($params['mail_user']))
 			$this->mapper->mail_user = $params['mail_user'];
-		if(isset($params['password_user']))
-			$this->mapper->password_user = $params['password_user'];
-		if(isset($params['urlImage_user']))
+		if(isset($params['password_user']) && !empty($params['password_user']))
+			$this->mapper->password_user = md5($params['password_user']);
+		if(isset($params['urlImage_user']) && !empty($params['urlImage_user']))
 			$this->mapper->urlImage_user = $params['urlImage_user'];
 
 		$this->mapper->bio_user = $params['bio_user'];

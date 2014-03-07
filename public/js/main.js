@@ -57,6 +57,10 @@ $('form[name="register"]').submit( function(e) {
 		if(!$error) $form.find('input[type="email"]').focus();
 		$error += "L'email est invalide. ";
 	}
+	else if (!checkMail($form.find('input[type="email"]'))) {
+			if(!$error) $form.find('input[type="email"]').focus();
+			$error += "L'email existe déjà. ";
+	}
 	if(!$form.find('input[name="password_user"]').val()) {
 		if(!$error) $form.find('input[name="password_user"]').focus();
 		$error += "Le mot de passe est obligatoire.";
@@ -93,6 +97,8 @@ $('a.advanced-search').on('click', function(e){
 $('input[name="id_preparationTime"],input[name="id_difficulty"],input[name="id_type"]').on('click',getRecipes);
 $('select[name="id_ambiance"]').on('change',getRecipes);
 
+
+
 function getRecipes(e){
 	var $this = $(this);
 
@@ -119,6 +125,8 @@ function getRecipes(e){
 		$('.recipes').append(data);
 	});
 }
+
+
 
 
 
@@ -173,6 +181,7 @@ $('button.follow').on('click',function(e){
 
 $('div.step a').on('click', function(e){
 	e.preventDefault();
+
 	var $this = $(this);
 	var $comment = $this.parent().siblings('.comments');
 	if($comment.length == 0){
@@ -183,9 +192,12 @@ $('div.step a').on('click', function(e){
 		})
 		.success(function(data){
 			$this.parent().parent().append(data);
+			$('.comments').delay(200).slideDown();
 		});
 	} else {
-		$comment.remove();
+		$comment.slideUp('400', function(){
+			$(this).remove();
+		});
 	}
 });
 
@@ -233,44 +245,11 @@ $('.steps').on('submit','.comments form',function(e){
 	}
 });
 
-$('.steps').on('click','ul.comments li:last-child',function(e) {
-	e.preventDefault();
-	
-	var $this=$(this);
-	$this.parent().remove();
+$('.steps').on('click','.comments li:last-of-type',function(e){
+	$(this).parent().slideUp('400', function(){
+		$(this).remove();
+	});
 });
-
-
-
-
-function validMail(email) {
-	var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return reg.test($('input[type="email"]'));
-}
-
-function checkMail(input) {
-	$.ajax({
-			url:'user/checkMail',
-			method:'POST',
-			data:{ 'mail_user' : input.value }
-	})
-	.success(function(data){
-			if(data.status) {
-				input.setCustomValidity('This mail already exists');
-			} else {
-				input.setCustomValidity('');
-			}
-	})	
-}
-
-function showError($message) {
-	if($(".error"))
-		$(".error").remove();
-	$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
-	$('.error').slideDown().delay('3000').slideUp();
-}
-
-
 
 /* Facebook Connect */
 window.fbAsyncInit = function() {

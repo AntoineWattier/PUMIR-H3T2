@@ -79,15 +79,25 @@
 		</section>
 	<?php endif; ?>
 	</section>
+	
 	<?php include('./app/Views/partials/scripts.html') ?>
-	<script type="text/javascript" src="public/js/textext/textext.min.js"></script>
-	<script type="text/javascript">
+	<script src="public/js/masonry/masonry.min.js"></script>
+	<script src="public/js/textext/textext.min.js"></script>
+	<script>
+
+	$(".recipes").masonry({
+	  columnWidth: 320,
+	  gutter: 30,
+	  itemSelector: 'article'
+	});
+
 	function showError($message) {
 		if($(".error"))
 			$(".error").remove();
 		$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
 		$('.error').slideDown().delay('3000').slideUp();
 	}
+	
 	var $ingredients;
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
 				plugins :'autocomplete filter tags ajax',
@@ -97,7 +107,24 @@
 								cacheResults : true
 						},
 						ext: {
-						itemManager: {
+							tags : {
+								addTags: function(tags) {
+									
+           							 $.fn.textext.TextExtTags.prototype.addTags.apply(this, arguments);
+           							 if(this._formData.length)
+           							 	getRecipesByTags(this._formData);
+           							 
+
+								},
+								removeTag: function(tags) {
+									
+           							 $.fn.textext.TextExtTags.prototype.removeTag.apply(this, arguments);
+           							 if(this._formData.length)
+           							 	getRecipesByTags(this._formData);
+
+								}
+							},
+							itemManager: {
 								stringToItem: function(str)
 								{
 										var val;
@@ -150,26 +177,49 @@
 			if($error) 
 				showError($error);
 		});
+			
+			function getRecipesByTags(tags) {
+
+				var str = "/recipe/getRecipesByFilter/vote/"
+				+$('select[name="id_ambiance"] option:checked').val()
+				+'/'+$('input[name="id_preparationTime"]:checked').val()
+				+'/'+$('input[name="id_difficulty"]:checked').val()
+				+'/'+$('input[name="id_type"]:checked').val();
+
+				for (var i = 0; i < tags.length; i++) {
+					str = str+"/"+tags[i].value;
+				}
+
+				$.ajax({
+					dataType: "html",
+					url:str,
+					method:'POST'
+				})
+				.success(function(data){
+					console.log(data);
+					$('.recipes article, .no-result').remove();
+					$('.recipes').append(data);
+				});
+
+			}
 
 			<?php if (isset($allparams['id_ingredient1'])) : ?>
-				$(document).ready(function() {
-					$.ajax({
-						url : '/recipe/getAllIngredientsJSON',
-						dataType : 'json',
-						success : function(data) {
-							var result = $.parseJSON(JSON.stringify(data));
-							$.each(result, function(k, v) {
-								if(v.value == <?php echo $allparams['id_ingredient1']; ?> 
-								 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
-								 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
-								 ) {
-									$ingredients = result[k];
-									TextExtTags.textext()[0].tags().addTags([$ingredients]);
-								}
-							});
-						}
-					});
-			});
+				$.ajax({
+					url : '/recipe/getAllIngredientsJSON',
+					dataType : 'json',
+					success : function(data) {
+						var result = $.parseJSON(JSON.stringify(data));
+						$.each(result, function(k, v) {
+							if(v.value == <?php echo $allparams['id_ingredient1']; ?> 
+							 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
+							 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
+							 ) {
+								$ingredients = result[k];
+								TextExtTags.textext()[0].tags().addTags([$ingredients]);
+							}
+						});
+					}
+				});
 			<?php endif; ?>
 
 		</script>
