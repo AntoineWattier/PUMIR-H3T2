@@ -82,10 +82,10 @@ $usermedia = json_decode($usermedia, true);
 			<i class="close purple">Close</i>
 			<h2>Ajouter une image...</h2>
 			<section class="crop">
-				<img src="http://media-cache-ec0.pinimg.com/736x/7f/f7/88/7ff788e804251e5fcfd741d532c04261.jpg" alt=""/>
-				<div class="crop"></div>
+				<div id="croppic"></div>
 				<p>Définissez la région que vous voulez afficher dans votre recette</p>
 				<button><i class="checked"></i> Ajouter à ma recette</button>
+				<input type="hidden" id="input_return_file" name="image_recette" value="" />
 			</section>
 			<section class="select">
 				<form>
@@ -107,33 +107,74 @@ $usermedia = json_decode($usermedia, true);
 				<button disabled><i class="checked"></i> Ajouter à ma recette</button>
 			</section>
 			<a href="https://instagram.com/oauth/authorize/?client_id=f3d6c2c63c504f6185ddd60be864464a&redirect_uri=http://wtfdiet.local/instagram.php&response_type=code" class="instagram">Depuis instagram</a>
-			<label><input type="file" onchange="readURL(this);"//>Changer la photo</label>
+			<label id="cropContainerHeaderButton">Changer la photo</label>
+
 
 		</section>
+
 		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="public/js/crop/croppic.js"></script>
+		 <link href="public/js/crop/croppic.css" rel="stylesheet">
+		   <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script>
+		var croppicHeaderOptions = {
+				uploadUrl:'img_save_to_file.php',
+				cropData:{
+					"dummyData":1,
+					"dummyData2":"asdas"
+				},
+				cropUrl:'img_crop_to_file.php',
+				customUploadButtonId:'cropContainerHeaderButton',
+				outputUrlId: 'input_return_file',
+				onBeforeImgUpload: function(){ 
+ 					if($('.crop').css('display') == 'none'){
+						 	$('.crop').css('display', 'block');
+						 	$('.select').css('display', 'none');
+						}
+				 },
+				onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
+				onImgDrag: function(){ console.log('onImgDrag') },
+				onImgZoom: function(){ console.log('onImgZoom') },
+				onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
+				onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
+		}	
+		var croppic = new Croppic('croppic', croppicHeaderOptions);
+		
+		
+	</script>
 		<script type="text/javascript">
+
 			$('form').on('click', 'input[name=insta]', function(e){
 				var $this =$(this);
+				console.log('true');
 				$('.select button').removeAttr('disabled');
 			});
 
-			function readURL(input) {
-				if (input.files && input.files[0]) {
-					var reader = new FileReader();
+			// function readURL(input) {
+			// 	if (input.files && input.files[0]) {
+			// 		var reader = new FileReader();
+			// 		var img = new Image();
 
-					reader.onload = function (e){ 
-							$('.crop img').attr('src', e.target.result);
-					};
+			// 		reader.onload = function (e){ 
+			// 				$('.crop img').attr('src', e.target.result);
+			// 		};
 
-					reader.readAsDataURL(input.files[0]);
+			// 		reader.readAsDataURL(input.files[0]);
 
-					if($('.crop').css('display') == 'none'){
-					 	$('.crop').css('display', 'block');
-					 	$('.select').css('display', 'none');
-					}
+			// 		img.onload = function() {
+			// 		    if($('.crop').css('display') == 'none'){
+			// 			 	$('.crop').css('display', 'block');
+			// 			 	$('.select').css('display', 'none');
+			// 			}
+			// 		}
 
-				}
-			}
+
+					
+
+			// 	}
+			// }
 		</script>
 	</body>
 </html>
