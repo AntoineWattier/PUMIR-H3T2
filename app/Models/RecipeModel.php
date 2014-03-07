@@ -30,13 +30,12 @@ class RecipeModel extends Model{
 			}
 		}
 		$compose_mapper = $this->getMapper('COMPOSE');
-		foreach ($params['ingredient_recipe'] as $order => $content) {
-			if(!empty($content) && $content != -1 ){	
+		foreach (json_decode($params['ingredient_recipe']) as $id => $content) {
 				$compose_mapper->reset();
-				$compose_mapper->id_ingredient= $content;
+				$compose_mapper->id_ingredient= $id;
+				$compose_mapper->quantity_ingredient= $content;
 				$compose_mapper->id_recipe = $this->mapper->last()->id_recipe;
 				$compose_mapper->save();
-			}
 		}
 		return $this->mapper;
 
