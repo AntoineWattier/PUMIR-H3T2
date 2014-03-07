@@ -107,7 +107,7 @@ form div.ingredients ul.choosen-ingredients li:hover i { background: url(../imag
 form label.vibes { float: left; text-align: center; margin-right: 15px; cursor: pointer; }
 form label.vibes:last-of-type { margin-right: 0; }
 form label.vibes input[name="id_ambiance"] { position: absolute; left: -999rem; }
-form label.vibes div { background: #fff; border-radius: 3px; width: 180px; min-height: 360px; position: relative; overflow: hidden; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
+form label.vibes div { background: #fff; border-radius: 3px; width: 180px; min-height: 380px; position: relative; overflow: hidden; box-shadow: 0 0 20px -3px transparent; transition: box-shadow ease-out 0.3s; }
 form label.vibes div:hover { box-shadow: 0 0 20px -3px #bebed4; }
 form label.vibes div span.checked { box-sizing: border-box; width: 100%; height: 100%; display: block; position: absolute; top: 0; left: 0; border: 2px solid #fe8468; border-radius: 5px; opacity: 0; transition: opacity ease-out 0.3s; }
 form label.vibes div h2 { color: #635c78; font-family: "Damion", cursive; font-size: 1.692em; line-height: 0.909em; padding: 30px 0; }
@@ -160,9 +160,9 @@ section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 35
 section#main.recipes aside#filters form div.ingredients ul.choosen-ingredients li { padding: 10px 10px;}
 section#main.recipes { padding-left: 320px; overflow: hidden; box-sizing: border-box; }
 
-section#main.recipes article { max-height: 200px; min-height: 100px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; float: left; }
+section#main.recipes article { max-height: 200px; min-height: 90px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; float: left; }
 section#main.recipes article img { width: 100%; height: auto; border-radius: 4px; }
-section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; top: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
+section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
 section#main.recipes article div h1 { font-size: 1.385em; line-height: 1.111em; font-weight: 600; color: #635c78; margin-bottom: 10px; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 30px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like:hover { opacity: 0.5; }
