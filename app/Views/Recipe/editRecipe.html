@@ -1,17 +1,5 @@
-
-	
-			<?php /*<legend>Ingredients de votre recette:</legend>
-			<?php foreach($ingredients as $i): ?>
-				<br><select name="ingredient_recipe[]">
-					<option value="-1">-----</option>					
-					<?php foreach($allIngredients as $ingredient): ?>
-						<option value="<?= $ingredient->id_ingredient ?>"<?php if($i->id_ingredient == $ingredient->id_ingredient) echo 'selected' ?> ><?= $ingredient->name_ingredient ?></option>
-					<?php endforeach ?>
-				</select>
-			<?php endforeach ?> */ ?>
-
 <?php include('./app/Views/partials/header.html') ?>
-<?php /*include('./app/Views/partials/instagram.html') */?>
+<?php include('./app/Views/partials/instagram.html') ?>
 
 
 <section id="main" class="recipe-creation">
@@ -35,7 +23,7 @@
 						<i class="zoom"></i>
 					</div>
 				</div>
-				<input type="hidden" name="ingredient_recipe" val="" />
+				<input type="hidden" name="ingredient_recipe" val="[]" />
 				<div class="one-third">
 					<div class="nb-personnes">
 						Nombre de personnes
@@ -122,6 +110,7 @@
 				<hr />
 				<h3 class="photo">Un petit sourire ?</h3>
 				<p class="intro">Une jolie photo et tout le monde  vous enviera votre plat !</p>
+				<input type="hidden" id="input_return_file" name="urlImage_recipe" value="<?= $recipe->urlImage_recipe?>" />
 				<button class="camera"><i class="camera"></i>Choisir une photo</button>
 				<hr />
 				<button type="submit" class="next">Proposer ma recette »</button>
