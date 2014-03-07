@@ -1,7 +1,6 @@
-=======
 #croppic{
-	width: 620px;  /* MANDATORY */
-	height: 620px; /* MANDATORY */
+	width: 320px;  /* MANDATORY */
+	height: 320px; /* MANDATORY */
 	position: relative;  /* MANDATORY */
 	
 	margin: 30px auto;

@@ -7,16 +7,6 @@
 		<a href="/" class="cancel">« Annuler</a>
 		<h1>Création de la recette</h1>
 		<form action="recipe/submitRecipe" method="POST">
-<!-- DEV 
-<?php if(isset($allIngredients)):?>
-	<select name="ingredient_recipe[]">
-		<option value="-1" selected>-----</option>
-		<?php foreach($allIngredients as $ingredient): ?>
-			<option value="<?= $ingredient->id_ingredient ?>" ><?= $ingredient->name_ingredient ?></option>
-		<?php endforeach ?>
-	</select>
-<?php endif; ?>	
-	 /DEV -->
 			<div class="title">
 				<input type="text" name="name_recipe" placeholder="Titre de la recette" autofocus/>
 			</div>
@@ -118,6 +108,7 @@
 				<hr />
 				<h3 class="photo">Un petit sourire ?</h3>
 				<p class="intro">Une jolie photo et tout le monde  vous enviera votre plat !</p>
+				<input type="hidden" id="input_return_file" name="urlImage_recipe" value="" />
 				<button class="camera"><i class="camera"></i>Choisir une photo</button>
 				<hr />
 				<button type="submit" class="next">Proposer ma recette »</button>
