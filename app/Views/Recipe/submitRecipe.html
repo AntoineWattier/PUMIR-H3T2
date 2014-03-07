@@ -33,6 +33,8 @@
 						<i class="zoom"></i>
 					</div>
 				</div>
+				<input type="hidden" name="ingredient_recipe" val="" />
+				<span id="clikkkk">Cliker ici</span>
 				<div class="one-third">
 					<div class="nb-personnes">
 						Nombre de personnes
@@ -140,6 +142,15 @@
 		$('.error').slideDown().delay('3000').slideUp();
 	}
 
+	$("button[type='submit']").click(function() {
+		$form = $('form');
+		$list = JSON.parse( $form.find('input[name="ingredients"]').val() );
+		$result = {};
+		for(i = 0; i < $list.length; i++)
+				$result[$list[i].value] = $('ul.ingredients .text-label').eq(i).find('input').val();
+		$form.find('input[name="ingredient_recipe"]').val( JSON.stringify($result) );
+	});
+
 	var $ingredients;
 	var TextExtTags = $('.ingredients>input[type="text"]').textext({
 				plugins :'autocomplete filter tags ajax',
@@ -196,57 +207,56 @@
 					showError($error);
 			});
 
-$('form').on('keydown',function(e){
-	if(e.keyCode == 13){
-		e.preventDefault();
-	}
-});
-
-$('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
-	$('input[name="step_recipe[]"]').on('keydown',function(e){
-		$this = $(this);
-		if( (e.keyCode == 13 || e.keyCode == 9) && $('input[name="step_recipe[]"]:last').val() != ''){
+	$('form').on('keydown',function(e){
+		if(e.keyCode == 13)
 			e.preventDefault();
-			$currentVal = parseInt($('.recipe-steps li:last span').html());
-			$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
-			$('input[name="step_recipe[]"]:last').focus();
-		}
 	});
 
-	$('input[name="step_recipe[]"]').on('blur',function(e){
-		$this = $(this);
-		if($('input[name="step_recipe[]"]:last').val() != ''){
-			e.preventDefault();
-			$currentVal = parseInt($('.recipe-steps li:last span').html());
-			$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
-			$('input[name="step_recipe[]"]:last').focus();
-		}
-	});
-});
-
-$('.next, ul.steps li').on('click',function(e){
-	var current = $('ul.steps li.current').index(),
-		next = current+1;
-		$step = $('section.step').eq(current),
-		error = '';
-
-	if($(this).is('li')) {
-		if($(this).index()<current) 
-			next = $(this).index();
-	}
-
-	if(verifStep(current)) {
-
-		$step.fadeOut('normal', function() {
-			$('section.step').eq(next).fadeIn();
+	$('.recipe-steps').on('focus','input[name="step_recipe[]"]',function(e){
+		$('input[name="step_recipe[]"]').on('keydown',function(e){
+			$this = $(this);
+			if( (e.keyCode == 13 || e.keyCode == 9) && $('input[name="step_recipe[]"]:last').val() != ''){
+				e.preventDefault();
+				$currentVal = parseInt($('.recipe-steps li:last span').html());
+				$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
+				$('input[name="step_recipe[]"]:last').focus();
+			}
 		});
-		$('ul.steps li').removeClass('current');
-		$('ul.steps li').eq(next).addClass('current');
-		return false;
 
-	}
-	return false;
-});
+		$('input[name="step_recipe[]"]').on('blur',function(e){
+			$this = $(this);
+			if($('input[name="step_recipe[]"]:last').val() != ''){
+				e.preventDefault();
+				$currentVal = parseInt($('.recipe-steps li:last span').html());
+				$('<li><input type="text" name="step_recipe[]" placeholder="Ajouter une étape"><div class="nb"><span>'+($currentVal+1)+'</span></div></li>').insertAfter($('input[name="step_recipe[]"]:last').parent());
+				$('input[name="step_recipe[]"]:last').focus();
+			}
+		});
+	});
+
+	$('.next, ul.steps li').on('click',function(e){
+		var current = $('ul.steps li.current').index(),
+			next = current+1;
+			$step = $('section.step').eq(current),
+			error = '';
+
+		if($(this).is('li')) {
+			if($(this).index()<current) 
+				next = $(this).index();
+		}
+
+		if(verifStep(current)) {
+
+			$step.fadeOut('normal', function() {
+				$('section.step').eq(next).fadeIn();
+			});
+			$('ul.steps li').removeClass('current');
+			$('ul.steps li').eq(next).addClass('current');
+			return false;
+
+		}
+		return false;
+	});
 
 function verifStep(step) {
 
