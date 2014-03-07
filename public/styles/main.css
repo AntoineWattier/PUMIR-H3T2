@@ -205,7 +205,7 @@ section#main.recipe article section.steps div.step a { font-size: 1.077em; borde
 section#main.recipe article section.steps div.step a i.chat { background: url(../images/icons/chat-orange.png) no-repeat; }
 section#main.recipe article section.steps div.step a.no-comment { border: 1px solid #dedee4; color: #dedee4; }
 section#main.recipe article section.steps div.step a.no-comment i.chat { background: url(../images/icons/chat.png) no-repeat; }
-section#main.recipe article section.steps ul.comments { margin-top: 15px; box-sizing: border-box; width: 100%;}
+section#main.recipe article section.steps ul.comments { margin-top: 15px; box-sizing: border-box; width: 100%; display: none;}
 section#main.recipe article section.steps ul.comments li { line-height: 1.286em; font-size: 1.077em; color: #a09dac; padding: 10px 10px 10px 40px; position: relative; min-height: 10px; background: #fcfcfc; border-bottom: 1px solid #fff; }
 section#main.recipe article section.steps ul.comments li div.user-img { position: absolute; top: 0; left: 0; width: 30px; height: 30px; overflow: hidden; }
 section#main.recipe article section.steps ul.comments li img { position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto; width: 30px; height: auto; }

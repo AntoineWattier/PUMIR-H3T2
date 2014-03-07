@@ -133,7 +133,7 @@ class RecipeModel extends Model{
 
 	function getRecipe($params){
 		$fullrecipe_mapper = $this->getMapper('fullrecipe');
-		var_dump( $fullrecipe_mapper->load(array("id_recipe = :id", ':id' => $params['id'])) );
+		return $fullrecipe_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
 
 	function getRecipesByUser($params){
