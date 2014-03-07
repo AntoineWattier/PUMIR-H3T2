@@ -4,7 +4,7 @@
 		<div class="wrapper">
 			<a href="" class="cancel" onclick="window.history.back()">« Retour aux résultats</a>
 			<article>
-				<header <?php if(empty($recipe->urlImage_recipe)) 	echo 'class="no-image"'?>>
+				<header <?php if(empty($recipe->urlImage_recipe))  echo 'class="no-image"'?>>
 					<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
 					<h1>
 						<span><a href="/user/getUser/<?= $author->id_user ?>"><?= $author->firstname_user." ".$author->lastname_user?></a> vous propose...</span>
@@ -16,7 +16,9 @@
 						<li><i class="bell"></i><?= $recipe->name_type ?></li>
 						<li><i class="tag"></i><?= $recipe->name_ambiance ?></li>
 					</ul>
-					<a href="" class="edit">Modifier la recette</a>
+					<?php if(isset($SESSION['id_user']) && $SESSION['id_user'] == $recipe->id_user): ?>
+					<a href="recipe/editRecipe/<?= $recipe->id_recipe?>" class="edit">Modifier la recette</a>
+					<?php endif?>
 					<hr />
 					<?php if(isset($SESSION['id_user'])): ?>
 					<a class="like <?php if(!$isFavorite) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>

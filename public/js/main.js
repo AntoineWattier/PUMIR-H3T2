@@ -57,6 +57,10 @@ $('form[name="register"]').submit( function(e) {
 		if(!$error) $form.find('input[type="email"]').focus();
 		$error += "L'email est invalide. ";
 	}
+	else if (!checkMail($form.find('input[type="email"]'))) {
+			if(!$error) $form.find('input[type="email"]').focus();
+			$error += "L'email existe déjà. ";
+	}
 	if(!$form.find('input[name="password_user"]').val()) {
 		if(!$error) $form.find('input[name="password_user"]').focus();
 		$error += "Le mot de passe est obligatoire.";
@@ -239,38 +243,6 @@ $('.steps').on('click','ul.comments li:last-child',function(e) {
 	var $this=$(this);
 	$this.parent().remove();
 });
-
-
-
-
-function validMail(email) {
-	var reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return reg.test($('input[type="email"]'));
-}
-
-function checkMail(input) {
-	$.ajax({
-			url:'user/checkMail',
-			method:'POST',
-			data:{ 'mail_user' : input.value }
-	})
-	.success(function(data){
-			if(data.status) {
-				input.setCustomValidity('This mail already exists');
-			} else {
-				input.setCustomValidity('');
-			}
-	})	
-}
-
-function showError($message) {
-	if($(".error"))
-		$(".error").remove();
-	$('section#main, section#login').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
-	$('.error').slideDown().delay('3000').slideUp();
-}
-
-
 
 /* Facebook Connect */
 window.fbAsyncInit = function() {

@@ -85,7 +85,15 @@ class UserController extends Controller{
 		if($f3->get('VERB') == 'GET')
 			$f3->error(405); 
 
-		$mail = $this->model->checkMail($f3->get('POST'));
+		$check = $this->model->checkMail($f3->get('POST'));
+
+		//$mail = true si mail existe déjà, false sinon
+		$mail = $check->dry();
+
+		//Si le mail existe déjà mais appartient à l'user courant, il est valide
+		if($f3->exists('POST.id_user') && $f3->get('POST.id_user') == $check->id_user)
+			$mail = false;
+
 		$f3->set('status',$mail);
 		$this->tpl['async']='json/status.json';	
 
