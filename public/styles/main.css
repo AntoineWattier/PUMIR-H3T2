@@ -158,18 +158,18 @@ section#main.recipes aside#filters form div.ingredients input[type="text"]{ heig
 section#main.recipes aside#filters form div.ingredients i.zoom.sm { top: 12px; left: 10px; }
 section#main.recipes aside#filters form div.ingredients ul.suggestions { top: 35px; }
 section#main.recipes aside#filters form div.ingredients ul.choosen-ingredients li { padding: 10px 10px;}
-section#main.recipes { padding-left: 320px; overflow: hidden; width: 1020px; margin: 0 auto; box-sizing: border-box; }
+section#main.recipes { padding-left: 320px; overflow: hidden; box-sizing: border-box; }
 
-section#main.recipes article { max-height: 200px; min-height: 100px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; margin-right: 30px; float: left; }
+section#main.recipes article { max-height: 200px; min-height: 100px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; float: left; }
 section#main.recipes article img { width: 100%; height: auto; border-radius: 4px; }
-section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
+section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; top: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
 section#main.recipes article div h1 { font-size: 1.385em; line-height: 1.111em; font-weight: 600; color: #635c78; margin-bottom: 10px; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 30px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like:hover { opacity: 0.5; }
 section#main.recipes article div a.liked { background: url(../images/icons/heart-full.png) no-repeat 2px 3px; color: #fe8468; }
 
 
-section#main.recipes article a { overflow: hidden; display: block;  }
+section#main.recipes article a { overflow: hidden; display: inline-block;  }
 section#main.recipes article div a:hover h1,
 section#main.recipes article div a:hover ul li { opacity: 0.5; }
 /* @end of Recipes */
@@ -205,7 +205,7 @@ section#main.recipe article section.steps div.step a { font-size: 1.077em; borde
 section#main.recipe article section.steps div.step a i.chat { background: url(../images/icons/chat-orange.png) no-repeat; }
 section#main.recipe article section.steps div.step a.no-comment { border: 1px solid #dedee4; color: #dedee4; }
 section#main.recipe article section.steps div.step a.no-comment i.chat { background: url(../images/icons/chat.png) no-repeat; }
-section#main.recipe article section.steps ul.comments { margin-top: 15px; box-sizing: border-box; width: 100%;}
+section#main.recipe article section.steps ul.comments { margin-top: 15px; box-sizing: border-box; width: 100%; display: none;}
 section#main.recipe article section.steps ul.comments li { line-height: 1.286em; font-size: 1.077em; color: #a09dac; padding: 10px 10px 10px 40px; position: relative; min-height: 10px; background: #fcfcfc; border-bottom: 1px solid #fff; }
 section#main.recipe article section.steps ul.comments li div.user-img { position: absolute; top: 0; left: 0; width: 30px; height: 30px; overflow: hidden; }
 section#main.recipe article section.steps ul.comments li img { position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto; width: 30px; height: auto; }
@@ -277,12 +277,12 @@ section#main.user header + section form hr { margin: 5px auto 50px; }
 
 section#main.user header + section a.delete { display: block; color: #635c78; font-size: 1.077em; margin-top: 50px; }
 
-section#main.recipes.user { padding-left: 0; overflow: hidden; width: 960px; margin: 0 auto; box-sizing: border-box; }
-section#main.recipes.user article:nth-child(odd) { margin-right: 0; } /* before masonry */
+section#main.recipes.user { padding-left: 0; overflow: hidden; width: 960px; margin: 0 auto; box-sizing: border-box; position: relative;}
 section#main.recipes.user h3 { text-align: center; margin-bottom: 40px; }
 section#main.recipes.user h3 span.disabled { cursor: pointer; color: #a09dac; transition: opacity ease-out 0.3s; }
 section#main.recipes.user h3:hover span.disabled { opacity: 0.8; color: #a09dac; }
 section#main.recipes.user h3 i { margin: 0 15px -2px; }
+section#main.recipes.user>div { width: 100%; position: absolute;}
 
 section#main.user.following header + section ul li { border-bottom: 1px solid #eae9ee; }
 section#main.user.following header + section ul li a { display: block; padding: 30px 0; background: url(../images/icons/arrow-side.png) no-repeat right center; transition: background ease-out 0.3s;  }
@@ -291,7 +291,11 @@ section#main.user.following header + section ul li a:hover h2 { color: #fe8468; 
 
 section#main.user.following header + section ul li a p { color: #a09dac; font-size: 1.077em; }
 
-section.favorited.hidden, section.posted.hidden { display: none; } 
+section#main.user 
+
+section.favorited, section.posted { padding-left: 270px; box-sizing: border-box;}
+section.favorited.hidden, section.posted.hidden { visibility:hidden; } 
+
 /* @end of User */
 
 /* @end of Main */

@@ -18,7 +18,7 @@
 <?php endif; ?>	
 	 /DEV -->
 			<div class="title">
-				<input type="text" name="name_recipe" placeholder="Titre de la recette" />
+				<input type="text" name="name_recipe" placeholder="Titre de la recette"/>
 			</div>
 			<ul class="steps"> 
 				<li class="step 1 current"><h2>Etape 1<span>Les ingrédients</span></h2></li>
@@ -126,16 +126,13 @@
 		</form>
 	</div>
 </section>
-	<?php include('./app/Views/partials/scripts.html') ?>
-	<!--<script type="text/javascript" src="public/js/textext/textext.min.submitRecipe.js"></script>-->
 
-	<script type="text/javascript" src="public/js/textext/textext.core.js"></script>
-	<script type="text/javascript" src="public/js/textext/textext.plugin.autocomplete.js"></script>
-	<script type="text/javascript" src="public/js/textext/textext.plugin.ajax.js"></script>
-	<script type="text/javascript" src="public/js/textext/textext.plugin.tags_submitRecipe.js"></script>
-	<script type="text/javascript" src="public/js/textext/textext.plugin.filter.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<?php include('./app/Views/partials/scripts.html') ?>
+	<script type="text/javascript" src="public/js/textext/textext.min.submitRecipe.js"></script>
 
 	<script type="text/javascript">
+
 	function showError($message) {
 		if($(".error"))
 			$(".error").remove();

@@ -116,6 +116,7 @@ class RecipeModel extends Model{
 	}
 
 	function getRecipes($params){
+
 		$req = array('order'=>'name_recipe');
 		if(isset($params['filter'] )){
 			if($params['filter'] == 'date'){
@@ -125,17 +126,18 @@ class RecipeModel extends Model{
 			}
 		}
 
-		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		$fullrecipe_mapper = $this->getMapper('fullrecipe');
+
 		return $fullrecipe_mapper->find(array(),$req);
 	}
 
 	function getRecipe($params){
-		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		$fullrecipe_mapper = $this->getMapper('fullrecipe');
 		return $fullrecipe_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
 
 	function getRecipesByUser($params){
-		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		$fullrecipe_mapper = $this->getMapper('fullrecipe');
 		return $fullrecipe_mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 	function getRecipesByFilter($params){
@@ -151,10 +153,10 @@ class RecipeModel extends Model{
 
 			//On construit la requête de recherche avancée de base.
 			$query = "SELECT DISTINCT r.id_recipe
-						FROM compose a
-						LEFT OUTER JOIN compose b ON a.id_recipe = b.id_recipe 
-						LEFT OUTER JOIN compose c ON a.id_recipe = c.id_recipe
-						join recipe r ON a.id_recipe = r.id_recipe
+						FROM COMPOSE a
+						LEFT OUTER JOIN COMPOSE b ON a.id_recipe = b.id_recipe 
+						LEFT OUTER JOIN COMPOSE c ON a.id_recipe = c.id_recipe
+						join RECIPE r ON a.id_recipe = r.id_recipe
 						WHERE  r.id_ambiance = :id_ambiance
 						AND r.id_preparationTime= :id_preparationTime
 						AND r.id_difficulty= :id_difficulty
@@ -203,17 +205,17 @@ class RecipeModel extends Model{
 			$req = array('order'=>'votes_recipe DESC');
 		}
 		
-		$fullrecipe_mapper = $this->getMapper('FULLRECIPE');
+		$fullrecipe_mapper = $this->getMapper('fullrecipe');
 		return $fullrecipe_mapper->find($filter,array('order'=>'votes_recipe DESC'));	
 	}
 
 	function getFavoritesRecipesByUser($params){
-		$favorite_mapper = $this->getMapper('FAVORITE');
+		$favorite_mapper = $this->getMapper('favorite');
 		return $favorite_mapper->find(array("id_user = :id", ':id' => $params['id']));
 	}
 
 	function getIsFavorite($params){
-		$favorite_mapper = $this->getMapper('FAVORITE');
+		$favorite_mapper = $this->getMapper('favorite');
 		$favorite_mapper->load(array("id_user = :id_user AND id_recipe = :id_recipe", ':id_user' => $params['id_user'],  ':id_recipe' => $params['id']));
 		return $favorite_mapper->dry();
 	}
@@ -239,7 +241,7 @@ class RecipeModel extends Model{
 	}
 
 	function getAmbiance($params){
-		$adapt_mapper = $this->getMapper('ADAPT');
+		$adapt_mapper = $this->getMapper('adapt');
 		return $adapt_mapper->load(array("id_recipe = :id", ':id' => $params['id']));
 	}
 
@@ -254,7 +256,7 @@ class RecipeModel extends Model{
 	}
 
 	function getComments($params){
-		$post_mapper = $this->getMapper('POST');
+		$post_mapper = $this->getMapper('post');
 		return $post_mapper->find(array("id_step = :id_step AND id_recipe = :id_recipe", ':id_step' => $params['id_step'], ':id_recipe' => $params['id_recipe']),array('order'=>'dateAdd_comment'));
 	}
 
@@ -264,7 +266,7 @@ class RecipeModel extends Model{
 	}	
 
 	function getIngredients($params){
-		$associate_mapper = $this->getMapper('ASSOCIATE');
+		$associate_mapper = $this->getMapper('associate');
 		return $associate_mapper->find(array("id_recipe = :id", ':id' => $params['id']));
 	}
 

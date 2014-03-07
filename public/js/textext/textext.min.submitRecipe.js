@@ -2408,12 +2408,12 @@
 	 */
 	p.onBackspaceKeyPress = function(e)
 	{
-		// var self    = this,
-		// 	isEmpty = self.val().length > 0
-		// 	;
+		var self    = this,
+			isEmpty = self.val().length > 0
+			;
 
-		// if(isEmpty || self.isDropdownVisible())
-		// 	self.getSuggestions();
+		if(isEmpty || self.isDropdownVisible())
+			self.getSuggestions();
 	};
 
 	/**
@@ -3957,12 +3957,14 @@
 				return;
 			}
 		}
-		element.fadeOut('slow', function() {
+
+		element.fadeOut('normal', function() {
 			element.remove();
+			self.updateFormCache();
+			core.getFormData();
+			core.invalidateBounds();
 		});
-		self.updateFormCache();
-		core.getFormData();
-		core.invalidateBounds();
+
 	};
 
 	/**

@@ -5,46 +5,18 @@
 					<?php include('./app/Views/partials/headerUser.html') ?>
 					
 					<h3><span class="posted">Recettes postées</span> <i class="switch on"></i> <span class="disabled favorited">Recettes favorites</span></h3>
-					<section class="posted">
-					<?php if($recipes):?> 
-					<?php foreach ($recipes as $recipe):?>
-						<article>
-							<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
-							<div>
-								<?php if(isset($SESSION['id_user'])): ?>
-								<!-- NEED TO FIX HERE - TEMP SOLUTION -->
-								<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
-								<?php else: ?>
-								<a class="like" href="/user/register"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
-								<?php endif; ?>
-								<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
-									<h1><?= $recipe->name_recipe ?></h1>
-									<ul class="meta">
-										<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
-										<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
-										<li><i class="bell"></i><?= $recipe->name_type ?></li>
-									</ul>
-								</a>
-							</div>
-						</article>
-					<?php endforeach; ?>
-					<?php else: ?>
-						<section class="no-result">
-							<p>Aucune recette trouvée ici :(</p>
-						</section>
-					<?php endif; ?>
-					</section>
-					<section class="favorited hidden">
-						<?php if($favorites):?> 
-						<?php foreach ($favorites as $recipe):?>
+					<div>
+						<section class="posted">
+						<?php if($recipes):?> 
+						<?php foreach ($recipes as $recipe):?>
 							<article>
 								<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
 								<div>
 									<?php if(isset($SESSION['id_user'])): ?>
-									<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
-									<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+									<!-- NEED TO FIX HERE - TEMP SOLUTION -->
+									<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 									<?php else: ?>
-									<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+									<a class="like" href="/user/register"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 									<?php endif; ?>
 									<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
 										<h1><?= $recipe->name_recipe ?></h1>
@@ -62,7 +34,39 @@
 								<p>Aucune recette trouvée ici :(</p>
 							</section>
 						<?php endif; ?>
-					</section>
+						</section>
+					</div>
+					<div>
+						<section class="favorited hidden">
+							<?php if($favorites):?> 
+							<?php foreach ($favorites as $recipe):?>
+								<article>
+									<?php if(!empty($recipe->urlImage_recipe)) 	echo '<img src="'.$recipe->urlImage_recipe.'" alt="'.$recipe->name_recipe.'" />' ; ?>
+									<div>
+										<?php if(isset($SESSION['id_user'])): ?>
+										<!-- NEED TO FIX HERE - TEMP  SOLUTION -->
+										<a class="like <?php $model = new RecipeModel;  if(!$model->getIsFavorite( array('id_user' => $SESSION['id_user'], 'id'=> $recipe->id_recipe ))) echo 'liked'; ?>" href="/user/like/<?= $SESSION['id_user'] ?>&<?= $recipe->id_recipe ?>"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+										<?php else: ?>
+										<a class="like" href="/user/register"><i class="heart"></i><?= $recipe->votes_recipe ?></a>
+										<?php endif; ?>
+										<a href="recipe/getRecipe/<?= $recipe->id_recipe?>">
+											<h1><?= $recipe->name_recipe ?></h1>
+											<ul class="meta">
+												<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
+												<li><i class="cup"></i><?= $recipe->name_difficulty?></li>
+												<li><i class="bell"></i><?= $recipe->name_type ?></li>
+											</ul>
+										</a>
+									</div>
+								</article>
+							<?php endforeach; ?>
+							<?php else: ?>
+								<section class="no-result">
+									<p>Aucune recette trouvée ici :(</p>
+								</section>
+							<?php endif; ?>
+						</section>
+					</div>
 				</section>
 			</div>	
 	<?php else: ?>
@@ -71,24 +75,31 @@
 		</section>
 	<?php endif; ?>
 	<?php include('./app/Views/partials/scripts.html') ?>
-	<script type="text/javascript">
+	<script src="public/js/masonry/masonry.min.js"></script>
+	<script>
+
+	$(".posted").masonry({
+	  columnWidth: 320,
+	  gutter: 30,
+	  itemSelector: 'article'
+	});
+	$(".favorited").masonry({
+	  columnWidth: 320,
+	  gutter: 30,
+	  itemSelector: 'article'
+	});
 	$('h3 span').on('click',function(e){
 		e.preventDefault();
 		var $this = $(this);
 
-		 if($this.hasClass('posted')){
-		 	$('section.favorited').addClass('hidden');
-			$('section.posted').removeClass('hidden');
-			$('span.posted').removeClass('disabled');
-			$('span.favorited').addClass('disabled');
-			$('i.switch').addClass('on').removeClass('off');
-		} else {
-			$('section.favorited').removeClass('hidden');
-			$('section.posted').addClass('hidden');
-			$('span.posted').addClass('disabled');
-			$('span.favorited').removeClass('disabled');
+	 	$('section.favorited,section.posted').toggleClass('hidden');
+		$('span.posted, span.favorited').toggleClass('disabled');
+		if($('i.switch').hasClass('on')) {
 			$('i.switch').removeClass('on').addClass('off');
+		} else {
+			$('i.switch').addClass('on').removeClass('off');
 		}
+
 	});
 	</script>
 <?php include('./app/Views/partials/footer.html') ?>
