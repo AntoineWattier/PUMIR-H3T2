@@ -14,7 +14,7 @@
 						<li><i class="time"></i><?= $recipe->name_preparationTime ?></li>
 						<li><i class="cup"></i><?= $recipe->name_difficulty ?></li>
 						<li><i class="bell"></i><?= $recipe->name_type ?></li>
-						<li><i class="tag"></i>ANTOINE MET L'AMBIANCE DE LA RECETTE ICI</li>
+						<li><i class="tag"></i><?= $recipe->name_ambiance ?></li>
 					</ul>
 					<a href="" class="edit">Modifier la recette</a>
 					<hr />
@@ -23,11 +23,28 @@
 					<?php else: ?>
 					<a class="like" href="/user/register"><i class="heart"></i><span><?= $recipe->votes_recipe ?></span></a>
 					<?php endif; ?>
-
+					<h3>Partager la recette</h3>
+					<ul class="social">
+						<li><div class="fb-share-button" data-href="<?= $URI ?>" data-type="button_count"></div>
+						<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=452234728214767";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script></li>
+						
+						<li><a href="//fr.pinterest.com/pin/create/button/?url=http%3A%2F%2Fwtfdiet.local&media=http%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>
+						<!-- Please call pinit.js only once per page -->
+						<script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script></li>
+						<li><a href="https://twitter.com/share" class="twitter-share-button" data-lang="fr">Tweeter</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+					</ul>
 					<div class="clear"></div>
 				</header>
 
-				<aside class="no-img">
+				<aside <?php if(empty($recipe->urlImage_recipe)) 	echo 'class="no-img"' ; ?>>
 					<h3>Ingrédients</h3>
 					<ul class="ingredients">
 						<?php foreach ($ingredients as $ingredient): ?>
@@ -66,4 +83,5 @@
 			<p>Aucune recette trouvée ici :(</p>
 		</section>
 	<?php endif; ?>
+	<?php include('./app/Views/partials/scripts.html') ?>
 <?php include('./app/Views/partials/footer.html') ?>

@@ -79,6 +79,8 @@
 		</section>
 	<?php endif; ?>
 	</section>
+	
+	<?php include('./app/Views/partials/scripts.html') ?>
 	<script src="public/js/masonry/masonry.min.js"></script>
 	<script src="public/js/textext/textext.min.js"></script>
 	<script>
@@ -88,7 +90,6 @@
 	  gutter: 30,
 	  itemSelector: 'article'
 	});
-
 
 	function showError($message) {
 		if($(".error"))
