@@ -162,7 +162,7 @@ section#main.recipes { padding-left: 320px; overflow: hidden; box-sizing: border
 
 section#main.recipes article { max-height: 200px; min-height: 100px; border-radius: 4px; overflow: hidden; position: relative; width: 320px; margin-bottom: 30px; float: left; }
 section#main.recipes article img { width: 100%; height: auto; border-radius: 4px; }
-section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; bottom: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
+section#main.recipes article div { width: 320px; box-sizing: border-box;position: absolute; top: 0; left: 0; background: #fff; padding: 20px 15px; border-radius: 4px; overflow: hidden; }
 section#main.recipes article div h1 { font-size: 1.385em; line-height: 1.111em; font-weight: 600; color: #635c78; margin-bottom: 10px; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like { float: left; background: url(../images/icons/heart.png) no-repeat 2px 3px; width: 20px; min-height: 30px; margin-right: 10px; padding: 20px 0 0; font-size: 1.077em; line-height: 1.286em; font-weight: 600; color: #635c78; border: 0; text-align: center; opacity: 1; transition: opacity ease-out 0.3s; }
 section#main.recipes article div a.like:hover { opacity: 0.5; }
@@ -291,7 +291,10 @@ section#main.user.following header + section ul li a:hover h2 { color: #fe8468; 
 
 section#main.user.following header + section ul li a p { color: #a09dac; font-size: 1.077em; }
 
-section.favorited.hidden, section.posted.hidden { display: none; } 
+
+section.favorited, section.posted { padding-left: 270px; box-sizing: border-box;}
+section.favorited.hidden, section.posted.hidden { visibility:hidden; } 
+
 /* @end of User */
 
 /* @end of Main */

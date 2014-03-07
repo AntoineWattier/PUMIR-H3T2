@@ -71,24 +71,31 @@
 		</section>
 	<?php endif; ?>
 	<?php include('./app/Views/partials/scripts.html') ?>
-	<script type="text/javascript">
+	<script src="public/js/masonry/masonry.min.js"></script>
+	<script>
+
+	$(".posted").masonry({
+	  columnWidth: 320,
+	  gutter: 30,
+	  itemSelector: 'article'
+	});
+	$(".favorited").masonry({
+	  columnWidth: 320,
+	  gutter: 30,
+	  itemSelector: 'article'
+	});
 	$('h3 span').on('click',function(e){
 		e.preventDefault();
 		var $this = $(this);
 
-		 if($this.hasClass('posted')){
-		 	$('section.favorited').addClass('hidden');
-			$('section.posted').removeClass('hidden');
-			$('span.posted').removeClass('disabled');
-			$('span.favorited').addClass('disabled');
-			$('i.switch').addClass('on').removeClass('off');
-		} else {
-			$('section.favorited').removeClass('hidden');
-			$('section.posted').addClass('hidden');
-			$('span.posted').addClass('disabled');
-			$('span.favorited').removeClass('disabled');
+	 	$('section.favorited,section.posted').toggleClass('hidden');
+		$('span.posted, span.favorited').toggleClass('disabled');
+		if($('i.switch').hasClass('on')) {
 			$('i.switch').removeClass('on').addClass('off');
+		} else {
+			$('i.switch').addClass('on').removeClass('off');
 		}
+
 	});
 	</script>
 <?php include('./app/Views/partials/footer.html') ?>
