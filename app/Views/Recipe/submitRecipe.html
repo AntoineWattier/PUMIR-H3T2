@@ -1,5 +1,5 @@
 <?php include('./app/Views/partials/header.html') ?>
-<?php /*include('./app/Views/partials/instagram.html') */?>
+<?php include('./app/Views/partials/instagram.html') ?>
 
 
 <section id="main" class="recipe-creation">
@@ -141,6 +141,16 @@
 		$('.error').slideDown().delay('3000').slideUp();
 	}
 
+	$('button.camera').click(function() {
+		$('#popin').fadeToggle('slow');
+		return false;
+	});
+
+	$('#popin i.close').click(function() {
+		$('#popin').fadeToggle('slow');
+		return false;
+	});
+	
 	$("button[type='submit']").click(function() {
 		$form = $('form');
 		$list = JSON.parse( $form.find('input[name="ingredients"]').val() );

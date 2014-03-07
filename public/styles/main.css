@@ -373,8 +373,8 @@ div.error i.close { float: right; cursor:pointer;}
 /****************/
 /* @group Popin */
 /****************/
-section#popin { overflow-y: scroll; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: #f3f2f4; text-align: center;  }
-section#popin i.close { position: absolute; right: 20px; top: 20px; }
+section#popin { display: none;overflow-y: scroll; position: fixed; width: 100%; height: 100%; top: 0; left: 0; background: #f3f2f4; text-align: center; z-index:200;  }
+section#popin i.close { position: absolute; right: 20px; top: 20px; cursor: pointer; }
 section#popin h2 { margin: 80px 0 60px; font-weight: 900; color: #635c78; text-align: center; font-size: 2.154em; }
 section#popin.delete h2 { margin: 80px 0 30px;}
 section#popin.delete a { margin: 50px auto; color: #fff; text-transform: uppercase; font-weight: 700; font-size: 1.154em; display: inline-block; background: #fe8468; border-radius: 3px; padding: 15px 20px; }
