@@ -141,10 +141,6 @@ $usermedia = json_decode($usermedia, true);
 				onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
 		}	
 		var croppic = new Croppic('croppic', croppicHeaderOptions);
-		
-		
-	</script>
-		<script type="text/javascript">
 
 			$('form').on('click', 'input[name=insta]', function(e){
 				var $this =$(this);
@@ -152,29 +148,6 @@ $usermedia = json_decode($usermedia, true);
 				$('.select button').removeAttr('disabled');
 			});
 
-			// function readURL(input) {
-			// 	if (input.files && input.files[0]) {
-			// 		var reader = new FileReader();
-			// 		var img = new Image();
-
-			// 		reader.onload = function (e){ 
-			// 				$('.crop img').attr('src', e.target.result);
-			// 		};
-
-			// 		reader.readAsDataURL(input.files[0]);
-
-			// 		img.onload = function() {
-			// 		    if($('.crop').css('display') == 'none'){
-			// 			 	$('.crop').css('display', 'block');
-			// 			 	$('.select').css('display', 'none');
-			// 			}
-			// 		}
-
-
-					
-
-			// 	}
-			// }
 		</script>
 	</body>
 </html>
