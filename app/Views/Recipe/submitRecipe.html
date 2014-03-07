@@ -137,6 +137,9 @@
 		return false;
 	});
 
+	$('#popin').on('click', 'button.add1', function() {
+		$('#popin').fadeToggle('slow');
+	});
 	$('#popin i.close').click(function() {
 		$('#popin').fadeToggle('slow');
 		return false;
