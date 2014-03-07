@@ -31,13 +31,13 @@ class RecipeModel extends Model{
 			}
 		}
 		$compose_mapper = $this->getMapper('COMPOSE');
-		// foreach (json_decode($params['ingredient_recipe']) as $id => $content) {
-		// 		$compose_mapper->reset();
-		// 		$compose_mapper->id_ingredient= $id;
-		// 		$compose_mapper->quantity_ingredient= $content;
-		// 		$compose_mapper->id_recipe = $this->mapper->last()->id_recipe;
-		// 		$compose_mapper->save();
-		// }
+		foreach (json_decode($params['ingredient_recipe']) as $id => $content) {
+				$compose_mapper->reset();
+				$compose_mapper->id_ingredient= $id;
+				$compose_mapper->quantity_ingredient= $content;
+				$compose_mapper->id_recipe = $this->mapper->last()->id_recipe;
+				$compose_mapper->save();
+		}
 		return $this->mapper;
 
 	}
@@ -49,8 +49,7 @@ class RecipeModel extends Model{
 		$this->mapper->slug_recipe = $params['slug_recipe'];
 		$this->mapper->numberOfPeople_recipe = $params['numberOfPeople_recipe'];
 		$this->mapper->id_preparationTime= $params['id_preparationTime'];
-		var_dump( $params['urlImage_recipe']);exit();
-		//$this->mapper->urlImage_recipe= $params['urlImage_recipe'];
+		$this->mapper->urlImage_recipe= $params['urlImage_recipe'];
 		$this->mapper->id_ambiance= $params['id_ambiance'];
 		$this->mapper->dateUpdate_recipe = date("Y-m-d H:i:s");
 		$this->mapper->save();

@@ -16,7 +16,8 @@ body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 0.813em;
   font-weight: 400;
-  position: relative; }
+  position: relative;
+  padding-bottom: 100px; }
 a, a:link, a:visited, a:active { text-decoration: none; }
 hr { border: 0; margin: 5px auto; }
 .no-txt, i { text-align: left; text-indent: -9999px; overflow: hidden; }
