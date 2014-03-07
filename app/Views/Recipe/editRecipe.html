@@ -136,6 +136,21 @@
 		$('section#main').before('<div class="error">'+$message+'<i class="close xl">Close</i></div>');
 		$('.error').slideDown().delay('3000').slideUp();
 	}
+	
+
+	$('button.camera').click(function() {
+		$('#popin').fadeToggle('slow');
+		return false;
+	});
+
+	$('#popin').on('click', 'button.add1', function() {
+		$('#popin').fadeToggle('slow');
+	});
+	$('#popin i.close').click(function() {
+		$('#popin').fadeToggle('slow');
+		return false;
+	});
+
 
 	$("button[type='submit']").click(function() {
 		$form = $('form');
