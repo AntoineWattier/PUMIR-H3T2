@@ -160,6 +160,10 @@
 				showError($error);
 		});
 
+			$('body').on('change', 'input[name="ingredients"]', function() {
+	alert('vh');
+});
+
 			<?php if (isset($allparams['id_ingredient1'])) : ?>
 				$.ajax({
 					url : '/recipe/getAllIngredientsJSON',
