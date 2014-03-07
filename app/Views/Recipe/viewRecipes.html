@@ -161,24 +161,22 @@
 		});
 
 			<?php if (isset($allparams['id_ingredient1'])) : ?>
-				$(document).ready(function() {
-					$.ajax({
-						url : '/recipe/getAllIngredientsJSON',
-						dataType : 'json',
-						success : function(data) {
-							var result = $.parseJSON(JSON.stringify(data));
-							$.each(result, function(k, v) {
-								if(v.value == <?php echo $allparams['id_ingredient1']; ?> 
-								 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
-								 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
-								 ) {
-									$ingredients = result[k];
-									TextExtTags.textext()[0].tags().addTags([$ingredients]);
-								}
-							});
-						}
-					});
-			});
+				$.ajax({
+					url : '/recipe/getAllIngredientsJSON',
+					dataType : 'json',
+					success : function(data) {
+						var result = $.parseJSON(JSON.stringify(data));
+						$.each(result, function(k, v) {
+							if(v.value == <?php echo $allparams['id_ingredient1']; ?> 
+							 <?php if (isset($allparams['id_ingredient2'])) : echo ' || v.value == '.$allparams['id_ingredient2']; endif;?>
+							 <?php if (isset($allparams['id_ingredient3'])) : echo ' || v.value == '.$allparams['id_ingredient3']; endif;?>
+							 ) {
+								$ingredients = result[k];
+								TextExtTags.textext()[0].tags().addTags([$ingredients]);
+							}
+						});
+					}
+				});
 			<?php endif; ?>
 
 		</script>
