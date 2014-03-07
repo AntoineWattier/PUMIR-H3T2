@@ -15,7 +15,7 @@ $cropH = $_POST['cropH'];
 
 $jpeg_quality = 100;
 
-$output_filename = "temp/croppedImg_".rand();
+$output_filename = "../../temp/croppedImg_".rand();
 
 $what = getimagesize($imgUrl);
 switch(strtolower($what['mime']))
